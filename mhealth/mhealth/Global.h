@@ -9,7 +9,15 @@
 #ifndef mhealth_Global_h
 #define mhealth_Global_h
 
-#define APPNAME     @"SmartCook"
+#define USERNAME_KEY            @"USERNAME"
+#define USEREMAIL_KEY           @"USEREMAIL"
+#define USERID_KEY              @"USERID"
+#define APPNAME                 @"SmartCook"
+#define INGREDIENT_TABLE_NAME   @"INGREDIENT_TABLE"
+
+static NSString *userName = nil;
+static NSString *userEmail = nil;
+static int userID;
 
 #define UIColorFromRGB(rgbValue) \
     [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \

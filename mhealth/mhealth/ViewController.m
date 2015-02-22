@@ -20,6 +20,23 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    /*
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    [userDefaults setObject:@"jiayisuse" forKey:USERNAME_KEY];
+    [userDefaults setObject:@"jiayisuse@gmail.com" forKey:USEREMAIL_KEY];
+    [userDefaults setInteger:1 forKey:USERID_KEY];
+    
+    userName = [userDefaults stringForKey:USERNAME_KEY];
+    if (userName != nil) {
+        userEmail = [userDefaults stringForKey:USEREMAIL_KEY];
+        userID = [userDefaults integerForKey:USERID_KEY];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UITabBarController *tabView = (UITabBarController *)[storyboard instantiateViewControllerWithIdentifier:@"tabView"];
+        [self presentViewController:tabView animated:YES completion:nil];
+    }
+     */
+    
     self.username_login.delegate = self;
     self.password_login.delegate = self;
     self.username_login.returnKeyType = UIReturnKeyNext;
@@ -27,6 +44,7 @@
     [self.username_login addTarget:self action:@selector(nextOnKeyboard:) forControlEvents:UIControlEventEditingDidEndOnExit];
     [self.password_login addTarget:self action:@selector(nextOnKeyboard:) forControlEvents:UIControlEventEditingDidEndOnExit];
     
+    // set title
     UILabel *titleText = [[UILabel alloc] initWithFrame: CGRectMake(0, 0, 50,50)];
     titleText.backgroundColor = [UIColor clearColor];
     [titleText setAdjustsFontSizeToFitWidth:YES];

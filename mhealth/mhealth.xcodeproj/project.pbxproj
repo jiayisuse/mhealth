@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		846BD3141A9A67AD00DF593B /* IngredientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846BD3131A9A67AD00DF593B /* IngredientViewController.m */; };
+		846BD3511A9A871700DF593B /* banana.png in Resources */ = {isa = PBXBuildFile; fileRef = 846BD3501A9A871700DF593B /* banana.png */; };
+		846BD3541A9A9A8000DF593B /* TabbarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846BD3531A9A9A8000DF593B /* TabbarViewController.m */; };
 		8486D1321A96DD9D00F06FD6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486D1311A96DD9D00F06FD6 /* main.m */; };
 		8486D1351A96DD9D00F06FD6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486D1341A96DD9D00F06FD6 /* AppDelegate.m */; };
 		8486D1381A96DD9D00F06FD6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486D1371A96DD9D00F06FD6 /* ViewController.m */; };
@@ -28,6 +31,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		846BD3121A9A679600DF593B /* IngredientViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IngredientViewController.h; sourceTree = "<group>"; };
+		846BD3131A9A67AD00DF593B /* IngredientViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IngredientViewController.m; sourceTree = "<group>"; };
+		846BD3501A9A871700DF593B /* banana.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = banana.png; sourceTree = "<group>"; };
+		846BD3521A9A9A6E00DF593B /* TabbarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabbarViewController.h; sourceTree = "<group>"; };
+		846BD3531A9A9A8000DF593B /* TabbarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabbarViewController.m; sourceTree = "<group>"; };
 		8486D12C1A96DD9D00F06FD6 /* mhealth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mhealth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8486D1301A96DD9D00F06FD6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8486D1311A96DD9D00F06FD6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -85,6 +93,7 @@
 		8486D12E1A96DD9D00F06FD6 /* mhealth */ = {
 			isa = PBXGroup;
 			children = (
+				846BD3501A9A871700DF593B /* banana.png */,
 				8486D15E1A97F1C600F06FD6 /* Global.h */,
 				8486D1331A96DD9D00F06FD6 /* AppDelegate.h */,
 				8486D1341A96DD9D00F06FD6 /* AppDelegate.m */,
@@ -96,6 +105,10 @@
 				8486D12F1A96DD9D00F06FD6 /* Supporting Files */,
 				8486D1671A996F1800F06FD6 /* NewAccountViewController.h */,
 				8486D1651A996F0300F06FD6 /* NewAccountViewController.m */,
+				846BD3121A9A679600DF593B /* IngredientViewController.h */,
+				846BD3131A9A67AD00DF593B /* IngredientViewController.m */,
+				846BD3521A9A9A6E00DF593B /* TabbarViewController.h */,
+				846BD3531A9A9A8000DF593B /* TabbarViewController.m */,
 			);
 			path = mhealth;
 			sourceTree = "<group>";
@@ -208,6 +221,7 @@
 			files = (
 				8486D13B1A96DD9D00F06FD6 /* Main.storyboard in Resources */,
 				8486D1401A96DD9D00F06FD6 /* LaunchScreen.xib in Resources */,
+				846BD3511A9A871700DF593B /* banana.png in Resources */,
 				8486D13D1A96DD9D00F06FD6 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -228,6 +242,8 @@
 			files = (
 				8486D1381A96DD9D00F06FD6 /* ViewController.m in Sources */,
 				8486D1351A96DD9D00F06FD6 /* AppDelegate.m in Sources */,
+				846BD3541A9A9A8000DF593B /* TabbarViewController.m in Sources */,
+				846BD3141A9A67AD00DF593B /* IngredientViewController.m in Sources */,
 				8486D1321A96DD9D00F06FD6 /* main.m in Sources */,
 				8486D1661A996F0300F06FD6 /* NewAccountViewController.m in Sources */,
 			);

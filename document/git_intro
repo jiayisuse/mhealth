@@ -1,5 +1,5 @@
 1. Checkout from this repository:
-   git clone https://github.com/jiayisuse/cs60.git
+   git clone https://github.com/jiayisuse/mhealth.git
 
 2. Add a new file to repository index:
    git add <your file OR dir>

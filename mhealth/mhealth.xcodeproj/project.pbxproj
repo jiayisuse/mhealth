@@ -14,6 +14,7 @@
 		8486D13D1A96DD9D00F06FD6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8486D13C1A96DD9D00F06FD6 /* Images.xcassets */; };
 		8486D1401A96DD9D00F06FD6 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8486D13E1A96DD9D00F06FD6 /* LaunchScreen.xib */; };
 		8486D14C1A96DD9D00F06FD6 /* mhealthTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486D14B1A96DD9D00F06FD6 /* mhealthTests.m */; };
+		8486D1661A996F0300F06FD6 /* NewAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486D1651A996F0300F06FD6 /* NewAccountViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,9 @@
 		8486D1451A96DD9D00F06FD6 /* mhealthTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = mhealthTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8486D14A1A96DD9D00F06FD6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8486D14B1A96DD9D00F06FD6 /* mhealthTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mhealthTests.m; sourceTree = "<group>"; };
+		8486D15E1A97F1C600F06FD6 /* Global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Global.h; sourceTree = "<group>"; };
+		8486D1651A996F0300F06FD6 /* NewAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewAccountViewController.m; sourceTree = "<group>"; };
+		8486D1671A996F1800F06FD6 /* NewAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewAccountViewController.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +85,7 @@
 		8486D12E1A96DD9D00F06FD6 /* mhealth */ = {
 			isa = PBXGroup;
 			children = (
+				8486D15E1A97F1C600F06FD6 /* Global.h */,
 				8486D1331A96DD9D00F06FD6 /* AppDelegate.h */,
 				8486D1341A96DD9D00F06FD6 /* AppDelegate.m */,
 				8486D1361A96DD9D00F06FD6 /* ViewController.h */,
@@ -89,6 +94,8 @@
 				8486D13C1A96DD9D00F06FD6 /* Images.xcassets */,
 				8486D13E1A96DD9D00F06FD6 /* LaunchScreen.xib */,
 				8486D12F1A96DD9D00F06FD6 /* Supporting Files */,
+				8486D1671A996F1800F06FD6 /* NewAccountViewController.h */,
+				8486D1651A996F0300F06FD6 /* NewAccountViewController.m */,
 			);
 			path = mhealth;
 			sourceTree = "<group>";
@@ -222,6 +229,7 @@
 				8486D1381A96DD9D00F06FD6 /* ViewController.m in Sources */,
 				8486D1351A96DD9D00F06FD6 /* AppDelegate.m in Sources */,
 				8486D1321A96DD9D00F06FD6 /* main.m in Sources */,
+				8486D1661A996F0300F06FD6 /* NewAccountViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,6 +424,7 @@
 				8486D1511A96DD9D00F06FD6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8486D1521A96DD9D00F06FD6 /* Build configuration list for PBXNativeTarget "mhealthTests" */ = {
 			isa = XCConfigurationList;
@@ -424,6 +433,7 @@
 				8486D1541A96DD9D00F06FD6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

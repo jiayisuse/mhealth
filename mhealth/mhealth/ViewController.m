@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "Global.h"
 #import "NewAccountViewController.h"
+#import "WebService.h"
 
 @interface ViewController ()
 
@@ -126,8 +127,11 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)onGoButton:(id)sender {
-    
+- (IBAction)onLoginButton:(id)sender {
+    WebService *ws = [[WebService alloc] initWithPHPFile:@"new_account.php"];
+    NSDictionary *postDict = [NSDictionary dictionaryWithObjectsAndKeys:@"jiayi", @"username", nil];
+    [ws setPostData:postDict];
+    [ws sendRequest];
 }
 
 @end

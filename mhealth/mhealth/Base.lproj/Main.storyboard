@@ -35,6 +35,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="onLoginButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="5aA-Me-c2Z"/>
                                     <segue destination="YA0-vR-vVC" kind="show" id="2b0-Xl-EaM"/>
                                 </connections>
                             </button>
@@ -128,10 +129,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="voP-le-Woi">
-                                <rect key="frame" x="125" y="380" width="71" height="31"/>
+                                <rect key="frame" x="125" y="397" width="71" height="31"/>
                                 <state key="normal" title="Create">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="nextOnKeyboard:" destination="xsg-qV-IrK" eventType="touchUpInside" id="OHn-9g-FJ3"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZNG-wh-hj9">
                                 <rect key="frame" x="76" y="224" width="168" height="30"/>
@@ -139,7 +143,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Uz5-LD-Y0c">
-                                <rect key="frame" x="76" y="273" width="168" height="30"/>
+                                <rect key="frame" x="76" y="301" width="168" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
@@ -147,10 +151,21 @@
                                 <rect key="frame" x="40" y="54" width="240" height="128"/>
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Re-type" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ERU-Qc-V0e">
-                                <rect key="frame" x="76" y="320" width="168" height="30"/>
+                                <rect key="frame" x="76" y="339" width="168" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fCL-9t-JDF">
+                                <rect key="frame" x="76" y="263" width="168" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xnB-02-dCn">
+                                <rect key="frame" x="51" y="442" width="219" height="21"/>
+                                <fontDescription key="fontDescription" type="italicSystem" pointSize="16"/>
+                                <color key="textColor" red="1" green="0.11580207939999999" blue="0.03316700459" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -158,8 +173,10 @@
                     <connections>
                         <outlet property="createBtn" destination="voP-le-Woi" id="YYi-gR-VfS"/>
                         <outlet property="email" destination="ZNG-wh-hj9" id="nBN-1B-ggB"/>
+                        <outlet property="errorLabel" destination="xnB-02-dCn" id="mhj-dU-4xO"/>
                         <outlet property="password" destination="Uz5-LD-Y0c" id="Bsa-bl-m9B"/>
                         <outlet property="rePassword" destination="ERU-Qc-V0e" id="vSW-hy-82h"/>
+                        <outlet property="username" destination="fCL-9t-JDF" id="QwM-7j-Up6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2gp-cq-l3t" userLabel="First Responder" sceneMemberID="firstResponder"/>

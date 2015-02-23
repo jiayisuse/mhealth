@@ -38,7 +38,7 @@
 
 - (BOOL)sendRequest {
     NSData *postData = [postString dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-    NSString *postLength = [NSString stringWithFormat:@"%d",[postData length]];
+    NSString *postLength = [NSString stringWithFormat:@"%lu",(unsigned long)[postData length]];
     
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", DOMAIN_URL, phpFile]];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
@@ -70,6 +70,12 @@
     NSLog(@"connectionDidFinishLoading, %@", self.delegate);
     if (self.delegate)
         [self.delegate dataDownloaded:_downloadedData];
+}
+
++ (NSString *)jsonErrorMessage:(NSData *)data {
+    NSError *error;
+    NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+    return jsonArray[0];
 }
 
 @end

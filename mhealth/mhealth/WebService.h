@@ -25,6 +25,8 @@
 - (void)setPostData:(NSDictionary *)postDataDict;
 - (BOOL)sendRequest;
 
++ (NSString *)jsonErrorMessage:(NSData *)data;
+
 @end
 
 #endif

@@ -134,4 +134,10 @@
     [ws sendRequest];
 }
 
++ (void) replaceView:(NSString *)viewName currentView:(UIViewController *)currView {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController *newView = [storyboard instantiateViewControllerWithIdentifier:viewName];
+    [currView presentViewController:newView animated:YES completion:nil];
+}
+
 @end

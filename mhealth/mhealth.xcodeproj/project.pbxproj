@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8434AFB11A9BD55800721F00 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8434AFB01A9BD55800721F00 /* SWRevealViewController.m */; };
 		846BD3141A9A67AD00DF593B /* IngredientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846BD3131A9A67AD00DF593B /* IngredientViewController.m */; };
 		846BD3511A9A871700DF593B /* banana.png in Resources */ = {isa = PBXBuildFile; fileRef = 846BD3501A9A871700DF593B /* banana.png */; };
 		846BD3541A9A9A8000DF593B /* TabbarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846BD3531A9A9A8000DF593B /* TabbarViewController.m */; };
@@ -32,6 +33,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8434AFAF1A9BD55800721F00 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		8434AFB01A9BD55800721F00 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		846BD3121A9A679600DF593B /* IngredientViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IngredientViewController.h; sourceTree = "<group>"; };
 		846BD3131A9A67AD00DF593B /* IngredientViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IngredientViewController.m; sourceTree = "<group>"; };
 		846BD3501A9A871700DF593B /* banana.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = banana.png; sourceTree = "<group>"; };
@@ -75,6 +78,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8434AFAE1A9BD53C00721F00 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				8434AFAF1A9BD55800721F00 /* SWRevealViewController.h */,
+				8434AFB01A9BD55800721F00 /* SWRevealViewController.m */,
+			);
+			name = Library;
+			sourceTree = "<group>";
+		};
 		8486D1231A96DD9D00F06FD6 = {
 			isa = PBXGroup;
 			children = (
@@ -114,6 +126,7 @@
 				846BD3131A9A67AD00DF593B /* IngredientViewController.m */,
 				846BD3581A9AA78900DF593B /* WebService.h */,
 				846BD3591A9AA79900DF593B /* WebService.m */,
+				8434AFAE1A9BD53C00721F00 /* Library */,
 			);
 			path = mhealth;
 			sourceTree = "<group>";
@@ -248,6 +261,7 @@
 				8486D1381A96DD9D00F06FD6 /* ViewController.m in Sources */,
 				8486D1351A96DD9D00F06FD6 /* AppDelegate.m in Sources */,
 				846BD3541A9A9A8000DF593B /* TabbarViewController.m in Sources */,
+				8434AFB11A9BD55800721F00 /* SWRevealViewController.m in Sources */,
 				846BD3141A9A67AD00DF593B /* IngredientViewController.m in Sources */,
 				8486D1321A96DD9D00F06FD6 /* main.m in Sources */,
 				846BD35A1A9AA79900DF593B /* WebService.m in Sources */,

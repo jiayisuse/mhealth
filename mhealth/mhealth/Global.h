@@ -20,7 +20,7 @@ static const NSString *DOMAIN_URL = @"http://jiayi.net/smart_cook";
 
 static NSString *userName = nil;
 static NSString *userEmail = nil;
-static int userID;
+static long int userID;
 
 #define UIColorFromRGB(rgbValue) \
     [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \

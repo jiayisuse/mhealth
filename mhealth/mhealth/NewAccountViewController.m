@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "NewAccountViewController.h"
+#import "WebService.h"
+#import "ViewController.h"
 #import "Global.h"
 
 @interface NewAccountViewController() {
@@ -152,6 +154,11 @@
 
 - (void)dataDownloaded:(NSData *)data {
     NSLog(@"json:\n%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+    NSLog(@"error message: %@", [WebService jsonErrorMessage:data]);
+    NSString *errorMessage = [WebService jsonErrorMessage:data];
+    if ([errorMessage length] == 0) {
+        [ViewController replaceView:@"mainView" currentView:self];
+    }
 }
 
 @end

@@ -24,20 +24,18 @@
     [self.window makeKeyAndVisible];
     */
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    
     /*
     [userDefaults setObject:@"jiayisuse" forKey:USERNAME_KEY];
     [userDefaults setObject:@"jiayisuse@gmail.com" forKey:USEREMAIL_KEY];
     [userDefaults setInteger:1 forKey:USERID_KEY];
-     */
-    
+    */
     userName = [userDefaults stringForKey:USERNAME_KEY];
     if (userName != nil) {
         userEmail = [userDefaults stringForKey:USEREMAIL_KEY];
         userID = [userDefaults integerForKey:USERID_KEY];
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UITabBarController *tabView = (UITabBarController *)[storyboard instantiateViewControllerWithIdentifier:@"tabView"];
-        self.window.rootViewController = tabView;
+        UIViewController *mainView = (UITabBarController *)[storyboard instantiateViewControllerWithIdentifier:@"mainView"];
+        self.window.rootViewController = mainView;
         [self.window makeKeyAndVisible];
     }
     return YES;

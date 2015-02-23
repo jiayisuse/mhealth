@@ -16,4 +16,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 @property (weak, nonatomic) IBOutlet UILabel *createLabel;
 
++ (void) replaceView:(NSString *)viewName currentView:(UIViewController *)currView;
+
 @end

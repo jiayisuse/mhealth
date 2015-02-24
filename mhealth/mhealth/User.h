@@ -9,5 +9,18 @@
 #ifndef mhealth_User_h
 #define mhealth_User_h
 
+@interface User : NSObject {
+    NSString *username;
+    NSString *email;
+    long int UID;
+}
+
+@property (copy) NSString *username;
+@property (copy) NSString *email;
+@property long int UID;
+
+- (void)saveDefaults;
+
+@end
 
 #endif

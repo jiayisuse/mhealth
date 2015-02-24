@@ -7,14 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WebService.h"
 
-@interface ViewController : UIViewController<UITextFieldDelegate>
+@interface ViewController : UIViewController<UITextFieldDelegate, WebServiceProtocol>
 
 @property (weak, nonatomic) IBOutlet UILabel *usernameLable;
-@property (weak, nonatomic) IBOutlet UITextField *username_login;
-@property (weak, nonatomic) IBOutlet UITextField *password_login;
+@property (weak, nonatomic) IBOutlet UITextField *emailLogin;
+@property (weak, nonatomic) IBOutlet UITextField *passwordLogin;
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 @property (weak, nonatomic) IBOutlet UILabel *createLabel;
+@property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 
 + (void) replaceView:(NSString *)viewName currentView:(UIViewController *)currView;
 

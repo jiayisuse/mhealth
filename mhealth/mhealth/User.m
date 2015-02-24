@@ -7,3 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "User.h"
+#import "Global.h"
+
+@implementation User
+
+@synthesize email;
+@synthesize username;
+@synthesize UID;
+
+- (void)saveDefaults {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:self.username forKey:USERNAME_KEY];
+    [userDefaults setObject:self.email forKey:USEREMAIL_KEY];
+    [userDefaults setInteger:self.UID forKey:USERID_KEY];
+}
+
+@end

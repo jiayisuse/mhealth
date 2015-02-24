@@ -9,5 +9,11 @@
 #ifndef mhealth_RearViewController_h
 #define mhealth_RearViewController_h
 
+#import <UIKit/UIKit.h>
+
+@interface RearViewController : UITableViewController
+
+
+@end
 
 #endif

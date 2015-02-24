@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "IngredientViewController.h"
 #import "Global.h"
+#import "IngredientViewController.h"
+#import "SWRevealViewController.h"
 
 @implementation IngredientViewController {
     NSMutableArray *ingredients;
@@ -25,11 +26,17 @@
     [titleText setTextColor:[UIColor whiteColor]];
     [titleText setText:@"Ingredients"];
     self.navigationItem.titleView = titleText;
-    //self.navigationItem.hidesBackButton = YES;
+    self.navigationItem.hidesBackButton = YES;
     //[[self navigationController] setNavigationBarHidden:YES animated:YES];
     
     ingredients = [NSMutableArray arrayWithObjects:@"Eggplant", @"Mushroom", @"Potato", @"Banana", @"Chicken Wing", @"Onion", @"Cucumber", @"Apple", @"Magon", @"Pork", @"Beans", @"Daikon", @"Tofu", nil];
     self.tableView.allowsMultipleSelectionDuringEditing = NO;
+    
+    _siderbarBtn.target = self.revealViewController;
+    _siderbarBtn.action = @selector(revealToggle:);
+    //[self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    [self.view addGestureRecognizer:self.revealViewController.tapGestureRecognizer];
+    self.revealViewController.rearViewRevealWidth = REAR_VIEW_WIDTH;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -63,6 +70,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [ingredients removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationLeft];
+        [self.view addGestureRecognizer:self.revealViewController.tapGestureRecognizer];
     }
 }
 

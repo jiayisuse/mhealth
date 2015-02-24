@@ -9,6 +9,8 @@
 #ifndef mhealth_Global_h
 #define mhealth_Global_h
 
+#import "User.h"
+
 #define USERNAME_KEY            @"USERNAME"
 #define USEREMAIL_KEY           @"USEREMAIL"
 #define USERID_KEY              @"USERID"
@@ -17,10 +19,9 @@
 #define INGREDIENT_TABLE_NAME   @"INGREDIENT_TABLE"
 
 static const NSString *DOMAIN_URL = @"http://jiayi.net/smart_cook";
+static const int REAR_VIEW_WIDTH = 250;
 
-static NSString *userName = nil;
-static NSString *userEmail = nil;
-static long int userID;
+User *ME;
 
 #define UIColorFromRGB(rgbValue) \
     [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \

@@ -12,6 +12,8 @@
 #import "ViewController.h"
 #import "Global.h"
 
+extern User *ME;
+
 @interface NewAccountViewController() {
     WebService *ws;
 }
@@ -56,7 +58,7 @@
     float width = self.view.frame.size.width;
     float height = self.view.frame.size.height;
     //move up by 120 units
-    CGRect rect=CGRectMake(0.0f, -120, width, height);
+    CGRect rect=CGRectMake(0.0f, -150, width, height);
     self.view.frame=rect;
     [UIView commitAnimations];
     return YES;
@@ -84,10 +86,9 @@
     } else if (sender == self.password) {
         [self.rePassword becomeFirstResponder];
     } else if (sender == self.rePassword || sender == self.createBtn) {
-        if (sender == self.rePassword) {
-            [self.view endEditing:YES];
-            [self resumeView];
-        }
+        self.errorLabel.text = @"";
+        [self.view endEditing:YES];
+        [self resumeView];
         if ([self inputIsOK]) {
             NSArray *valueArray = [NSArray arrayWithObjects:self.email.text, self.username.text,
                                    self.password.text, nil];
@@ -152,13 +153,19 @@
     [super touchesBegan:touches withEvent:event];
 }
 
-- (void)dataDownloaded:(NSData *)data {
+- (void)dataReturned:(NSData *)data {
     NSLog(@"json:\n%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-    NSLog(@"error message: %@", [WebService jsonErrorMessage:data]);
-    NSString *errorMessage = [WebService jsonErrorMessage:data];
+    NSString *myID;
+    NSString *errorMessage = [WebService jsonParse:data retData:&myID];
+    NSLog(@"error message: %@", errorMessage);
     if ([errorMessage length] == 0) {
+        ME.username = self.username.text;
+        ME.email = self.email.text;
+        ME.UID = [myID intValue];
+        [ME saveDefaults];
         [ViewController replaceView:@"mainView" currentView:self];
-    }
+    } else
+        self.errorLabel.text = errorMessage;
 }
 
 @end

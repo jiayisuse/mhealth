@@ -35,8 +35,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="onLoginButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="5aA-Me-c2Z"/>
-                                    <segue destination="pAz-vP-Gh6" kind="show" id="o5s-x9-eFG"/>
+                                    <action selector="nextOnKeyboard:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="ghl-s8-ccv"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="d7P-4h-nX6">
@@ -50,13 +49,19 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="2no-nF-uis">
                                 <rect key="frame" x="40" y="54" width="240" height="128"/>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gqk-4S-Bxb">
-                                <rect key="frame" x="82" y="227" width="156" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BjI-nd-JaU">
+                                <rect key="frame" x="40" y="409" width="240" height="21"/>
+                                <fontDescription key="fontDescription" type="italicSystem" pointSize="16"/>
+                                <color key="textColor" red="1" green="0.11580207939999999" blue="0.03316700459" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dmz-Nu-6ju">
+                                <rect key="frame" x="65" y="227" width="190" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Kz-3s-sCU">
-                                <rect key="frame" x="82" y="276" width="156" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pe4-UH-P7m">
+                                <rect key="frame" x="65" y="276" width="190" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
@@ -67,20 +72,21 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="createLabel" destination="jJR-yE-bLp" id="zOI-6T-1eJ"/>
+                        <outlet property="emailLogin" destination="Dmz-Nu-6ju" id="rGi-OH-maN"/>
+                        <outlet property="errorLabel" destination="BjI-nd-JaU" id="qaR-mb-S0B"/>
                         <outlet property="loginBtn" destination="lUu-En-A0s" id="mYS-JI-8vo"/>
-                        <outlet property="password_login" destination="2Kz-3s-sCU" id="XI4-In-LfV"/>
+                        <outlet property="passwordLogin" destination="Pe4-UH-P7m" id="VY7-7v-ajS"/>
                         <outlet property="usernameLable" destination="HfO-Fx-rJW" id="DFY-wf-Bgc"/>
-                        <outlet property="username_login" destination="gqk-4S-Bxb" id="jwm-T7-8wU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="322" y="72"/>
         </scene>
-        <!--View Controller-->
+        <!--Shopping View Controller-->
         <scene sceneID="unK-78-gr3">
             <objects>
-                <viewController id="i9H-8l-gKK" sceneMemberID="viewController">
+                <viewController id="i9H-8l-gKK" customClass="ShoppingViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="HkN-VJ-S8s"/>
                         <viewControllerLayoutGuide type="bottom" id="neS-bf-ep2"/>
@@ -90,7 +96,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="YEc-om-qDb"/>
+                    <navigationItem key="navigationItem" id="YEc-om-qDb">
+                        <barButtonItem key="leftBarButtonItem" image="menu.png" id="GGN-hB-5mc"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="siderbarBtn" destination="GGN-hB-5mc" id="Lws-aa-z3E"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eDf-O1-ZSW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -105,7 +116,7 @@
                         <viewControllerLayoutGuide type="bottom" id="CRA-1y-2A7"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="p1A-2N-be1">
-                        <rect key="frame" x="0.0" y="20" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -235,9 +246,9 @@
                         <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ECr-on-0wi">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="ECr-on-0wi">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SiderBarTable" id="fLe-jh-uRQ">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -307,9 +318,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Tp1-fK-EtG"/>
+                    <navigationItem key="navigationItem" id="Tp1-fK-EtG">
+                        <barButtonItem key="leftBarButtonItem" image="menu.png" id="Gpx-34-g1f"/>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="siderbarBtn" destination="Gpx-34-g1f" id="vUK-7d-ysU"/>
                         <outlet property="tableView" destination="00O-nR-5Qf" id="Q4N-SQ-XCw"/>
                     </connections>
                 </viewController>
@@ -341,5 +355,6 @@
         <image name="Ingredients" width="25" height="25"/>
         <image name="Shopping" width="30" height="30"/>
         <image name="logo" width="540" height="491"/>
+        <image name="menu.png" width="28" height="20"/>
     </resources>
 </document>

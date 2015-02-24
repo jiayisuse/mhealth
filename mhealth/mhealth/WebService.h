@@ -13,7 +13,7 @@
 
 @protocol WebServiceProtocol <NSObject>
 
-- (void)dataDownloaded:(NSData *)data;
+- (void)dataReturned:(NSData *)data;
 
 @end
 
@@ -26,6 +26,8 @@
 - (BOOL)sendRequest;
 
 + (NSString *)jsonErrorMessage:(NSData *)data;
++ (id)jsonData:(NSData *)data;
++ (NSString *)jsonParse:(NSData *)data retData:(id *)retData;
 
 @end
 

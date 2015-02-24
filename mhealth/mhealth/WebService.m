@@ -28,6 +28,7 @@
 }
 
 - (void)setPostData:(NSDictionary *)postDataDict {
+    [postString setString:@""];
     for (NSString *key in postDataDict) {
         NSLog(@"key = %@, value = %@", key, postDataDict[key]);
         [postString appendFormat:@"%@=%@&", key, postDataDict[key]];
@@ -69,12 +70,29 @@
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     NSLog(@"connectionDidFinishLoading, %@", self.delegate);
     if (self.delegate)
-        [self.delegate dataDownloaded:_downloadedData];
+        [self.delegate dataReturned:_downloadedData];
 }
 
 + (NSString *)jsonErrorMessage:(NSData *)data {
     NSError *error;
     NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+    return jsonArray[0];
+}
+
++ (id)jsonData:(NSData *)data {
+    NSError *error;
+    NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+    return jsonArray[1];
+}
+
++ (NSString *)jsonParse:(NSData *)data retData:(id *)retData {
+    NSError *error;
+    NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+    NSLog(@"array len = %d", [jsonArray count]);
+    if ([jsonArray count] > 1) {
+        NSLog(@"data: %@", jsonArray[1]);
+        *retData = jsonArray[1];
+    }
     return jsonArray[0];
 }
 

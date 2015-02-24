@@ -9,5 +9,12 @@
 #ifndef mhealth_ShoppingViewController_h
 #define mhealth_ShoppingViewController_h
 
+#import <UIKit/UIKit.h>
+
+@interface ShoppingViewController : UIViewController
+
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *siderbarBtn;
+
+@end
 
 #endif

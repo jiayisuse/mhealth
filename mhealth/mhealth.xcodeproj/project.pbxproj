@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		8434AFB11A9BD55800721F00 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8434AFB01A9BD55800721F00 /* SWRevealViewController.m */; };
+		8434AFB51A9C18EF00721F00 /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = 8434AFB31A9C18EF00721F00 /* menu.png */; };
+		8434AFB61A9C18EF00721F00 /* menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8434AFB41A9C18EF00721F00 /* menu@2x.png */; };
+		8434AFB91A9C205E00721F00 /* RearViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8434AFB81A9C205E00721F00 /* RearViewController.m */; };
+		8434AFBC1A9C23C900721F00 /* ShoppingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8434AFBB1A9C23C900721F00 /* ShoppingViewController.m */; };
+		8434AFBF1A9C331000721F00 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 8434AFBE1A9C331000721F00 /* User.m */; };
 		846BD3141A9A67AD00DF593B /* IngredientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846BD3131A9A67AD00DF593B /* IngredientViewController.m */; };
 		846BD3511A9A871700DF593B /* banana.png in Resources */ = {isa = PBXBuildFile; fileRef = 846BD3501A9A871700DF593B /* banana.png */; };
 		846BD3541A9A9A8000DF593B /* TabbarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846BD3531A9A9A8000DF593B /* TabbarViewController.m */; };
@@ -35,6 +40,14 @@
 /* Begin PBXFileReference section */
 		8434AFAF1A9BD55800721F00 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		8434AFB01A9BD55800721F00 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		8434AFB31A9C18EF00721F00 /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
+		8434AFB41A9C18EF00721F00 /* menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@2x.png"; sourceTree = "<group>"; };
+		8434AFB71A9C204B00721F00 /* RearViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RearViewController.h; sourceTree = "<group>"; };
+		8434AFB81A9C205E00721F00 /* RearViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RearViewController.m; sourceTree = "<group>"; };
+		8434AFBA1A9C23B300721F00 /* ShoppingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingViewController.h; sourceTree = "<group>"; };
+		8434AFBB1A9C23C900721F00 /* ShoppingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingViewController.m; sourceTree = "<group>"; };
+		8434AFBD1A9C330400721F00 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		8434AFBE1A9C331000721F00 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		846BD3121A9A679600DF593B /* IngredientViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IngredientViewController.h; sourceTree = "<group>"; };
 		846BD3131A9A67AD00DF593B /* IngredientViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IngredientViewController.m; sourceTree = "<group>"; };
 		846BD3501A9A871700DF593B /* banana.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = banana.png; sourceTree = "<group>"; };
@@ -87,6 +100,15 @@
 			name = Library;
 			sourceTree = "<group>";
 		};
+		8434AFB21A9C18D900721F00 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				8434AFB31A9C18EF00721F00 /* menu.png */,
+				8434AFB41A9C18EF00721F00 /* menu@2x.png */,
+			);
+			name = images;
+			sourceTree = "<group>";
+		};
 		8486D1231A96DD9D00F06FD6 = {
 			isa = PBXGroup;
 			children = (
@@ -124,8 +146,14 @@
 				846BD3531A9A9A8000DF593B /* TabbarViewController.m */,
 				846BD3121A9A679600DF593B /* IngredientViewController.h */,
 				846BD3131A9A67AD00DF593B /* IngredientViewController.m */,
+				8434AFBA1A9C23B300721F00 /* ShoppingViewController.h */,
+				8434AFBB1A9C23C900721F00 /* ShoppingViewController.m */,
+				8434AFB71A9C204B00721F00 /* RearViewController.h */,
+				8434AFB81A9C205E00721F00 /* RearViewController.m */,
 				846BD3581A9AA78900DF593B /* WebService.h */,
 				846BD3591A9AA79900DF593B /* WebService.m */,
+				8434AFBD1A9C330400721F00 /* User.h */,
+				8434AFBE1A9C331000721F00 /* User.m */,
 				8434AFAE1A9BD53C00721F00 /* Library */,
 			);
 			path = mhealth;
@@ -134,6 +162,7 @@
 		8486D12F1A96DD9D00F06FD6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8434AFB21A9C18D900721F00 /* images */,
 				8486D1301A96DD9D00F06FD6 /* Info.plist */,
 				8486D1311A96DD9D00F06FD6 /* main.m */,
 			);
@@ -238,6 +267,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8486D13B1A96DD9D00F06FD6 /* Main.storyboard in Resources */,
+				8434AFB61A9C18EF00721F00 /* menu@2x.png in Resources */,
+				8434AFB51A9C18EF00721F00 /* menu.png in Resources */,
 				8486D1401A96DD9D00F06FD6 /* LaunchScreen.xib in Resources */,
 				846BD3511A9A871700DF593B /* banana.png in Resources */,
 				8486D13D1A96DD9D00F06FD6 /* Images.xcassets in Resources */,
@@ -258,10 +289,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8434AFBC1A9C23C900721F00 /* ShoppingViewController.m in Sources */,
 				8486D1381A96DD9D00F06FD6 /* ViewController.m in Sources */,
 				8486D1351A96DD9D00F06FD6 /* AppDelegate.m in Sources */,
 				846BD3541A9A9A8000DF593B /* TabbarViewController.m in Sources */,
 				8434AFB11A9BD55800721F00 /* SWRevealViewController.m in Sources */,
+				8434AFB91A9C205E00721F00 /* RearViewController.m in Sources */,
+				8434AFBF1A9C331000721F00 /* User.m in Sources */,
 				846BD3141A9A67AD00DF593B /* IngredientViewController.m in Sources */,
 				8486D1321A96DD9D00F06FD6 /* main.m in Sources */,
 				846BD35A1A9AA79900DF593B /* WebService.m in Sources */,

@@ -18,21 +18,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    /*
-    self.viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
-    self.window.rootViewController = self.viewController;
-    [self.window makeKeyAndVisible];
-    */
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    /*
-    [userDefaults setObject:@"jiayisuse" forKey:USERNAME_KEY];
-    [userDefaults setObject:@"jiayisuse@gmail.com" forKey:USEREMAIL_KEY];
-    [userDefaults setInteger:1 forKey:USERID_KEY];
-    */
-    userName = [userDefaults stringForKey:USERNAME_KEY];
-    if (userName != nil) {
-        userEmail = [userDefaults stringForKey:USEREMAIL_KEY];
-        userID = [userDefaults integerForKey:USERID_KEY];
+    extern User *ME;
+    ME = [[User alloc] init];
+    
+    NSString *username = [userDefaults stringForKey:USERNAME_KEY];
+    if (username != nil) {
+        ME.username = username;
+        ME.email = [userDefaults stringForKey:USEREMAIL_KEY];
+        ME.UID = [userDefaults integerForKey:USERID_KEY];
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UIViewController *mainView = (UITabBarController *)[storyboard instantiateViewControllerWithIdentifier:@"mainView"];
         self.window.rootViewController = mainView;

@@ -7,3 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RearViewController.h"
+#import "SWRevealViewController.h"
+#import "Global.h"
+
+@implementation RearViewController
+
+- (void)viewDidLoad {
+    [self.view setBackgroundColor:UIColorFromRGB(0x272729)];
+    NSLog(@"REAR!");
+}
+
+@end

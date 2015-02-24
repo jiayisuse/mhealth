@@ -7,12 +7,15 @@
 //
 
 #import "ViewController.h"
-#import "Global.h"
 #import "NewAccountViewController.h"
 #import "WebService.h"
+#import "Global.h"
 
-@interface ViewController ()
+extern User *ME;
 
+@interface ViewController () {
+    WebService *ws;
+}
 @end
 
 @implementation ViewController
@@ -21,29 +24,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    /*
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    
-    [userDefaults setObject:@"jiayisuse" forKey:USERNAME_KEY];
-    [userDefaults setObject:@"jiayisuse@gmail.com" forKey:USEREMAIL_KEY];
-    [userDefaults setInteger:1 forKey:USERID_KEY];
-    
-    userName = [userDefaults stringForKey:USERNAME_KEY];
-    if (userName != nil) {
-        userEmail = [userDefaults stringForKey:USEREMAIL_KEY];
-        userID = [userDefaults integerForKey:USERID_KEY];
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UITabBarController *tabView = (UITabBarController *)[storyboard instantiateViewControllerWithIdentifier:@"tabView"];
-        [self presentViewController:tabView animated:YES completion:nil];
-    }
-     */
-    
-    self.username_login.delegate = self;
-    self.password_login.delegate = self;
-    self.username_login.returnKeyType = UIReturnKeyNext;
-    self.password_login.returnKeyType = UIReturnKeyDefault;
-    [self.username_login addTarget:self action:@selector(nextOnKeyboard:) forControlEvents:UIControlEventEditingDidEndOnExit];
-    [self.password_login addTarget:self action:@selector(nextOnKeyboard:) forControlEvents:UIControlEventEditingDidEndOnExit];
+    self.emailLogin.delegate = self;
+    self.passwordLogin.delegate = self;
+    self.emailLogin.returnKeyType = UIReturnKeyNext;
+    self.passwordLogin.returnKeyType = UIReturnKeyDefault;
+    [self.emailLogin addTarget:self action:@selector(nextOnKeyboard:) forControlEvents:UIControlEventEditingDidEndOnExit];
+    [self.passwordLogin addTarget:self action:@selector(nextOnKeyboard:) forControlEvents:UIControlEventEditingDidEndOnExit];
     
     // set title
     UILabel *titleText = [[UILabel alloc] initWithFrame: CGRectMake(0, 0, 50,50)];
@@ -59,6 +45,9 @@
     [self.createLabel addGestureRecognizer:labelTap];
     self.createLabel.userInteractionEnabled = YES;
     
+    ws = [[WebService alloc] initWithPHPFile:@"login.php"];
+    ws.delegate = self;
+
     /*
     [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setBackgroundColor:UIColorFromRGB(0x4FB54F)];
@@ -73,7 +62,7 @@
     float width = self.view.frame.size.width;
     float height = self.view.frame.size.height;
     //move up by 30 units
-    CGRect rect=CGRectMake(0.0f, -30, width, height);
+    CGRect rect=CGRectMake(0.0f, -120, width, height);
     self.view.frame=rect;
     [UIView commitAnimations];
     return YES;
@@ -92,14 +81,46 @@
     [UIView commitAnimations];
 }
 
-- (IBAction)nextOnKeyboard:(UITextField *)sender
+- (IBAction)nextOnKeyboard:(id)sender
 {
-    if (sender == self.username_login) {
-        [self.password_login becomeFirstResponder];
-    } else if (sender == self.password_login) {
+    if (sender == self.emailLogin) {
+        [self.passwordLogin becomeFirstResponder];
+    } else if (sender == self.passwordLogin || sender == self.loginBtn) {
+        self.errorLabel.text = @"";
         [self.view endEditing:YES];
         [self resumeView];
+        
+        if ([self.emailLogin.text length] == 0) {
+            self.errorLabel.text = @"Email is empty";
+            return;
+        }
+        if ([self.passwordLogin.text length] == 0) {
+            self.errorLabel.text = @"Password is empty";
+            return;
+        }
+                
+        NSArray *keyArray = [NSArray arrayWithObjects:USEREMAIL_KEY, USERPASSWORD_KEY, nil];
+        NSArray *valueArray = [NSArray arrayWithObjects:self.emailLogin.text, self.passwordLogin.text, nil];
+        NSDictionary *postDict = [NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray];
+        [ws setPostData:postDict];
+        [ws sendRequest];
     }
+}
+
+- (void)dataReturned:(NSData *)data {
+    NSLog(@"json:\n%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+    NSArray *retData;
+    NSString *errorMessage = [WebService jsonParse:data retData:&retData];
+    NSLog(@"error message: %@", errorMessage);
+    if ([errorMessage length] == 0) {
+        ME.email = self.emailLogin.text;
+        ME.username = retData[1];
+        ME.UID = [retData[0] intValue];
+        NSLog(@"email = %@, username = %@, is = %ld", ME.email, ME.username, ME.UID);
+        [ME saveDefaults];
+        [ViewController replaceView:@"mainView" currentView:self];
+    } else
+        self.errorLabel.text = errorMessage;
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -125,13 +146,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)onLoginButton:(id)sender {
-    WebService *ws = [[WebService alloc] initWithPHPFile:@"new_account.php"];
-    NSDictionary *postDict = [NSDictionary dictionaryWithObjectsAndKeys:@"jiayi", @"username", nil];
-    [ws setPostData:postDict];
-    [ws sendRequest];
 }
 
 + (void) replaceView:(NSString *)viewName currentView:(UIViewController *)currView {

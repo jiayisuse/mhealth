@@ -17,6 +17,7 @@
 #define USERPASSWORD_KEY        @"USERPASSWORD"
 #define APPNAME                 @"SmartCook"
 #define INGREDIENT_TABLE_NAME   @"INGREDIENT_TABLE"
+#define REAR_TABLE_NAME         @"REAR_TABLE"
 
 static const NSString *DOMAIN_URL = @"http://jiayi.net/smart_cook";
 static const int REAR_VIEW_WIDTH = 250;

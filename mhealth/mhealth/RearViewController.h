@@ -11,8 +11,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RearViewController : UITableViewController
+@interface RearViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
 
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 

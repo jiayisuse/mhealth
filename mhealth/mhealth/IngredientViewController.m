@@ -11,6 +11,17 @@
 #import "IngredientViewController.h"
 #import "SWRevealViewController.h"
 
+@interface myTableViewCell : UITableViewCell
+
+@property (weak, nonatomic) UILabel *leftDaysLabel;
+
+@end
+
+@implementation myTableViewCell
+
+@end
+
+
 @implementation IngredientViewController {
     NSMutableArray *ingredients;
 }
@@ -27,10 +38,9 @@
     [titleText setText:@"Ingredients"];
     self.navigationItem.titleView = titleText;
     self.navigationItem.hidesBackButton = YES;
-    //[[self navigationController] setNavigationBarHidden:YES animated:YES];
     
     ingredients = [NSMutableArray arrayWithObjects:@"Eggplant", @"Mushroom", @"Potato", @"Banana", @"Chicken Wing", @"Onion", @"Cucumber", @"Apple", @"Magon", @"Pork", @"Beans", @"Daikon", @"Tofu", nil];
-    self.tableView.allowsMultipleSelectionDuringEditing = NO;
+    //self.tableView.allowsMultipleSelectionDuringEditing = NO;
     
     _siderbarBtn.target = self.revealViewController;
     _siderbarBtn.action = @selector(revealToggle:);
@@ -52,12 +62,22 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:INGREDIENT_TABLE_NAME];
+    myTableViewCell *cell = (myTableViewCell *)[tableView dequeueReusableCellWithIdentifier:INGREDIENT_TABLE_NAME];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:INGREDIENT_TABLE_NAME];
+        cell = [[myTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:INGREDIENT_TABLE_NAME];
+        UILabel *leftDaysLable = [[UILabel alloc] initWithFrame:CGRectMake(cell.frame.size.width - 140, 10, 100, 40)];
+        leftDaysLable.backgroundColor = [UIColor clearColor];
+        leftDaysLable.textAlignment = NSTextAlignmentRight;
+        [cell.contentView addSubview:leftDaysLable];
+        cell.leftDaysLabel = leftDaysLable;
     }
     cell.textLabel.text = [ingredients objectAtIndex:indexPath.row];
+    [cell.textLabel setFrame:CGRectMake(cell.textLabel.frame.origin.x, cell.textLabel.frame.origin.y, 160, cell.textLabel.frame.size.height)];
+    cell.detailTextLabel.text = @"x3";
     cell.imageView.image = [UIImage imageNamed:@"banana.png"];
+    cell.leftDaysLabel.text = [NSString stringWithFormat:@"%ld days", (long)indexPath.row];
+    NSLog(@"%@", [NSString stringWithFormat:@"%ld days", (long)indexPath.row]);
+    
     return cell;
 }
 
@@ -72,6 +92,10 @@
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationLeft];
         [self.view addGestureRecognizer:self.revealViewController.tapGestureRecognizer];
     }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end

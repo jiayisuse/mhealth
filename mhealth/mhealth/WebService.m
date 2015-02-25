@@ -88,7 +88,7 @@
 + (NSString *)jsonParse:(NSData *)data retData:(id *)retData {
     NSError *error;
     NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
-    NSLog(@"array len = %d", [jsonArray count]);
+    NSLog(@"array len = %lu", (unsigned long)[jsonArray count]);
     if ([jsonArray count] > 1) {
         NSLog(@"data: %@", jsonArray[1]);
         *retData = jsonArray[1];

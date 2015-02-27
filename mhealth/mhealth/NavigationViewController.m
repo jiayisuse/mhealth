@@ -1,19 +1,18 @@
 //
-//  TabbarViewController.m
+//  NavigationViewController.m
 //  mhealth
 //
-//  Created by jiayi on 2/22/15.
+//  Created by jiayi on 2/26/15.
 //  Copyright (c) 2015 jiayi. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "TabbarViewController.h"
+#import "NavigationViewController.h"
 
-@implementation TabbarViewController
+@implementation NavigationViewControler
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[self navigationController] setNavigationBarHidden:YES animated:YES];
     self.modalPresentationStyle = UIModalPresentationCurrentContext;
 }
 

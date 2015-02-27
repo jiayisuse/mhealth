@@ -9,6 +9,9 @@
 #import "AppDelegate.h"
 #import "Global.h"
 
+extern NSArray *ingredientDict;
+extern User *ME;
+
 @interface AppDelegate ()
 
 @end
@@ -19,9 +22,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    extern User *ME;
-    ME = [[User alloc] init];
     
+    ME = [[User alloc] init];
     NSString *username = [userDefaults stringForKey:USERNAME_KEY];
     if (username != nil) {
         ME.username = username;
@@ -32,6 +34,9 @@
         self.window.rootViewController = mainView;
         [self.window makeKeyAndVisible];
     }
+    
+    ingredientDict = [NSArray arrayWithObjects:@"Eggplant", @"Mushroom", @"Potato", @"Banana", @"Chicken Wing", @"Onion", @"Cucumber", @"Apple", @"Magon", @"Pork", @"Beans", @"Daikon", @"Tofu", nil];
+    
     return YES;
 }
 

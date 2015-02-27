@@ -10,35 +10,18 @@
 #import "RearViewController.h"
 #import "ViewController.h"
 #import "SWRevealViewController.h"
+#import "BlueButton.h"
 #import "Global.h"
 
 extern User *ME;
-#define BUTTON_BACKGROUND_COLOR     [UIColor colorWithWhite:0.3 alpha:1.0]
-#define BUTTON_HIGHLIGHTED_COLOR    [UIColor colorWithWhite:0.4 alpha:1.0]
-
-@interface DarkButton : UIButton
-
-@end
-
-@implementation DarkButton
-
-- (void) setHighlighted:(BOOL)highlighted {
-    [super setHighlighted:highlighted];
-    if (highlighted) {
-        self.backgroundColor = BUTTON_HIGHLIGHTED_COLOR;
-    }
-    else {
-        self.backgroundColor = BUTTON_BACKGROUND_COLOR;
-    }
-}
-
-@end
 
 @implementation RearViewController {
     NSMutableArray *userItems;
 }
 
 - (void)viewDidLoad {
+    [super viewDidLoad];
+    
     [self.view setBackgroundColor:[UIColor clearColor]];
     self.tableView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:1.0];
     self.tableView.separatorColor = [UIColor colorWithWhite:0.25 alpha:0.9];

@@ -19,10 +19,16 @@
 #define INGREDIENT_TABLE_NAME   @"INGREDIENT_TABLE"
 #define REAR_TABLE_NAME         @"REAR_TABLE"
 
+#define BLUE_COLOR              UIColorFromRGB(0x268fff)
+#define BLUE_HIGHLIGHT_COLOR    UIColorFromRGB(0x5ba6f6)
+#define DARK_COLOR              [UIColor colorWithWhite:0.3 alpha:1.0]
+#define DARK_HIGHLIGHT_COLOR    [UIColor colorWithWhite:0.4 alpha:1.0]
+
 static const NSString *DOMAIN_URL = @"http://jiayi.net/smart_cook";
 static const int REAR_VIEW_WIDTH = 250;
 
 User *ME;
+NSArray *ingredientDict;
 
 #define UIColorFromRGB(rgbValue) \
     [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \

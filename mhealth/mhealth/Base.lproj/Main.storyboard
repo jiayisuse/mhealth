@@ -94,16 +94,45 @@
                     <view key="view" contentMode="scaleToFill" id="P73-2v-L3O">
                         <rect key="frame" x="0.0" y="20" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="RaP-95-5yf">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="i9H-8l-gKK" id="hhu-gf-zag"/>
+                                    <outlet property="delegate" destination="i9H-8l-gKK" id="FSW-Wv-7nl"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="YEc-om-qDb">
-                        <barButtonItem key="leftBarButtonItem" image="menu.png" id="GGN-hB-5mc"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="YEc-om-qDb"/>
                     <connections>
+                        <outlet property="addBtn" destination="rlq-bB-qyp" id="DLu-vI-5iL"/>
+                        <outlet property="cancelBtn" destination="MmC-Gm-1Lg" id="kLY-GE-DKd"/>
+                        <outlet property="deleteBtn" destination="Ef6-qb-bwr" id="JhS-7T-fY8"/>
                         <outlet property="siderbarBtn" destination="GGN-hB-5mc" id="Lws-aa-z3E"/>
+                        <outlet property="tableView" destination="RaP-95-5yf" id="XyR-qY-BL1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eDf-O1-ZSW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <barButtonItem image="menu.png" id="GGN-hB-5mc"/>
+                <barButtonItem title="Delete" id="Ef6-qb-bwr">
+                    <color key="tintColor" red="1" green="0.11580207939999999" blue="0.03316700459" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <action selector="onDeleteButton:" destination="i9H-8l-gKK" id="bpF-Kk-Byj"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem title="Cancel" id="MmC-Gm-1Lg">
+                    <connections>
+                        <action selector="onCancelButton:" destination="i9H-8l-gKK" id="LRY-8U-2Lc"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem systemItem="add" id="rlq-bB-qyp">
+                    <connections>
+                        <action selector="onAddButton:" destination="i9H-8l-gKK" id="cQJ-dt-Roc"/>
+                    </connections>
+                </barButtonItem>
             </objects>
             <point key="canvasLocation" x="2091" y="404"/>
         </scene>
@@ -298,6 +327,59 @@
             </objects>
             <point key="canvasLocation" x="1668" y="-285"/>
         </scene>
+        <!--Pop Up View Controller-->
+        <scene sceneID="kdx-SD-zne">
+            <objects>
+                <viewController storyboardIdentifier="PopUpView" id="3y7-Kc-42J" customClass="PopUpViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="giH-LF-eob"/>
+                        <viewControllerLayoutGuide type="bottom" id="ZEv-9a-fMR"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="LKQ-7R-RKP">
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wey-Ep-jft">
+                                <rect key="frame" x="35" y="167" width="251" height="213"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="delete.png" translatesAutoresizingMaskIntoConstraints="NO" id="lbQ-Eq-EA4">
+                                        <rect key="frame" x="8" y="8" width="15" height="15"/>
+                                    </imageView>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Ingredient" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gkI-nS-FjA">
+                                        <rect key="frame" x="19" y="61" width="212" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A8n-6A-WKH">
+                                        <rect key="frame" x="0.0" y="5" width="251" height="21"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" red="0.14712035316962291" green="0.55997701767763131" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Amount" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UOR-iw-zIN">
+                                        <rect key="frame" x="44" y="114" width="78" height="27"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="amountText" destination="UOR-iw-zIN" id="NWt-YG-lQT"/>
+                        <outlet property="closeImage" destination="lbQ-Eq-EA4" id="p2e-cf-5gx"/>
+                        <outlet property="ingredientText" destination="gkI-nS-FjA" id="8MA-hb-4BJ"/>
+                        <outlet property="popUpView" destination="wey-Ep-jft" id="upz-RT-z5V"/>
+                        <outlet property="titleLabel" destination="A8n-6A-WKH" id="34W-3G-YuO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xct-C4-Miu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2464" y="404"/>
+        </scene>
         <!--Ingredient View Controller-->
         <scene sceneID="HMq-q4-Kzu">
             <objects>
@@ -337,7 +419,8 @@
         <!--Shopping List-->
         <scene sceneID="b3C-rV-zIf">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rwE-de-cWd" sceneMemberID="viewController">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OWS-IZ-jgC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rwE-de-cWd" customClass="NavigationViewControler" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Shopping List" image="Shopping" id="pKZ-eA-3SF"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="qZt-dG-igq">
@@ -349,7 +432,6 @@
                         <segue destination="i9H-8l-gKK" kind="relationship" relationship="rootViewController" id="iuN-Ja-oCp"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="OWS-IZ-jgC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1668" y="404"/>
         </scene>
@@ -357,6 +439,7 @@
     <resources>
         <image name="Ingredients" width="25" height="25"/>
         <image name="Shopping" width="30" height="30"/>
+        <image name="delete.png" width="251" height="251"/>
         <image name="logo" width="540" height="491"/>
         <image name="menu.png" width="28" height="20"/>
     </resources>

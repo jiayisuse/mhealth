@@ -10,10 +10,15 @@
 #define mhealth_ShoppingViewController_h
 
 #import <UIKit/UIKit.h>
+#import "PopUpViewController.h"
 
-@interface ShoppingViewController : UIViewController
+@interface ShoppingViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, popUpViewControllerProtocol>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *siderbarBtn;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *addBtn;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *deleteBtn;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelBtn;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 

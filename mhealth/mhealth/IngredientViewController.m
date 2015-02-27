@@ -47,6 +47,7 @@
     //[self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     [self.view addGestureRecognizer:self.revealViewController.tapGestureRecognizer];
     self.revealViewController.rearViewRevealWidth = REAR_VIEW_WIDTH;
+    self.revealViewController.modalPresentationStyle = UIModalPresentationCurrentContext;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -76,7 +77,6 @@
     cell.detailTextLabel.text = @"x3";
     cell.imageView.image = [UIImage imageNamed:@"banana.png"];
     cell.leftDaysLabel.text = [NSString stringWithFormat:@"%ld days", (long)indexPath.row];
-    NSLog(@"%@", [NSString stringWithFormat:@"%ld days", (long)indexPath.row]);
     
     return cell;
 }

@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "NewAccountViewController.h"
+#import "PopUpViewController.h"
 #import "WebService.h"
 #import "Global.h"
 
@@ -151,6 +152,20 @@ extern User *ME;
 + (void) replaceView:(NSString *)viewName currentView:(UIViewController *)currView {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UIViewController *newView = [storyboard instantiateViewControllerWithIdentifier:viewName];
+    [currView presentViewController:newView animated:YES completion:nil];
+}
+
++ (void) popUpView:(NSString *)viewName titleLabel:(NSString *)title currentView:(UIViewController *)currView {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    PopUpViewController *newView = (PopUpViewController *)[storyboard instantiateViewControllerWithIdentifier:viewName];
+    newView.delegate = (id)currView;
+    newView.view.backgroundColor = [UIColor colorWithWhite:0.8 alpha:0.6];
+    newView.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    currView.modalPresentationStyle = UIModalPresentationCurrentContext;
+    if (currView.navigationController)
+        currView.navigationController.modalPresentationStyle = UIModalPresentationCurrentContext;
+    if (currView.tabBarController)
+        currView.tabBarController.modalPresentationStyle = UIModalPresentationCurrentContext;
     [currView presentViewController:newView animated:YES completion:nil];
 }
 

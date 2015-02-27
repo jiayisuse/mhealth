@@ -19,5 +19,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 
 + (void) replaceView:(NSString *)viewName currentView:(UIViewController *)currView;
++ (void) popUpView:(NSString *)viewName titleLabel:(NSString *)title currentView:(UIViewController *)currView;
 
 @end

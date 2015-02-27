@@ -26,6 +26,16 @@
 		8486D14C1A96DD9D00F06FD6 /* mhealthTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486D14B1A96DD9D00F06FD6 /* mhealthTests.m */; };
 		8486D1661A996F0300F06FD6 /* NewAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486D1651A996F0300F06FD6 /* NewAccountViewController.m */; };
 		84A24A0C1A9D6B3D00FD96E9 /* carrot.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A24A0B1A9D6B3D00FD96E9 /* carrot.png */; };
+		84A24A851A9E687800FD96E9 /* checkbox_check.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A24A831A9E687800FD96E9 /* checkbox_check.png */; };
+		84A24A861A9E687800FD96E9 /* checkbox_uncheck.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A24A841A9E687800FD96E9 /* checkbox_uncheck.png */; };
+		84A24A891A9EE1F000FD96E9 /* AutocompletionTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A24A881A9EE1F000FD96E9 /* AutocompletionTableView.m */; };
+		84A24A8C1A9EE7D700FD96E9 /* PopUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A24A8B1A9EE7D700FD96E9 /* PopUpViewController.m */; };
+		84A24A8E1A9EEF3E00FD96E9 /* delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A24A8D1A9EEF3E00FD96E9 /* delete.png */; };
+		84A24A911A9F11EE00FD96E9 /* NavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A24A901A9F11EE00FD96E9 /* NavigationViewController.m */; };
+		84A24A951A9FA0F700FD96E9 /* BlueButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A24A941A9FA0F700FD96E9 /* BlueButton.m */; };
+		84A24A981A9FA11000FD96E9 /* DarkButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A24A971A9FA11000FD96E9 /* DarkButton.m */; };
+		84A24A9E1AA01E9200FD96E9 /* IGLDropDownItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A24A9B1AA01E9200FD96E9 /* IGLDropDownItem.m */; };
+		84A24A9F1AA01E9200FD96E9 /* IGLDropDownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A24A9D1AA01E9200FD96E9 /* IGLDropDownMenu.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +83,23 @@
 		8486D1651A996F0300F06FD6 /* NewAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewAccountViewController.m; sourceTree = "<group>"; };
 		8486D1671A996F1800F06FD6 /* NewAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewAccountViewController.h; sourceTree = "<group>"; };
 		84A24A0B1A9D6B3D00FD96E9 /* carrot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = carrot.png; sourceTree = "<group>"; };
+		84A24A831A9E687800FD96E9 /* checkbox_check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkbox_check.png; sourceTree = "<group>"; };
+		84A24A841A9E687800FD96E9 /* checkbox_uncheck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkbox_uncheck.png; sourceTree = "<group>"; };
+		84A24A871A9EE1F000FD96E9 /* AutocompletionTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutocompletionTableView.h; sourceTree = "<group>"; };
+		84A24A881A9EE1F000FD96E9 /* AutocompletionTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutocompletionTableView.m; sourceTree = "<group>"; };
+		84A24A8A1A9EE7C600FD96E9 /* PopUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopUpViewController.h; sourceTree = "<group>"; };
+		84A24A8B1A9EE7D700FD96E9 /* PopUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopUpViewController.m; sourceTree = "<group>"; };
+		84A24A8D1A9EEF3E00FD96E9 /* delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete.png; sourceTree = "<group>"; };
+		84A24A8F1A9F11DB00FD96E9 /* NavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationViewController.h; sourceTree = "<group>"; };
+		84A24A901A9F11EE00FD96E9 /* NavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationViewController.m; sourceTree = "<group>"; };
+		84A24A931A9FA0EE00FD96E9 /* BlueButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlueButton.h; sourceTree = "<group>"; };
+		84A24A941A9FA0F700FD96E9 /* BlueButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlueButton.m; sourceTree = "<group>"; };
+		84A24A961A9FA10600FD96E9 /* DarkButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DarkButton.h; sourceTree = "<group>"; };
+		84A24A971A9FA11000FD96E9 /* DarkButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DarkButton.m; sourceTree = "<group>"; };
+		84A24A9A1AA01E9200FD96E9 /* IGLDropDownItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGLDropDownItem.h; sourceTree = "<group>"; };
+		84A24A9B1AA01E9200FD96E9 /* IGLDropDownItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGLDropDownItem.m; sourceTree = "<group>"; };
+		84A24A9C1AA01E9200FD96E9 /* IGLDropDownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGLDropDownMenu.h; sourceTree = "<group>"; };
+		84A24A9D1AA01E9200FD96E9 /* IGLDropDownMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGLDropDownMenu.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +123,9 @@
 		8434AFAE1A9BD53C00721F00 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				84A24A991AA01E6D00FD96E9 /* DropDownList */,
+				84A24A871A9EE1F000FD96E9 /* AutocompletionTableView.h */,
+				84A24A881A9EE1F000FD96E9 /* AutocompletionTableView.m */,
 				8434AFAF1A9BD55800721F00 /* SWRevealViewController.h */,
 				8434AFB01A9BD55800721F00 /* SWRevealViewController.m */,
 			);
@@ -105,6 +135,9 @@
 		8434AFB21A9C18D900721F00 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				84A24A8D1A9EEF3E00FD96E9 /* delete.png */,
+				84A24A831A9E687800FD96E9 /* checkbox_check.png */,
+				84A24A841A9E687800FD96E9 /* checkbox_uncheck.png */,
 				84A24A0B1A9D6B3D00FD96E9 /* carrot.png */,
 				8434AFB31A9C18EF00721F00 /* menu.png */,
 				8434AFB41A9C18EF00721F00 /* menu@2x.png */,
@@ -133,26 +166,31 @@
 		8486D12E1A96DD9D00F06FD6 /* mhealth */ = {
 			isa = PBXGroup;
 			children = (
+				84A24A921A9FA0C900FD96E9 /* Buttons */,
 				846BD3501A9A871700DF593B /* banana.png */,
 				8486D15E1A97F1C600F06FD6 /* Global.h */,
 				8486D1331A96DD9D00F06FD6 /* AppDelegate.h */,
 				8486D1341A96DD9D00F06FD6 /* AppDelegate.m */,
 				8486D1361A96DD9D00F06FD6 /* ViewController.h */,
 				8486D1371A96DD9D00F06FD6 /* ViewController.m */,
+				846BD3521A9A9A6E00DF593B /* TabbarViewController.h */,
+				846BD3531A9A9A8000DF593B /* TabbarViewController.m */,
+				84A24A8F1A9F11DB00FD96E9 /* NavigationViewController.h */,
+				84A24A901A9F11EE00FD96E9 /* NavigationViewController.m */,
 				8486D1391A96DD9D00F06FD6 /* Main.storyboard */,
 				8486D13C1A96DD9D00F06FD6 /* Images.xcassets */,
 				8486D13E1A96DD9D00F06FD6 /* LaunchScreen.xib */,
 				8486D12F1A96DD9D00F06FD6 /* Supporting Files */,
 				8486D1671A996F1800F06FD6 /* NewAccountViewController.h */,
 				8486D1651A996F0300F06FD6 /* NewAccountViewController.m */,
-				846BD3521A9A9A6E00DF593B /* TabbarViewController.h */,
-				846BD3531A9A9A8000DF593B /* TabbarViewController.m */,
 				846BD3121A9A679600DF593B /* IngredientViewController.h */,
 				846BD3131A9A67AD00DF593B /* IngredientViewController.m */,
 				8434AFBA1A9C23B300721F00 /* ShoppingViewController.h */,
 				8434AFBB1A9C23C900721F00 /* ShoppingViewController.m */,
 				8434AFB71A9C204B00721F00 /* RearViewController.h */,
 				8434AFB81A9C205E00721F00 /* RearViewController.m */,
+				84A24A8A1A9EE7C600FD96E9 /* PopUpViewController.h */,
+				84A24A8B1A9EE7D700FD96E9 /* PopUpViewController.m */,
 				846BD3581A9AA78900DF593B /* WebService.h */,
 				846BD3591A9AA79900DF593B /* WebService.m */,
 				8434AFBD1A9C330400721F00 /* User.h */,
@@ -187,6 +225,28 @@
 				8486D14A1A96DD9D00F06FD6 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		84A24A921A9FA0C900FD96E9 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				84A24A931A9FA0EE00FD96E9 /* BlueButton.h */,
+				84A24A941A9FA0F700FD96E9 /* BlueButton.m */,
+				84A24A961A9FA10600FD96E9 /* DarkButton.h */,
+				84A24A971A9FA11000FD96E9 /* DarkButton.m */,
+			);
+			name = Buttons;
+			sourceTree = "<group>";
+		};
+		84A24A991AA01E6D00FD96E9 /* DropDownList */ = {
+			isa = PBXGroup;
+			children = (
+				84A24A9A1AA01E9200FD96E9 /* IGLDropDownItem.h */,
+				84A24A9B1AA01E9200FD96E9 /* IGLDropDownItem.m */,
+				84A24A9C1AA01E9200FD96E9 /* IGLDropDownMenu.h */,
+				84A24A9D1AA01E9200FD96E9 /* IGLDropDownMenu.m */,
+			);
+			name = DropDownList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,12 +330,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				84A24A0C1A9D6B3D00FD96E9 /* carrot.png in Resources */,
+				84A24A851A9E687800FD96E9 /* checkbox_check.png in Resources */,
 				8486D13B1A96DD9D00F06FD6 /* Main.storyboard in Resources */,
 				8434AFB61A9C18EF00721F00 /* menu@2x.png in Resources */,
 				8434AFB51A9C18EF00721F00 /* menu.png in Resources */,
 				8486D1401A96DD9D00F06FD6 /* LaunchScreen.xib in Resources */,
 				846BD3511A9A871700DF593B /* banana.png in Resources */,
 				8486D13D1A96DD9D00F06FD6 /* Images.xcassets in Resources */,
+				84A24A8E1A9EEF3E00FD96E9 /* delete.png in Resources */,
+				84A24A861A9E687800FD96E9 /* checkbox_uncheck.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,11 +357,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				8434AFBC1A9C23C900721F00 /* ShoppingViewController.m in Sources */,
+				84A24A8C1A9EE7D700FD96E9 /* PopUpViewController.m in Sources */,
+				84A24A911A9F11EE00FD96E9 /* NavigationViewController.m in Sources */,
 				8486D1381A96DD9D00F06FD6 /* ViewController.m in Sources */,
 				8486D1351A96DD9D00F06FD6 /* AppDelegate.m in Sources */,
+				84A24A981A9FA11000FD96E9 /* DarkButton.m in Sources */,
+				84A24A9F1AA01E9200FD96E9 /* IGLDropDownMenu.m in Sources */,
 				846BD3541A9A9A8000DF593B /* TabbarViewController.m in Sources */,
 				8434AFB11A9BD55800721F00 /* SWRevealViewController.m in Sources */,
 				8434AFB91A9C205E00721F00 /* RearViewController.m in Sources */,
+				84A24A9E1AA01E9200FD96E9 /* IGLDropDownItem.m in Sources */,
+				84A24A951A9FA0F700FD96E9 /* BlueButton.m in Sources */,
+				84A24A891A9EE1F000FD96E9 /* AutocompletionTableView.m in Sources */,
 				8434AFBF1A9C331000721F00 /* User.m in Sources */,
 				846BD3141A9A67AD00DF593B /* IngredientViewController.m in Sources */,
 				8486D1321A96DD9D00F06FD6 /* main.m in Sources */,

@@ -21,6 +21,7 @@
     [userDefaults setObject:self.username forKey:USERNAME_KEY];
     [userDefaults setObject:self.email forKey:USEREMAIL_KEY];
     [userDefaults setInteger:self.UID forKey:USERID_KEY];
+    [userDefaults setInteger:self.FID forKey:USERFID_KEY];
 }
 
 @end

@@ -14,6 +14,7 @@
 #define USERNAME_KEY            @"USERNAME"
 #define USEREMAIL_KEY           @"USEREMAIL"
 #define USERID_KEY              @"USERID"
+#define USERFID_KEY             @"USERFID"
 #define USERPASSWORD_KEY        @"USERPASSWORD"
 #define APPNAME                 @"SmartCook"
 #define INGREDIENT_TABLE_NAME   @"INGREDIENT_TABLE"

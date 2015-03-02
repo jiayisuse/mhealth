@@ -18,7 +18,7 @@
 
 @end
 
-@interface PopUpViewController : UIViewController<AutocompletionTableViewDelegate>
+@interface PopUpViewController : UIViewController<UITextFieldDelegate, AutocompletionTableViewDelegate>
 
 @property (nonatomic, weak) id <popUpViewControllerProtocol> delegate;
 
@@ -28,6 +28,8 @@
 @property (weak, nonatomic) IBOutlet UIView *popUpView;
 @property (weak, nonatomic) IBOutlet UITextField *ingredientText;
 @property (weak, nonatomic) IBOutlet UITextField *amountText;
+@property (weak, nonatomic) IBOutlet UILabel *asterisk;
+@property (nonatomic, copy) NSString *title;
 
 @end
 

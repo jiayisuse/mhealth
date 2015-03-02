@@ -11,6 +11,7 @@
 #import "ViewController.h"
 #import "BlueButton.h"
 #import "IGLDropDownMenu.h"
+#import "Ingredient.h"
 #import "Global.h"
 
 extern NSArray *ingredientDict;
@@ -25,6 +26,7 @@ extern NSArray *ingredientDict;
 @implementation PopUpViewController {
     BlueButton *saveBtn;
     CGFloat viewY;
+    NSArray *units;
 }
 
 - (void)viewDidLoad {
@@ -34,7 +36,10 @@ extern NSArray *ingredientDict;
     UITapGestureRecognizer *closeTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeView:)];
     [self.closeImage addGestureRecognizer:closeTap];
     self.closeImage.userInteractionEnabled = YES;
-    self.titleLabel.text = @"New";
+    self.titleLabel.text = self.title;
+    
+    self.ingredientText.delegate = self;
+    self.amountText.delegate = self;
     
     saveBtn = [BlueButton newButton:self action:@selector(onSaveButton:) forControlEvents:UIControlEventTouchUpInside];
     [saveBtn setTitle:@"Save" forState:UIControlStateNormal];
@@ -58,7 +63,7 @@ extern NSArray *ingredientDict;
     
     viewY = self.view.frame.origin.y;
     
-    NSArray *units = [NSArray arrayWithObjects:@".Num", @".Lbs", nil];
+    units = [NSArray arrayWithObjects:@".Num", @".Box", @".Lbs", nil];
     NSMutableArray *unitItems = [[NSMutableArray alloc] init];
     for (NSString *unit in units) {
         IGLDropDownItem *item = [[IGLDropDownItem alloc] init];
@@ -120,24 +125,51 @@ extern NSArray *ingredientDict;
         self.unitMenu.expanding = NO;
         [self.unitMenu foldView];
     }
+    if (!self.autoCompleter.hidden)
+        [self.autoCompleter hideOptionsView];
     [super touchesBegan:touches withEvent:event];
 }
 
 - (void)onSaveButton:(id)sender {
     NSLog(@"button click!!!");
+    NSString *name = self.ingredientText.text;
+    if (name.length == 0) {
+        self.ingredientText.placeholder = @"Please enter ingredient";
+        return;
+    }
+    if (![ingredientDict containsObject:name]) {
+        self.ingredientText.text = @"";
+        self.ingredientText.placeholder = @"Should be chosen from the dict";
+        return;
+    }
+    
+    NSString *amount = self.amountText.text;
+    if (amount.length == 0) {
+        self.amountText.placeholder = @"Please enter amount";
+        return;
+    }
+    
+    int unitIndex = self.unitMenu.selectedIndex;
+    if (unitIndex == -1) {
+        self.asterisk.hidden = NO;
+        return;
+    }
+    
+    Ingredient *ingredient = [[Ingredient alloc] initWithName:name amount:amount unit:units[unitIndex]];
+    if (self.delegate)
+        [self.delegate fetchPopUpData:ingredient];
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 - (void)closeView:(UITapGestureRecognizer *)recognizer {
-    if (self.delegate) {
-        [self.delegate fetchPopUpData:@"hoho"];
-    }
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 //-----------------------------------------------------
 
 - (void)dropDownMenu:(IGLDropDownMenu *)dropDownMenu selectedItemAtIndex:(NSInteger)index {
-    
+    // NSLog(@"seleted %d", dropDownMenu.selectedIndex);
+    self.asterisk.hidden = YES;
 }
 
 //-----------------------------------------------------

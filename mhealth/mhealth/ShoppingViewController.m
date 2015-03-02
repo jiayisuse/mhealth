@@ -10,11 +10,23 @@
 #import "ShoppingViewController.h"
 #import "SWRevealViewController.h"
 #import "ViewController.h"
+#import "Ingredient.h"
+#import "WebService.h"
 #import "Global.h"
+
+enum MODE {
+    EDIT_MODE,
+    SHOPPING_MODE,
+};
+
+extern User *ME;
 
 @implementation ShoppingViewController {
     NSMutableArray *ingredients;
     NSMutableArray *selectedItems;
+    NSIndexPath *removeIndex;
+    NSTimeInterval expInterval;
+    enum MODE mode;
 }
 
 - (void)viewDidLoad {
@@ -27,23 +39,30 @@
     self.revealViewController.rearViewRevealWidth = REAR_VIEW_WIDTH;
     self.revealViewController.modalPresentationStyle = UIModalPresentationCurrentContext;
     
+    /*
     UILabel *titleText = [[UILabel alloc] initWithFrame: CGRectMake(0, 0, 50,50)];
     titleText.backgroundColor = [UIColor clearColor];
     [titleText setAdjustsFontSizeToFitWidth:YES];
     [titleText setFont:[UIFont boldSystemFontOfSize:18.0]];
     [titleText setTextColor:[UIColor whiteColor]];
-    [titleText setText:@"Shopping List"];
+    [titleText setText:@"Editing"];
     self.navigationItem.titleView = titleText;
+     */
+    self.navigationItem.title = @"Editing";
     self.navigationItem.hidesBackButton = YES;
     [self setDefaultButtons];
     
-    ingredients = [NSMutableArray arrayWithObjects:@"Eggplant", @"Mushroom", @"Potato", @"Banana", @"Chicken Wing", @"Onion", @"Cucumber", @"Apple", @"Magon", @"Pork", @"Beans", @"Daikon", @"Tofu", nil];
+    ingredients = [NSMutableArray array];
+    //ingredients = [NSMutableArray arrayWithObjects:@"Eggplant", @"Mushroom", @"Potato", @"Banana", @"Chicken Wing", @"Onion", @"Cucumber", @"Apple", @"Magon", @"Pork", @"Beans", @"Daikon", @"Tofu", nil];
     selectedItems = [[NSMutableArray alloc] init];
     // self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     // defaultBorderColor = UIColorFromRGB(0xe1e1e1).CGColor;
     self.tableView.separatorColor = UIColorFromRGB(0xe1e1e1);
     // self.deleteBtn.title = @"Delete";
     // self.cancelBtn.title = @"Cancel";
+    
+    mode = EDIT_MODE;
+    self.datePicker.hidden = YES;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -65,9 +84,10 @@
         //[cell.contentView.layer setBorderWidth:0.5f];
     }
     
-    cell.textLabel.text = [ingredients objectAtIndex:indexPath.row];
+    Ingredient *ingredient = [ingredients objectAtIndex:indexPath.row];
+    cell.textLabel.text = ingredient.name;
     [cell.textLabel setFrame:CGRectMake(cell.textLabel.frame.origin.x, cell.textLabel.frame.origin.y, 160, cell.textLabel.frame.size.height)];
-    cell.detailTextLabel.text = @"x3";
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ x %@", ingredient.amount, ingredient.unit];
     if ([selectedItems containsObject:indexPath]) {
         cell.imageView.image = [UIImage imageNamed:@"checkbox_check.png"];
         cell.contentView.backgroundColor = UIColorFromRGB(0xe6f0fb);
@@ -101,18 +121,26 @@
 - (void)checkboxTap:(UIGestureRecognizer *)recognizer {
     CGPoint tapLocation = [recognizer locationInView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:tapLocation];
-    if ([selectedItems containsObject:indexPath]) {
-        [selectedItems removeObject:indexPath];
-        if ([selectedItems count] == 0) {
-            [self setDefaultButtons];
+    if (mode == EDIT_MODE) {
+        if ([selectedItems containsObject:indexPath]) {
+            [selectedItems removeObject:indexPath];
+            if ([selectedItems count] == 0) {
+                [self setDefaultButtons];
+            }
+        } else {
+            [selectedItems addObject:indexPath];
+            if ([selectedItems count] == 1) {
+                [self setEditButtons];
+            }
         }
+        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
     } else {
-        [selectedItems addObject:indexPath];
-        if ([selectedItems count] == 1) {
-            [self setEditButtons];
-        }
+        self.datePicker.hidden = NO;
+        [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+        removeIndex = indexPath;
+        self.navigationItem.title = @"Pick Exp. Date";
+        self.navigationItem.rightBarButtonItem = self.doneBtn;
     }
-    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 - (IBAction)onCancelButton:(id)sender {
@@ -128,10 +156,22 @@
     [self.tableView deleteRowsAtIndexPaths:selectedItems withRowAnimation:UITableViewRowAnimationNone];
     [selectedItems removeAllObjects];
     [self setDefaultButtons];
+    if ([ingredients count] == 0)
+        self.saveButton.hidden = YES;
 }
 
 - (IBAction)onAddButton:(id)sender {
     [ViewController popUpView:@"PopUpView" titleLabel:@"New Ingredient" currentView:self];
+}
+
+- (IBAction)onEditButton:(id)sender {
+    mode = EDIT_MODE;
+    self.navigationItem.rightBarButtonItem = self.addBtn;
+    self.saveButton.hidden = NO;
+    self.navigationItem.title = @"Editing";
+    if (!self.datePicker.hidden)
+        self.datePicker.hidden = YES;
+    [self.tableView deselectRowAtIndexPath:removeIndex animated:NO];
 }
 
 - (void)setEditButtons {
@@ -146,6 +186,52 @@
 
 - (void)fetchPopUpData:(id)data {
     NSLog(@"got your! %@", data);
+    [ingredients addObject:(Ingredient *)data];
+    [self.tableView beginUpdates];
+    [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:([ingredients count] - 1) inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
+    [self.tableView endUpdates];
+    if (self.saveButton.hidden)
+        self.saveButton.hidden = NO;
+}
+
+- (IBAction)onSaveButtononSaveButton:(id)sender {
+    [self onCancelButton:sender];
+    mode = SHOPPING_MODE;
+    self.navigationItem.rightBarButtonItem = self.editBtn;
+    self.saveButton.hidden = YES;
+    self.navigationItem.title = @"Shopping >>>";
+}
+
+- (IBAction)datePickerChanged:(id)sender {
+    /*
+    UIDatePicker *expDatePicker = sender;
+    expInterval = [expDatePicker.date timeIntervalSince1970];
+     */
+}
+
+- (IBAction)onDoneButton:(id)sender {
+    WebService *ws = [[WebService alloc] initWithPHPFile:@"new_ingredient.php"];
+    ws.delegate = self;
+    Ingredient *ingredient = ingredients[removeIndex.row];
+    NSLog(@"email = %@, fid = %ld", ME.email, ME.FID);
+    NSArray *valueArray = [NSArray arrayWithObjects:ingredient.name, ingredient.amount, ingredient.unit,  @([self.datePicker.date timeIntervalSince1970]).stringValue, @(ME.FID).stringValue, ME.username, nil];
+    NSArray *keyArray = [NSArray arrayWithObjects:@"NAME", @"AMOUNT", @"UNIT", @"EXP_DATE", @"FID", USERNAME_KEY, nil];
+    NSDictionary *postDict = [NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray];
+    [ws setPostData:postDict];
+    [ws sendRequest];
+}
+
+- (void)dataReturned:(NSData *)data {
+    NSLog(@"json:\n%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+    NSString *myID;
+    NSString *errorMessage = [WebService jsonParse:data retData:&myID];
+    NSLog(@"error message: %@", errorMessage);
+    if ([errorMessage length] == 0) {
+        self.navigationItem.rightBarButtonItem = self.editBtn;
+        self.datePicker.hidden = YES;
+        [ingredients removeObjectAtIndex:removeIndex.row];
+        [self.tableView deleteRowsAtIndexPaths:@[removeIndex] withRowAnimation:UITableViewRowAnimationFade];
+    }
 }
 
 @end

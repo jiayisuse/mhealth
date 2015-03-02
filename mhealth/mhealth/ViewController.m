@@ -115,9 +115,10 @@ extern User *ME;
     NSLog(@"error message: %@", errorMessage);
     if ([errorMessage length] == 0) {
         ME.email = self.emailLogin.text;
-        ME.username = retData[1];
+        ME.username = retData[2];
         ME.UID = [retData[0] intValue];
-        NSLog(@"email = %@, username = %@, is = %ld", ME.email, ME.username, ME.UID);
+        ME.FID = [retData[1] intValue];
+        NSLog(@"email = %@, username = %@, id = %ld, fid = %ld", ME.email, ME.username, ME.UID, ME.FID);
         [ME saveDefaults];
         [ViewController replaceView:@"mainView" currentView:self];
     } else
@@ -159,6 +160,7 @@ extern User *ME;
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     PopUpViewController *newView = (PopUpViewController *)[storyboard instantiateViewControllerWithIdentifier:viewName];
     newView.delegate = (id)currView;
+    newView.title = title;
     newView.view.backgroundColor = [UIColor colorWithWhite:0.8 alpha:0.6];
     newView.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     currView.modalPresentationStyle = UIModalPresentationCurrentContext;

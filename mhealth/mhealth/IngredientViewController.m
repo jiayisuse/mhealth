@@ -7,9 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Global.h"
 #import "IngredientViewController.h"
+#import "Ingredient.h"
+#import "WebService.h"
 #import "SWRevealViewController.h"
+#import "Global.h"
 
 @interface myTableViewCell : UITableViewCell
 
@@ -39,7 +41,7 @@
     self.navigationItem.titleView = titleText;
     self.navigationItem.hidesBackButton = YES;
     
-    ingredients = [NSMutableArray arrayWithObjects:@"Eggplant", @"Mushroom", @"Potato", @"Banana", @"Chicken Wing", @"Onion", @"Cucumber", @"Apple", @"Magon", @"Pork", @"Beans", @"Daikon", @"Tofu", nil];
+    ingredients = [[NSMutableArray alloc] init];
     //self.tableView.allowsMultipleSelectionDuringEditing = NO;
     
     _siderbarBtn.target = self.revealViewController;
@@ -48,6 +50,13 @@
     [self.view addGestureRecognizer:self.revealViewController.tapGestureRecognizer];
     self.revealViewController.rearViewRevealWidth = REAR_VIEW_WIDTH;
     self.revealViewController.modalPresentationStyle = UIModalPresentationCurrentContext;
+    
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(pullIngredients:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:refreshControl];
+    self.refreshControl = refreshControl;
+    
+    [self pullIngredients:refreshControl];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -72,11 +81,14 @@
         [cell.contentView addSubview:leftDaysLable];
         cell.leftDaysLabel = leftDaysLable;
     }
-    cell.textLabel.text = [ingredients objectAtIndex:indexPath.row];
+    Ingredient *ingredient = ingredients[indexPath.row];
+    cell.textLabel.text = ingredient.name;
     [cell.textLabel setFrame:CGRectMake(cell.textLabel.frame.origin.x, cell.textLabel.frame.origin.y, 160, cell.textLabel.frame.size.height)];
-    cell.detailTextLabel.text = @"x3";
-    cell.imageView.image = [UIImage imageNamed:@"banana.png"];
-    cell.leftDaysLabel.text = [NSString stringWithFormat:@"%ld days", (long)indexPath.row];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ x %@", ingredient.amount, ingredient.unit];
+    UIImage *icon = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", ingredient.name]];
+    cell.imageView.image = icon != nil ? icon : [UIImage imageNamed:@"Empty.png"];
+    //cell.imageView.image = [UIImage imageNamed:@"Banana.png"];
+    cell.leftDaysLabel.text = [NSString stringWithFormat:@"%ld days", (long)ingredient.leftDays];
     
     return cell;
 }
@@ -96,6 +108,36 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (void)pullIngredients:(UIRefreshControl*)refreshControl {
+    [refreshControl beginRefreshing];
+    
+    // pull data from server
+    WebService *ws = [[WebService alloc] initWithPHPFile:@"query.php"];
+    ws.delegate = self;
+    NSArray *valueArray = [NSArray arrayWithObjects:@(ME.FID).stringValue, nil];
+    NSArray *keyArray = [NSArray arrayWithObjects:@"FID", nil];
+    NSDictionary *postDict = [NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray];
+    [ws setPostData:postDict];
+    [ws sendRequest];
+    
+    [self.tableView reloadData];
+}
+
+- (void)dataReturned:(NSData *)data {
+    NSMutableArray *queryIngredients = [[NSMutableArray alloc] init];
+    NSString *errorMessage = [WebService jsonParse:data retData:&queryIngredients];
+    [ingredients removeAllObjects];
+    if ([errorMessage length] == 0) {
+        for (NSDictionary *jsonIngredient in queryIngredients) {
+            [ingredients addObject:[Ingredient dictToIngredient:jsonIngredient]];
+        }
+        NSSortDescriptor *dsc = [[NSSortDescriptor alloc] initWithKey:@"leftDays" ascending:YES];
+        ingredients = [NSMutableArray arrayWithArray:[ingredients sortedArrayUsingDescriptors:[NSArray arrayWithObjects:dsc, nil]]];
+        [self.tableView reloadData];
+    }
+    [self.refreshControl endRefreshing];
 }
 
 @end

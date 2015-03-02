@@ -60,4 +60,5 @@
 
 // Call it for proper initialization
 - (UITableView *)initWithTextField:(UITextField *)textField position:(CGPoint)pos inViewController:(UIViewController *) parentViewController withOptions:(NSDictionary *)options;
+- (void) hideOptionsView;
 @end

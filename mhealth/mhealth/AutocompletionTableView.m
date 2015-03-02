@@ -61,9 +61,7 @@
 {
     NSMutableArray *tmpArray = [NSMutableArray array];
     NSRange range;
-    
-    NSLog(@"get you!!!");
-    
+        
     if (_autoCompleteDelegate && [_autoCompleteDelegate respondsToSelector:@selector(autoCompletion:suggestionsFor:)]) {
         self.suggestionsDictionary = [_autoCompleteDelegate autoCompletion:self suggestionsFor:subString];
     }
@@ -127,8 +125,6 @@
 {
     self.textField = textField;
     NSString *curString = textField.text;
-    
-    NSLog(@"changed!!! %@", curString);
     
     if (![curString length]) {
         [self hideOptionsView];

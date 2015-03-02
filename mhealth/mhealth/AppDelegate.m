@@ -22,13 +22,13 @@ extern User *ME;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    
     ME = [[User alloc] init];
     NSString *username = [userDefaults stringForKey:USERNAME_KEY];
     if (username != nil) {
         ME.username = username;
         ME.email = [userDefaults stringForKey:USEREMAIL_KEY];
         ME.UID = [userDefaults integerForKey:USERID_KEY];
+        ME.FID = [userDefaults integerForKey:USERFID_KEY];
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UIViewController *mainView = (UITabBarController *)[storyboard instantiateViewControllerWithIdentifier:@"mainView"];
         self.window.rootViewController = mainView;

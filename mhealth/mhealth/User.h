@@ -18,6 +18,7 @@
 @property (copy) NSString *username;
 @property (copy) NSString *email;
 @property long int UID;
+@property long int FID;
 
 - (void)saveDefaults;
 

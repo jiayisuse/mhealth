@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -95,24 +96,70 @@
                         <rect key="frame" x="0.0" y="20" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="RaP-95-5yf">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="zCw-65-AA4">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <outlet property="dataSource" destination="i9H-8l-gKK" id="hhu-gf-zag"/>
-                                    <outlet property="delegate" destination="i9H-8l-gKK" id="FSW-Wv-7nl"/>
+                                    <outlet property="dataSource" destination="i9H-8l-gKK" id="yvb-QV-YnO"/>
+                                    <outlet property="delegate" destination="i9H-8l-gKK" id="st3-qq-Ox4"/>
                                 </connections>
                             </tableView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nrJ-4I-FGA">
+                                <rect key="frame" x="131" y="424" width="59" height="32"/>
+                                <state key="normal" title="Save">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onSaveButtononSaveButton:" destination="i9H-8l-gKK" eventType="touchUpInside" id="e5n-hD-hgM"/>
+                                </connections>
+                            </button>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="gSd-L3-7ta">
+                                <rect key="frame" x="0.0" y="309" width="320" height="162"/>
+                                <date key="date" timeIntervalSinceReferenceDate="446936339.19222099">
+                                    <!--2015-03-01 20:58:59 +0000-->
+                                </date>
+                                <connections>
+                                    <action selector="datePickerChanged:" destination="i9H-8l-gKK" eventType="valueChanged" id="uJU-GW-Nwd"/>
+                                </connections>
+                            </datePicker>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="gSd-L3-7ta" secondAttribute="trailing" id="0Wz-rU-kTF"/>
+                            <constraint firstItem="nrJ-4I-FGA" firstAttribute="bottom" secondItem="P73-2v-L3O" secondAttribute="bottomMargin" id="3Co-Vn-g5J"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="zCw-65-AA4" secondAttribute="bottom" constant="39" id="Din-ZF-vUV"/>
+                            <constraint firstAttribute="centerX" secondItem="nrJ-4I-FGA" secondAttribute="centerX" id="ICr-H0-NtP"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="gSd-L3-7ta" secondAttribute="bottom" id="Ku4-bM-Bof"/>
+                            <constraint firstItem="gSd-L3-7ta" firstAttribute="leading" secondItem="P73-2v-L3O" secondAttribute="leadingMargin" id="VvH-9X-HDD"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="zCw-65-AA4" secondAttribute="trailing" constant="-16" id="WlB-rh-rby"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="gSd-L3-7ta" secondAttribute="bottom" constant="-16" id="Xcz-7e-6hW"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="gSd-L3-7ta" secondAttribute="trailing" constant="-16" id="cbh-p6-G6V"/>
+                            <constraint firstItem="gSd-L3-7ta" firstAttribute="leading" secondItem="P73-2v-L3O" secondAttribute="leadingMargin" constant="-16" id="egL-ZH-1oL"/>
+                            <constraint firstItem="zCw-65-AA4" firstAttribute="leading" secondItem="P73-2v-L3O" secondAttribute="leadingMargin" constant="-16" id="wtJ-Ub-UKs"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="nrJ-4I-FGA" secondAttribute="bottom" id="xdn-48-Ui3"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="gSd-L3-7ta" secondAttribute="bottom" id="yIJ-5D-Y96"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="0Wz-rU-kTF"/>
+                                <exclude reference="Ku4-bM-Bof"/>
+                                <exclude reference="VvH-9X-HDD"/>
+                                <exclude reference="yIJ-5D-Y96"/>
+                                <exclude reference="3Co-Vn-g5J"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="YEc-om-qDb"/>
                     <connections>
                         <outlet property="addBtn" destination="rlq-bB-qyp" id="DLu-vI-5iL"/>
                         <outlet property="cancelBtn" destination="MmC-Gm-1Lg" id="kLY-GE-DKd"/>
+                        <outlet property="datePicker" destination="gSd-L3-7ta" id="oxn-qp-Pxs"/>
                         <outlet property="deleteBtn" destination="Ef6-qb-bwr" id="JhS-7T-fY8"/>
+                        <outlet property="doneBtn" destination="ii6-JV-DxO" id="8Vu-AW-1bk"/>
+                        <outlet property="editBtn" destination="cQg-hH-87a" id="M14-QR-urV"/>
+                        <outlet property="saveButton" destination="nrJ-4I-FGA" id="vFf-hH-XtT"/>
                         <outlet property="siderbarBtn" destination="GGN-hB-5mc" id="Lws-aa-z3E"/>
-                        <outlet property="tableView" destination="RaP-95-5yf" id="XyR-qY-BL1"/>
+                        <outlet property="tableView" destination="zCw-65-AA4" id="NpA-f4-4Fn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eDf-O1-ZSW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -128,9 +175,19 @@
                         <action selector="onCancelButton:" destination="i9H-8l-gKK" id="LRY-8U-2Lc"/>
                     </connections>
                 </barButtonItem>
+                <barButtonItem title="Done" style="done" id="ii6-JV-DxO">
+                    <connections>
+                        <action selector="onDoneButton:" destination="i9H-8l-gKK" id="8du-48-nfu"/>
+                    </connections>
+                </barButtonItem>
                 <barButtonItem systemItem="add" id="rlq-bB-qyp">
                     <connections>
                         <action selector="onAddButton:" destination="i9H-8l-gKK" id="cQJ-dt-Roc"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem title="Edit" id="cQg-hH-87a">
+                    <connections>
+                        <action selector="onEditButton:" destination="i9H-8l-gKK" id="QpQ-oT-1KL"/>
                     </connections>
                 </barButtonItem>
             </objects>
@@ -350,17 +407,23 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Amount" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UOR-iw-zIN">
+                                        <rect key="frame" x="44" y="114" width="78" height="27"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A8n-6A-WKH">
                                         <rect key="frame" x="0.0" y="5" width="251" height="21"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="textColor" red="0.14712035316962291" green="0.55997701767763131" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Amount" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UOR-iw-zIN">
-                                        <rect key="frame" x="44" y="114" width="78" height="27"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="*" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oii-JK-RMS">
+                                        <rect key="frame" x="213" y="119" width="10" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -370,6 +433,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="amountText" destination="UOR-iw-zIN" id="NWt-YG-lQT"/>
+                        <outlet property="asterisk" destination="Oii-JK-RMS" id="Wbs-BJ-qEd"/>
                         <outlet property="closeImage" destination="lbQ-Eq-EA4" id="p2e-cf-5gx"/>
                         <outlet property="ingredientText" destination="gkI-nS-FjA" id="8MA-hb-4BJ"/>
                         <outlet property="popUpView" destination="wey-Ep-jft" id="upz-RT-z5V"/>
@@ -420,7 +484,7 @@
         <scene sceneID="b3C-rV-zIf">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OWS-IZ-jgC" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rwE-de-cWd" customClass="NavigationViewControler" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rwE-de-cWd" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Shopping List" image="Shopping" id="pKZ-eA-3SF"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="qZt-dG-igq">

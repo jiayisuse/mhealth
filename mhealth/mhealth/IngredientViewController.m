@@ -23,9 +23,15 @@
 
 @end
 
+enum WEBSERVICE_OP {
+    OP_QUERY,
+    OP_DELETE,
+};
 
 @implementation IngredientViewController {
     NSMutableArray *ingredients;
+    NSIndexPath *removeIndex;
+    enum WEBSERVICE_OP webserviceOp;
 }
 
 - (void)viewDidLoad {
@@ -48,6 +54,7 @@
     _siderbarBtn.action = @selector(revealToggle:);
     //[self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     [self.view addGestureRecognizer:self.revealViewController.tapGestureRecognizer];
+    [self.tableView addGestureRecognizer:self.revealViewController.tapGestureRecognizer];
     self.revealViewController.rearViewRevealWidth = REAR_VIEW_WIDTH;
     self.revealViewController.modalPresentationStyle = UIModalPresentationCurrentContext;
     
@@ -100,9 +107,16 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [ingredients removeObjectAtIndex:indexPath.row];
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationLeft];
-        [self.view addGestureRecognizer:self.revealViewController.tapGestureRecognizer];
+        removeIndex = indexPath;
+        Ingredient *ingredient = ingredients[indexPath.row];
+        webserviceOp = OP_DELETE;
+        WebService *ws = [[WebService alloc] initWithPHPFile:@"delete.php"];
+        ws.delegate = self;
+        NSArray *valueArray = [NSArray arrayWithObjects:@(ingredient.IID).stringValue, nil];
+        NSArray *keyArray = [NSArray arrayWithObjects:DB_INGREDIENT_ID_KEY, nil];
+        NSDictionary *postDict = [NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray];
+        [ws setPostData:postDict];
+        [ws sendRequest];
     }
 }
 
@@ -114,6 +128,7 @@
     [refreshControl beginRefreshing];
     
     // pull data from server
+    webserviceOp = OP_QUERY;
     WebService *ws = [[WebService alloc] initWithPHPFile:@"query.php"];
     ws.delegate = self;
     NSArray *valueArray = [NSArray arrayWithObjects:@(ME.FID).stringValue, nil];
@@ -128,14 +143,28 @@
 - (void)dataReturned:(NSData *)data {
     NSMutableArray *queryIngredients = [[NSMutableArray alloc] init];
     NSString *errorMessage = [WebService jsonParse:data retData:&queryIngredients];
-    [ingredients removeAllObjects];
     if ([errorMessage length] == 0) {
-        for (NSDictionary *jsonIngredient in queryIngredients) {
-            [ingredients addObject:[Ingredient dictToIngredient:jsonIngredient]];
+        switch (webserviceOp) {
+            case OP_QUERY: {
+                [ingredients removeAllObjects];
+                for (NSDictionary *jsonIngredient in queryIngredients) {
+                    [ingredients addObject:[Ingredient dictToIngredient:jsonIngredient]];
+                }
+                NSSortDescriptor *dsc = [[NSSortDescriptor alloc] initWithKey:@"leftDays" ascending:YES];
+                ingredients = [NSMutableArray arrayWithArray:[ingredients sortedArrayUsingDescriptors:[NSArray arrayWithObjects:dsc, nil]]];
+                [self.tableView reloadData];
+                break;
+            }
+            case OP_DELETE: {
+                [ingredients removeObjectAtIndex:removeIndex.row];
+                [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:removeIndex, nil] withRowAnimation:UITableViewRowAnimationLeft];
+                [self.view addGestureRecognizer:self.revealViewController.tapGestureRecognizer];
+                [self.tableView addGestureRecognizer:self.revealViewController.tapGestureRecognizer];
+                break;
+            }
+            default:
+                break;
         }
-        NSSortDescriptor *dsc = [[NSSortDescriptor alloc] initWithKey:@"leftDays" ascending:YES];
-        ingredients = [NSMutableArray arrayWithArray:[ingredients sortedArrayUsingDescriptors:[NSArray arrayWithObjects:dsc, nil]]];
-        [self.tableView reloadData];
     }
     [self.refreshControl endRefreshing];
 }

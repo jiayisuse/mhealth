@@ -155,7 +155,7 @@ extern NSArray *ingredientDict;
         return;
     }
     
-    Ingredient *ingredient = [[Ingredient alloc] initWithName:name amount:amount unit:units[unitIndex]];
+    Ingredient *ingredient = [[Ingredient alloc] initWithName:name amount:amount unit:units[unitIndex] iid:0];
     if (self.delegate)
         [self.delegate fetchPopUpData:ingredient];
     [self dismissViewControllerAnimated:NO completion:nil];

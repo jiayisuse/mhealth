@@ -9,6 +9,7 @@
 #ifndef mhealth_Ingredient_h
 #define mhealth_Ingredient_h
 
+#define DB_INGREDIENT_ID_KEY        @"ID"
 #define DB_INGREDIENT_NAME_KEY      @"name"
 #define DB_INGREDIENT_USERNAME_KEY  @"user_name"
 #define DB_INGREDIENT_FID_KEY       @"family_id"
@@ -24,8 +25,8 @@
 @property (strong, nonatomic) NSString *unit;
 @property (nonatomic) NSInteger leftDays;
 
-- (Ingredient *)initWithName:(NSString *)aName amount:(NSString *)aAmount unit:(NSString *)aUnit;
-- (Ingredient *)initWithName:(NSString *)aName amount:(NSString *)aAmount unit:(NSString *)aUnit expData:(NSInteger)aExpData;
+- (Ingredient *)initWithName:(NSString *)aName amount:(NSString *)aAmount unit:(NSString *)aUnit iid:(NSInteger)aIid;
+- (Ingredient *)initWithName:(NSString *)aName amount:(NSString *)aAmount unit:(NSString *)aUnit iid:(NSInteger)aIid expData:(NSInteger)aExpData;
 + (NSInteger)daysDiff:(NSDate *)dateOne anotherDate:(NSDate *)dateTwo;
 + (Ingredient *)dictToIngredient:(NSDictionary *)jsonDict;
 

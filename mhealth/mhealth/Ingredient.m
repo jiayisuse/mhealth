@@ -11,16 +11,17 @@
 
 @implementation Ingredient
 
-- (Ingredient *)initWithName:(NSString *)aName amount:(NSString *)aAmount unit:(NSString *)aUnit {
+- (Ingredient *)initWithName:(NSString *)aName amount:(NSString *)aAmount unit:(NSString *)aUnit iid:(NSInteger)aIid {
     Ingredient *ingredient = [[Ingredient alloc] init];
+    ingredient.IID = aIid;
     ingredient.name = aName;
     ingredient.amount = aAmount;
     ingredient.unit = aUnit;
     return ingredient;
 }
 
-- (Ingredient *)initWithName:(NSString *)aName amount:(NSString *)aAmount unit:(NSString *)aUnit expData:(NSInteger)aExpData {
-    Ingredient *ingredient = [[Ingredient alloc] initWithName:aName amount:aAmount unit:aUnit];
+- (Ingredient *)initWithName:(NSString *)aName amount:(NSString *)aAmount unit:(NSString *)aUnit iid:(NSInteger)aIid expData:(NSInteger)aExpData {
+    Ingredient *ingredient = [[Ingredient alloc] initWithName:aName amount:aAmount unit:aUnit iid:aIid];
     ingredient.leftDays = (aExpData - [[NSDate date] timeIntervalSince1970]) / (24 * 60 * 60);
     return ingredient;
 }
@@ -31,7 +32,7 @@
 }
 
 + (Ingredient *)dictToIngredient:(NSDictionary *)jsonDict {
-    return [[Ingredient alloc] initWithName:jsonDict[DB_INGREDIENT_NAME_KEY] amount:jsonDict[DB_INGREDIENT_AMOUNT_KEY] unit:jsonDict[DB_INGREDIENT_UNIT_KEY] expData:[jsonDict[DB_INGREDIENT_EXP_KEY] intValue]];
+    return [[Ingredient alloc] initWithName:jsonDict[DB_INGREDIENT_NAME_KEY] amount:jsonDict[DB_INGREDIENT_AMOUNT_KEY] unit:jsonDict[DB_INGREDIENT_UNIT_KEY] iid:[jsonDict[DB_INGREDIENT_ID_KEY] intValue] expData:[jsonDict[DB_INGREDIENT_EXP_KEY] intValue]];
 }
 
 @end

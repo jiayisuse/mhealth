@@ -35,7 +35,7 @@ extern User *ME;
         [self.window makeKeyAndVisible];
     }
     
-    ingredientDict = [NSArray arrayWithObjects:@"Eggplant", @"Mushroom", @"Potato", @"Banana", @"Chicken Wing", @"Onion", @"Cucumber", @"Apple", @"Magon", @"Pork", @"Beans", @"Daikon", @"Tofu", nil];
+    ingredientDict = [NSArray arrayWithObjects:@"Apple", @"Banana", @"Beans", @"Beef", @"Blueberry", @"Bread", @"Broccoli", @"Burger", @"Butter", @"Cake", @"Carrot", @"Cheese", @"Cherry", @"Chicken", @"Chicken Leg", @"Chicken Wing", @"Chips", @"Chocolate", @"Cola", @"Corn", @"Cucumber", @"Daikon", @"Donut", @"Egg", @"Eggplant", @"Fish", @"French Fries", @"Garlic", @"Grap", @"Green Onion", @"Green Pepper", @"Hotdog", @"Icecream", @"Lemon", @"Lettuce", @"Lime", @"Milk", @"Mushroom", @"Noodle", @"Orange Juice", @"Pear", @"Pineapple", @"Pinto Beans", @"Pizza", @"Potato", @"Red Onion", @"Red Pepper", @"Sandwitch", @"Sausage", @"Shrimp", @"Soda", @"Strawberry", @"Tofu", @"Tomato", @"Turkey", @"Watermelon", @"White Rice", @"Wine", @"Yogurt", nil];
     
     return YES;
 }

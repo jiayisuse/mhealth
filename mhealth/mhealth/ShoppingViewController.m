@@ -32,7 +32,7 @@ extern User *ME;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _siderbarBtn.target = self.revealViewController;
+    //_siderbarBtn.target = self.revealViewController;
     _siderbarBtn.action = @selector(revealToggle:);
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     [self.view addGestureRecognizer:self.revealViewController.tapGestureRecognizer];

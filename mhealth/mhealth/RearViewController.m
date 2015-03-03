@@ -74,7 +74,7 @@ extern User *ME;
      */
     
     UIImageView *profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(12, 10, 60, 60)];
-    profileImage.image = [UIImage imageNamed:@"carrot.png"];
+    profileImage.image = [UIImage imageNamed:@"carrot_profile.png"];
     [profileImage.layer setBorderColor: [[UIColor colorWithWhite:0.3 alpha:1.0] CGColor]];
     [profileImage.layer setBorderWidth: 1.0];
     profileImage.layer.cornerRadius = 1.0;

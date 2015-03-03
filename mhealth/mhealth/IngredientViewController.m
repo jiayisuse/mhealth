@@ -50,7 +50,7 @@ enum WEBSERVICE_OP {
     ingredients = [[NSMutableArray alloc] init];
     //self.tableView.allowsMultipleSelectionDuringEditing = NO;
     
-    _siderbarBtn.target = self.revealViewController;
+    //_siderbarBtn.target = self.revealViewController;
     _siderbarBtn.action = @selector(revealToggle:);
     //[self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     [self.view addGestureRecognizer:self.revealViewController.tapGestureRecognizer];

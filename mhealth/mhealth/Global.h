@@ -29,7 +29,7 @@
 
 static const NSString *DOMAIN_URL = @"http://jiayi.net/smart_cook";
 static const int REAR_VIEW_WIDTH = 250;
-static const int notifyBeforeDays = 3;
+static const int NotifyBeforeDays = 3;
 
 User *ME;
 NSArray *ingredientDict;

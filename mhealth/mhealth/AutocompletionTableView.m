@@ -103,7 +103,9 @@
         cell.textLabel.font = self.cellLabelFont;
     }
     cell.textLabel.adjustsFontSizeToFitWidth = NO;
-    cell.textLabel.text = [self.suggestionOptions objectAtIndex:indexPath.row];
+    NSString *labelText = [self.suggestionOptions objectAtIndex:indexPath.row];
+    cell.textLabel.text = labelText;
+    cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", labelText]];
 
     return cell;
 }

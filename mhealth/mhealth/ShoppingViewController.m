@@ -32,7 +32,7 @@ extern User *ME;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //_siderbarBtn.target = self.revealViewController;
+    _siderbarBtn.target = self.revealViewController;
     _siderbarBtn.action = @selector(revealToggle:);
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     [self.view addGestureRecognizer:self.revealViewController.tapGestureRecognizer];
@@ -167,7 +167,8 @@ extern User *ME;
 - (IBAction)onEditButton:(id)sender {
     mode = EDIT_MODE;
     self.navigationItem.rightBarButtonItem = self.addBtn;
-    self.saveButton.hidden = NO;
+    if ([ingredients count])
+        self.saveButton.hidden = NO;
     self.navigationItem.title = @"Editing";
     if (!self.datePicker.hidden)
         self.datePicker.hidden = YES;
@@ -206,7 +207,7 @@ extern User *ME;
     /*
     UIDatePicker *expDatePicker = sender;
     expInterval = [expDatePicker.date timeIntervalSince1970];
-     */
+    */
 }
 
 - (IBAction)onDoneButton:(id)sender {
@@ -231,6 +232,8 @@ extern User *ME;
         self.datePicker.hidden = YES;
         [ingredients removeObjectAtIndex:removeIndex.row];
         [self.tableView deleteRowsAtIndexPaths:@[removeIndex] withRowAnimation:UITableViewRowAnimationFade];
+        if ([ingredients count] == 0)
+            self.saveButton.hidden = YES;
     }
 }
 

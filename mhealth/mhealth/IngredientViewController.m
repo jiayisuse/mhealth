@@ -28,6 +28,9 @@ enum WEBSERVICE_OP {
     OP_DELETE,
 };
 
+#define INGREDIENT_NOTIFICATION_KEY             @"IID"
+#define NOTIFICATION_DEFAULT_KEY(ingredient)    [NSString stringWithFormat:@"%ld", (long)ingredient.IID]
+
 @implementation IngredientViewController {
     NSMutableArray *ingredients;
     NSIndexPath *removeIndex;
@@ -50,7 +53,7 @@ enum WEBSERVICE_OP {
     ingredients = [[NSMutableArray alloc] init];
     //self.tableView.allowsMultipleSelectionDuringEditing = NO;
     
-    //_siderbarBtn.target = self.revealViewController;
+    _siderbarBtn.target = self.revealViewController;
     _siderbarBtn.action = @selector(revealToggle:);
     //[self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     [self.view addGestureRecognizer:self.revealViewController.tapGestureRecognizer];
@@ -153,9 +156,14 @@ enum WEBSERVICE_OP {
                 NSSortDescriptor *dsc = [[NSSortDescriptor alloc] initWithKey:@"leftDays" ascending:YES];
                 ingredients = [NSMutableArray arrayWithArray:[ingredients sortedArrayUsingDescriptors:[NSArray arrayWithObjects:dsc, nil]]];
                 [self.tableView reloadData];
+                [self reloadNotification];
                 break;
             }
             case OP_DELETE: {
+                Ingredient *ingredient = ingredients[removeIndex.row];
+                if ([self hasNotificationFor:ingredient])
+                    [self deleteNotificationFor:ingredient];
+                
                 [ingredients removeObjectAtIndex:removeIndex.row];
                 [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:removeIndex, nil] withRowAnimation:UITableViewRowAnimationLeft];
                 [self.view addGestureRecognizer:self.revealViewController.tapGestureRecognizer];
@@ -167,6 +175,89 @@ enum WEBSERVICE_OP {
         }
     }
     [self.refreshControl endRefreshing];
+}
+
+- (void)reloadNotification {
+    //[[UIApplication sharedApplication] cancelAllLocalNotifications];
+    for (Ingredient *ingredient in ingredients) {
+        int nNotifications = 0;
+        if (ingredient.leftDays > 3)
+            nNotifications = NotifyBeforeDays + 1;
+        else if (ingredient.leftDays <= 3 && ingredient.leftDays >= 0)
+            nNotifications = ingredient.leftDays + 1;
+        if (64 - [[[UIApplication sharedApplication] scheduledLocalNotifications] count] < nNotifications)
+            break;
+        
+        if (![self hasNotificationFor:ingredient]) {
+            for (int daysBefore = -1; daysBefore <= NotifyBeforeDays && daysBefore < ingredient.leftDays; daysBefore++) {
+                UILocalNotification *notification = [[UILocalNotification alloc] init];
+                notification.timeZone = [NSTimeZone defaultTimeZone];
+                notification.fireDate = [self expNotifyDateAdv:(ingredient.leftDays - daysBefore)];
+                notification.alertBody = [self expNotifyBody:daysBefore ingredient:ingredient];
+                notification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber] + 1;
+                notification.userInfo = [NSDictionary dictionaryWithObject:NOTIFICATION_DEFAULT_KEY(ingredient) forKey:INGREDIENT_NOTIFICATION_KEY];
+                [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+                [self storeNotificationFor:ingredient];
+                NSLog(@"body: %@", notification.alertBody);
+                NSLog(@"date: %@\n", [notification.fireDate description]);
+            }
+        }
+    }
+}
+
+- (BOOL)hasNotificationFor:(Ingredient *)ingredient {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *notificationKey = NOTIFICATION_DEFAULT_KEY(ingredient);
+    return (BOOL)[userDefaults valueForKey:notificationKey];
+}
+
+- (void)storeNotificationFor:(Ingredient *)ingredient {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *notificationKey = NOTIFICATION_DEFAULT_KEY(ingredient);
+    [userDefaults setBool:YES forKey:notificationKey];
+}
+
+- (void)deleteNotificationFor:(Ingredient *)ingredient {
+    NSString *notificationKey = NOTIFICATION_DEFAULT_KEY(ingredient);
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults removeObjectForKey:notificationKey];
+    
+    NSArray *notifications = [[UIApplication sharedApplication] scheduledLocalNotifications];
+    int i = 0;
+    for (UILocalNotification *notification in notifications) {
+        NSString *notificationID = notification.userInfo[INGREDIENT_NOTIFICATION_KEY];
+        NSLog(@"NOTIFY ID '%@' %d", notificationID, ++i);
+        if ([notificationID isEqualToString:notificationKey]) {
+            NSLog(@"Delete %@", ingredient.name);
+            [[UIApplication sharedApplication] cancelLocalNotification:notification];
+        }
+    }
+}
+
+- (NSDate *)expNotifyDateAdv:(NSInteger)advDays {
+    if (advDays == 0)
+        return [[NSDate date] dateByAddingTimeInterval:5];
+    else {
+        NSCalendar *cal = [NSCalendar currentCalendar];
+        [cal setTimeZone:[NSTimeZone systemTimeZone]];
+        NSDateComponents *comps = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[NSDate date]];
+        [comps setHour:2];
+        [comps setMinute:0];
+        [comps setSecond:0];
+        NSDate *triggerDate = [cal dateFromComponents:comps];
+        return [triggerDate dateByAddingTimeInterval:advDays * 24 * 60 * 60];
+    }
+}
+
+- (NSString *)expNotifyBody:(NSInteger)leftDays ingredient:(Ingredient *)ingredient {
+    NSLog(@"left day = %ld", (long)ingredient.leftDays);
+    if (leftDays < 0)
+        return [NSString stringWithFormat:@"%@ expired!", ingredient.name];
+    if (leftDays == 0)
+        return [NSString stringWithFormat:@"%@ TODAY", ingredient.name];
+    if (leftDays == 1)
+        return [NSString stringWithFormat:@"%@ 1 day left", ingredient.name];
+    return [NSString stringWithFormat:@"%@ %ld days left", ingredient.name, (long)leftDays];
 }
 
 @end

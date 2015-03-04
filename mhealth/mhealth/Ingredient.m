@@ -22,7 +22,7 @@
 
 - (Ingredient *)initWithName:(NSString *)aName amount:(NSString *)aAmount unit:(NSString *)aUnit iid:(NSInteger)aIid expData:(NSInteger)aExpData {
     Ingredient *ingredient = [[Ingredient alloc] initWithName:aName amount:aAmount unit:aUnit iid:aIid];
-    ingredient.leftDays = (aExpData - [[NSDate date] timeIntervalSince1970]) / (24 * 60 * 60);
+    ingredient.leftDays = (aExpData + (23 * 60 * 60 + 59 * 60 + 59) - [[NSDate date] timeIntervalSince1970]) / (24 * 60 * 60);
     return ingredient;
 }
 

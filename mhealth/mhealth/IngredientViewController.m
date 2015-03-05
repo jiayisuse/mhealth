@@ -38,13 +38,15 @@ enum WEBSERVICE_OP {
     [super viewDidLoad];
     // Initialize table data
     
+    /*
     UILabel *titleText = [[UILabel alloc] initWithFrame: CGRectMake(0, 0, 50,50)];
     titleText.backgroundColor = [UIColor clearColor];
     [titleText setAdjustsFontSizeToFitWidth:YES];
     [titleText setFont:[UIFont boldSystemFontOfSize:18.0]];
     [titleText setTextColor:[UIColor whiteColor]];
     [titleText setText:@"Ingredients"];
-    self.navigationItem.titleView = titleText;
+     */
+    self.navigationItem.title = @"Ingredients";
     self.navigationItem.hidesBackButton = YES;
     
     ingredients = [[NSMutableArray alloc] init];

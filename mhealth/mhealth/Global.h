@@ -15,7 +15,12 @@
 #define USEREMAIL_KEY           @"USEREMAIL"
 #define USERID_KEY              @"USERID"
 #define USERFID_KEY             @"USERFID"
+#define USERFNAME_KEY           @"USERFNAME"
 #define USERPASSWORD_KEY        @"USERPASSWORD"
+
+#define FAMILYNAME_KEY          @"FAMILYNAME"
+#define FAMILYPASSWORD_KEY      @"FAMILYPASSWORD"
+
 #define NOTIFICATION_BOOL_KEY   @"NOTIFICATION_BOOL"
 
 #define APPNAME                 @"SmartCook"

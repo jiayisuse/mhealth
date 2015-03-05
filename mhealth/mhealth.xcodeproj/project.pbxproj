@@ -104,6 +104,10 @@
 		84A24C631AA59D1B00FD96E9 /* Yogurt.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A24C1D1AA59D1B00FD96E9 /* Yogurt.png */; };
 		84A24C661AA5A01700FD96E9 /* Chicken Wing.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A24C641AA5A01700FD96E9 /* Chicken Wing.png */; };
 		84A24C671AA5A01700FD96E9 /* Chicken.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A24C651AA5A01700FD96E9 /* Chicken.png */; };
+		84A24C6A1AA80DC600FD96E9 /* NewFamilyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A24C691AA80DC600FD96E9 /* NewFamilyViewController.m */; };
+		84A24C6D1AA81D1100FD96E9 /* cartoon-family.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A24C6B1AA81D1100FD96E9 /* cartoon-family.png */; };
+		84A24C6E1AA81D1100FD96E9 /* family.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 84A24C6C1AA81D1100FD96E9 /* family.jpg */; };
+		84A24C711AA8330B00FD96E9 /* JoinFamilyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A24C701AA8330B00FD96E9 /* JoinFamilyViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -236,6 +240,12 @@
 		84A24C1D1AA59D1B00FD96E9 /* Yogurt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Yogurt.png; path = pics/Yogurt.png; sourceTree = "<group>"; };
 		84A24C641AA5A01700FD96E9 /* Chicken Wing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Chicken Wing.png"; path = "pics/Chicken Wing.png"; sourceTree = "<group>"; };
 		84A24C651AA5A01700FD96E9 /* Chicken.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Chicken.png; path = pics/Chicken.png; sourceTree = "<group>"; };
+		84A24C681AA80DAF00FD96E9 /* NewFamilyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewFamilyViewController.h; sourceTree = "<group>"; };
+		84A24C691AA80DC600FD96E9 /* NewFamilyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewFamilyViewController.m; sourceTree = "<group>"; };
+		84A24C6B1AA81D1100FD96E9 /* cartoon-family.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cartoon-family.png"; sourceTree = "<group>"; };
+		84A24C6C1AA81D1100FD96E9 /* family.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = family.jpg; sourceTree = "<group>"; };
+		84A24C6F1AA832FB00FD96E9 /* JoinFamilyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoinFamilyViewController.h; sourceTree = "<group>"; };
+		84A24C701AA8330B00FD96E9 /* JoinFamilyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoinFamilyViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -271,6 +281,8 @@
 		8434AFB21A9C18D900721F00 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				84A24C6B1AA81D1100FD96E9 /* cartoon-family.png */,
+				84A24C6C1AA81D1100FD96E9 /* family.jpg */,
 				84A24BD81AA59D1B00FD96E9 /* Apple_1.png */,
 				84A24BD91AA59D1B00FD96E9 /* Apple.png */,
 				84A24BDA1AA59D1B00FD96E9 /* Banana_1.png */,
@@ -400,6 +412,10 @@
 				8434AFBD1A9C330400721F00 /* User.h */,
 				8434AFBE1A9C331000721F00 /* User.m */,
 				8434AFAE1A9BD53C00721F00 /* Library */,
+				84A24C681AA80DAF00FD96E9 /* NewFamilyViewController.h */,
+				84A24C691AA80DC600FD96E9 /* NewFamilyViewController.m */,
+				84A24C6F1AA832FB00FD96E9 /* JoinFamilyViewController.h */,
+				84A24C701AA8330B00FD96E9 /* JoinFamilyViewController.m */,
 			);
 			path = mhealth;
 			sourceTree = "<group>";
@@ -558,6 +574,7 @@
 				84A24C321AA59D1B00FD96E9 /* Cheese.png in Resources */,
 				84A24C511AA59D1B00FD96E9 /* Pineapple.png in Resources */,
 				84A24C2D1AA59D1B00FD96E9 /* cart_big.png in Resources */,
+				84A24C6D1AA81D1100FD96E9 /* cartoon-family.png in Resources */,
 				8434AFB61A9C18EF00721F00 /* menu@2x.png in Resources */,
 				84A24C581AA59D1B00FD96E9 /* Sandwitch.png in Resources */,
 				84A24C671AA5A01700FD96E9 /* Chicken.png in Resources */,
@@ -575,6 +592,7 @@
 				84A24C3D1AA59D1B00FD96E9 /* Egg.png in Resources */,
 				84A24C5C1AA59D1B00FD96E9 /* Strawberry.png in Resources */,
 				84A24C341AA59D1B00FD96E9 /* Chicken Leg.png in Resources */,
+				84A24C6E1AA81D1100FD96E9 /* family.jpg in Resources */,
 				84A24C601AA59D1B00FD96E9 /* Watermelon.png in Resources */,
 				84A24C221AA59D1B00FD96E9 /* Beans.png in Resources */,
 				84A24C2F1AA59D1B00FD96E9 /* cart_full_80x80.png in Resources */,
@@ -630,6 +648,7 @@
 			files = (
 				8434AFBC1A9C23C900721F00 /* ShoppingViewController.m in Sources */,
 				84A24A8C1A9EE7D700FD96E9 /* PopUpViewController.m in Sources */,
+				84A24C711AA8330B00FD96E9 /* JoinFamilyViewController.m in Sources */,
 				8486D1381A96DD9D00F06FD6 /* ViewController.m in Sources */,
 				8486D1351A96DD9D00F06FD6 /* AppDelegate.m in Sources */,
 				84A24A981A9FA11000FD96E9 /* DarkButton.m in Sources */,
@@ -645,6 +664,7 @@
 				846BD3141A9A67AD00DF593B /* IngredientViewController.m in Sources */,
 				8486D1321A96DD9D00F06FD6 /* main.m in Sources */,
 				846BD35A1A9AA79900DF593B /* WebService.m in Sources */,
+				84A24C6A1AA80DC600FD96E9 /* NewFamilyViewController.m in Sources */,
 				8486D1661A996F0300F06FD6 /* NewAccountViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

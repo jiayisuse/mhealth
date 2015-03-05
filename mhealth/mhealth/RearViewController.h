@@ -10,8 +10,9 @@
 #define mhealth_RearViewController_h
 
 #import <UIKit/UIKit.h>
+#import "WebService.h"
 
-@interface RearViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
+@interface RearViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, WebServiceProtocol>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 

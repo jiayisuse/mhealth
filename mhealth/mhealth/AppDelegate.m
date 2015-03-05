@@ -29,6 +29,7 @@ extern User *ME;
         ME.email = [userDefaults stringForKey:USEREMAIL_KEY];
         ME.UID = [userDefaults integerForKey:USERID_KEY];
         ME.FID = [userDefaults integerForKey:USERFID_KEY];
+        ME.familyName = [userDefaults stringForKey:USERFNAME_KEY];
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UIViewController *mainView = (UITabBarController *)[storyboard instantiateViewControllerWithIdentifier:@"mainView"];
         self.window.rootViewController = mainView;

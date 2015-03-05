@@ -1,40 +1,32 @@
 //
-//  NewAccountViewController.m
+//  NewFamilyVewController.m
 //  mhealth
 //
-//  Created by jiayi on 2/21/15.
+//  Created by jiayi on 3/4/15.
 //  Copyright (c) 2015 jiayi. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "NewAccountViewController.h"
-#import "WebService.h"
+#import "NewFamilyViewController.h"
 #import "ViewController.h"
+#import "User.h"
 #import "Global.h"
 
 extern User *ME;
 
-@interface NewAccountViewController() {
-    WebService *ws;
-}
-@end
-
-@implementation NewAccountViewController
+@implementation NewFamilyController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    self.email.delegate = self;
-    self.username.delegate = self;
+    self.familyName.delegate = self;
     self.password.delegate = self;
     self.rePassword.delegate = self;
-    self.email.returnKeyType = UIReturnKeyNext;
-    self.username.returnKeyType = UIReturnKeyNext;
+    self.familyName.returnKeyType = UIReturnKeyNext;
     self.password.returnKeyType = UIReturnKeyNext;
     self.rePassword.returnKeyType = UIReturnKeyDefault;
-    [self.email addTarget:self action:@selector(nextOnKeyboard:) forControlEvents:UIControlEventEditingDidEndOnExit];
-    [self.username addTarget:self action:@selector(nextOnKeyboard:) forControlEvents:UIControlEventEditingDidEndOnExit];
+    [self.familyName addTarget:self action:@selector(nextOnKeyboard:) forControlEvents:UIControlEventEditingDidEndOnExit];
     [self.password addTarget:self action:@selector(nextOnKeyboard:) forControlEvents:UIControlEventEditingDidEndOnExit];
     [self.rePassword addTarget:self action:@selector(nextOnKeyboard:) forControlEvents:UIControlEventEditingDidEndOnExit];
     
@@ -44,12 +36,9 @@ extern User *ME;
     [titleText setAdjustsFontSizeToFitWidth:YES];
     [titleText setFont:[UIFont boldSystemFontOfSize:18.0]];
     [titleText setTextColor:[UIColor whiteColor]];
-    [titleText setText:APPNAME];
-     */
-    self.navigationItem.title = @"New Account";
-    
-    ws = [[WebService alloc] initWithPHPFile:@"new_account.php"];
-    ws.delegate = self;
+    [titleText setText:@"New Family"];
+    */
+    self.navigationItem.title = @"New Faimly";
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
@@ -81,9 +70,7 @@ extern User *ME;
 
 - (IBAction)nextOnKeyboard:(id)sender
 {
-    if (sender == self.email) {
-        [self.username becomeFirstResponder];
-    } else if (sender == self.username) {
+    if (sender == self.familyName) {
         [self.password becomeFirstResponder];
     } else if (sender == self.password) {
         [self.rePassword becomeFirstResponder];
@@ -92,9 +79,10 @@ extern User *ME;
         [self.view endEditing:YES];
         [self resumeView];
         if ([self inputIsOK]) {
-            NSArray *valueArray = [NSArray arrayWithObjects:self.email.text, self.username.text,
-                                   self.password.text, nil];
-            NSArray *keyArray = [NSArray arrayWithObjects:USEREMAIL_KEY, USERNAME_KEY, USERPASSWORD_KEY, nil];
+            WebService *ws = [[WebService alloc] initWithPHPFile:@"new_family.php"];
+            ws.delegate = self;
+            NSArray *valueArray = [NSArray arrayWithObjects:self.familyName.text, self.password.text, nil];
+            NSArray *keyArray = [NSArray arrayWithObjects:FAMILYNAME_KEY, FAMILYPASSWORD_KEY, nil];
             NSDictionary *postDict = [NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray];
             [ws setPostData:postDict];
             [ws sendRequest];
@@ -102,19 +90,18 @@ extern User *ME;
     }
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    UITouch *touch = [[event allTouches] anyObject];
+    if (![[touch view] isKindOfClass:[UITextField class]]) {
+        [self.view endEditing:YES];
+        [self resumeView];
+    }
+    [super touchesBegan:touches withEvent:event];
+}
+
 - (Boolean)inputIsOK {
-    if ([self.email.text length] == 0) {
-        self.errorLabel.text = @"Email is empry";
-        return NO;
-    }
-    
-    if (![self isValidEmail:self.email.text]) {
-        self.errorLabel.text = @"Invalid email";
-        return NO;
-    }
-    
-    if ([self.username.text length] == 0) {
-        self.errorLabel.text = @"Username is empry";
+    if ([self.familyName.text length] == 0) {
+        self.errorLabel.text = @"Family Name is empry";
         return NO;
     }
     
@@ -136,35 +123,14 @@ extern User *ME;
     return YES;
 }
 
-- (BOOL)isValidEmail:(NSString *)checkString
-{
-    BOOL stricterFilter = NO;
-    NSString *stricterFilterString = @"[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}";
-    NSString *laxString = @".+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*";
-    NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
-    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
-    return [emailTest evaluateWithObject:checkString];
-}
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    UITouch *touch = [[event allTouches] anyObject];
-    if (![[touch view] isKindOfClass:[UITextField class]]) {
-        [self.view endEditing:YES];
-        [self resumeView];
-    }
-    [super touchesBegan:touches withEvent:event];
-}
-
 - (void)dataReturned:(NSData *)data {
     NSLog(@"json:\n%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     NSString *myID;
     NSString *errorMessage = [WebService jsonParse:data retData:&myID];
     NSLog(@"error message: %@", errorMessage);
     if ([errorMessage length] == 0) {
-        ME.username = self.username.text;
-        ME.email = self.email.text;
-        ME.UID = [myID intValue];
-        [ViewController navigateToView:@"joinFamilyView" currentView:self];
+        ME.FID = [myID intValue];
+        [self.navigationController popViewControllerAnimated:YES];
     } else
         self.errorLabel.text = errorMessage;
 }

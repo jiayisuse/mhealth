@@ -33,13 +33,16 @@ extern User *ME;
     [self.passwordLogin addTarget:self action:@selector(nextOnKeyboard:) forControlEvents:UIControlEventEditingDidEndOnExit];
     
     // set title
+    /*
     UILabel *titleText = [[UILabel alloc] initWithFrame: CGRectMake(0, 0, 50,50)];
     titleText.backgroundColor = [UIColor clearColor];
     [titleText setAdjustsFontSizeToFitWidth:YES];
     [titleText setFont:[UIFont boldSystemFontOfSize:18.0]];
     [titleText setTextColor:[UIColor whiteColor]];
     [titleText setText:APPNAME];
-    self.navigationItem.titleView = titleText;
+     */
+    self.navigationItem.title = APPNAME;
+    //self.navigationItem.hidesBackButton = YES;
     
     UITapGestureRecognizer *labelTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(createLabelTapped:)];
     labelTap.numberOfTapsRequired = 1;
@@ -118,6 +121,7 @@ extern User *ME;
         ME.username = retData[2];
         ME.UID = [retData[0] intValue];
         ME.FID = [retData[1] intValue];
+        ME.familyName = retData[3];
         NSLog(@"email = %@, username = %@, id = %ld, fid = %ld", ME.email, ME.username, ME.UID, ME.FID);
         [ME saveDefaults];
         [ViewController replaceView:@"mainView" currentView:self];
@@ -135,11 +139,8 @@ extern User *ME;
 }
 
 - (void) createLabelTapped: (UITapGestureRecognizer *)recognizer {
-    //Code to handle the gesture
-    NSLog(@"I am in handleTapFrom method");
-    
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    NewAccountViewController *newAccountView = (NewAccountViewController *)[storyboard instantiateViewControllerWithIdentifier:@"NewAccountView"];
+    NewAccountViewController *newAccountView = (NewAccountViewController *)[storyboard instantiateViewControllerWithIdentifier:@"NewFamilyView"];
     [self.navigationController pushViewController:newAccountView animated:YES];
     NSLog(@"haha %p", newAccountView);
     //[self presentViewController:newAccountView animated:YES completion:nil];
@@ -150,13 +151,19 @@ extern User *ME;
     // Dispose of any resources that can be recreated.
 }
 
-+ (void) replaceView:(NSString *)viewName currentView:(UIViewController *)currView {
++ (void)navigateToView:(NSString *)viewName currentView:(UIViewController *)currView {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController *newView = [storyboard instantiateViewControllerWithIdentifier:viewName];
+    [currView.navigationController pushViewController:newView animated:YES];
+}
+
++ (void)replaceView:(NSString *)viewName currentView:(UIViewController *)currView {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UIViewController *newView = [storyboard instantiateViewControllerWithIdentifier:viewName];
     [currView presentViewController:newView animated:YES completion:nil];
 }
 
-+ (void) popUpView:(NSString *)viewName titleLabel:(NSString *)title currentView:(UIViewController *)currView {
++ (void)popUpView:(NSString *)viewName titleLabel:(NSString *)title currentView:(UIViewController *)currView {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     PopUpViewController *newView = (PopUpViewController *)[storyboard instantiateViewControllerWithIdentifier:viewName];
     newView.delegate = (id)currView;

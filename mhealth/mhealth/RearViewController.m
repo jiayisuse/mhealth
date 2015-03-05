@@ -17,6 +17,9 @@ extern User *ME;
 
 @implementation RearViewController {
     NSMutableArray *userItems;
+    DarkButton *joinBtn;
+    UIAlertView *joinAlert;
+    UIAlertView *logoutAlert;
 }
 
 - (void)viewDidLoad {
@@ -26,7 +29,7 @@ extern User *ME;
     self.tableView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:1.0];
     self.tableView.separatorColor = [UIColor colorWithWhite:0.25 alpha:0.9];
     
-    userItems = [NSMutableArray arrayWithObjects:ME.username, ME.email, nil];
+    userItems = [NSMutableArray arrayWithObjects:[NSString stringWithFormat:@"%@ @ %@", ME.username, ME.familyName], ME.email, nil];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -63,19 +66,17 @@ extern User *ME;
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, REAR_VIEW_WIDTH, 100.0)];
     
-    /*
-    DarkButton *logoutBtn = [DarkButton buttonWithType:UIButtonTypeCustom];
-    [logoutBtn addTarget:self
-                  action:@selector(logout:)
+    joinBtn = [DarkButton buttonWithType:UIButtonTypeCustom];
+    [joinBtn addTarget:self
+                  action:@selector(joinFamily:)
         forControlEvents:UIControlEventTouchUpInside];
-    [logoutBtn setTitle:@"logout" forState:UIControlStateNormal];
-    [logoutBtn setBackgroundColor:[UIColor colorWithWhite:0.3 alpha:1.0]];
-    logoutBtn.titleLabel.textColor = [UIColor colorWithWhite:0.8 alpha:1.0];
-    [logoutBtn.titleLabel setFont:[UIFont systemFontOfSize:15.0]];
-    logoutBtn.layer.cornerRadius = 5.0;
-    logoutBtn.frame = CGRectMake(REAR_VIEW_WIDTH - 70.0, 10.0, 60.0, 30.0);
-    [view addSubview:logoutBtn];
-    */
+    [joinBtn setTitle:@"Join" forState:UIControlStateNormal];
+    [joinBtn setBackgroundColor:[UIColor colorWithWhite:0.3 alpha:1.0]];
+    joinBtn.titleLabel.textColor = [UIColor colorWithWhite:0.8 alpha:1.0];
+    [joinBtn.titleLabel setFont:[UIFont systemFontOfSize:15.0]];
+    joinBtn.layer.cornerRadius = 5.0;
+    joinBtn.frame = CGRectMake(REAR_VIEW_WIDTH - 57.0, 12.0, 45.0, 26.0);
+    [view addSubview:joinBtn];
     
     UIImageView *profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(12, 10, 60, 60)];
     profileImage.image = [UIImage imageNamed:@"carrot_profile.png"];
@@ -88,7 +89,7 @@ extern User *ME;
     [profileImage addGestureRecognizer:singleTap];
     [view addSubview:profileImage];
     
-    UILabel *usernameLabel = [[UILabel alloc] initWithFrame:CGRectMake(85, 25, 150, 30)];
+    UILabel *usernameLabel = [[UILabel alloc] initWithFrame:CGRectMake(85, 14, 100, 30)];
     [usernameLabel setFont:[UIFont systemFontOfSize:15.0]];
     usernameLabel.text = ME.username;
     usernameLabel.textColor = [UIColor colorWithWhite:0.8 alpha:1.0];
@@ -97,9 +98,20 @@ extern User *ME;
     usernameLabel.adjustsLetterSpacingToFitWidth = YES;
     usernameLabel.textAlignment = NSTextAlignmentLeft;
     [usernameLabel setUserInteractionEnabled:YES];
-    UITapGestureRecognizer *singleTapDup = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(logout:)];
-    [usernameLabel addGestureRecognizer:singleTapDup];
+    [usernameLabel addGestureRecognizer:singleTap];
     [view addSubview:usernameLabel];
+    
+    UILabel *familyNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(85, 36, 100, 30)];
+    [familyNameLabel setFont:[UIFont systemFontOfSize:15.0]];
+    familyNameLabel.text = ME.familyName;
+    familyNameLabel.textColor = [UIColor colorWithWhite:0.8 alpha:1.0];
+    familyNameLabel.backgroundColor = [UIColor clearColor];
+    familyNameLabel.adjustsFontSizeToFitWidth = YES;
+    familyNameLabel.adjustsLetterSpacingToFitWidth = YES;
+    familyNameLabel.textAlignment = NSTextAlignmentLeft;
+    [familyNameLabel setUserInteractionEnabled:YES];
+    [familyNameLabel addGestureRecognizer:singleTap];
+    [view addSubview:familyNameLabel];
     
     return view;
 }
@@ -125,28 +137,79 @@ extern User *ME;
 }
 
 - (void)logout:(id)sender {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Logout"
-                                                    message:@"You going to logout"
-                                                   delegate:self
-                                          cancelButtonTitle:@"Cancel"
-                                          otherButtonTitles:@"Logout", nil];
-    [alert show];
+    logoutAlert = [[UIAlertView alloc] initWithTitle:@"Logout"
+                                             message:@"You going to logout"
+                                            delegate:self
+                                   cancelButtonTitle:@"Cancel"
+                                   otherButtonTitles:@"Logout", nil];
+    [logoutAlert show];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSLog(@"lalalala");
     switch (buttonIndex) {
     case 0:
         break;
     case 1:
         {
-            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-            [userDefaults removeObjectForKey:USERNAME_KEY];
-            [userDefaults removeObjectForKey:USEREMAIL_KEY];
-            [userDefaults removeObjectForKey:USERID_KEY];
-            [ViewController replaceView:@"initialView" currentView:self];
+            if (alertView == logoutAlert) {
+                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                [userDefaults removeObjectForKey:USERNAME_KEY];
+                [userDefaults removeObjectForKey:USEREMAIL_KEY];
+                [userDefaults removeObjectForKey:USERID_KEY];
+                [userDefaults removeObjectForKey:USERFID_KEY];
+                [userDefaults removeObjectForKey:USERFNAME_KEY];
+                
+                NSArray *notifications = [[UIApplication sharedApplication] scheduledLocalNotifications];
+                for (UILocalNotification *notification in notifications) {
+                    NSString *notificationID = notification.userInfo[INGREDIENT_NOTIFICATION_KEY];
+                    [userDefaults removeObjectForKey:notificationID];
+                    [[UIApplication sharedApplication] cancelLocalNotification:notification];
+                }
+                
+                [ViewController replaceView:@"initialView" currentView:self];
+            } else {
+                NSString *familyName = [joinAlert textFieldAtIndex:0].text;
+                if (familyName.length == 0) {
+                    [self alertInfo:@"Error" text:@"Please enter family name"];
+                    return;
+                }
+                
+                NSString *password = [joinAlert textFieldAtIndex:1].text;
+                if (password.length == 0) {
+                    [self alertInfo:@"Error" text:@"Please enter password"];
+                    return;
+                }
+                
+                WebService *ws = [[WebService alloc] initWithPHPFile:@"join_family.php"];
+                ws.delegate = self;
+                NSArray *keyArray = [NSArray arrayWithObjects:FAMILYNAME_KEY, FAMILYPASSWORD_KEY, USERID_KEY, nil];
+                NSArray *valueArray = [NSArray arrayWithObjects:familyName, password, @(ME.UID).stringValue, nil];
+                NSDictionary *postDict = [NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray];
+                [ws setPostData:postDict];
+                [ws sendRequest];
+            }
         }
         break;
     }
+}
+
+- (void)alertInfo:(NSString *)title {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                    message:@""
+                                                   delegate:self
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil, nil];
+    [alert show];
+}
+
+- (void)alertInfo:(NSString *)title text:(NSString *)message {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                    message:message
+                                                   delegate:self
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil, nil];
+    [alert show];
 }
 
 - (void)clearCache:(id)sender {
@@ -157,12 +220,30 @@ extern User *ME;
         [userDefaults removeObjectForKey:notificationID];
         [[UIApplication sharedApplication] cancelLocalNotification:notification];
     }
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Clear Finished"
-                                                    message:@""
-                                                   delegate:self
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil, nil];
-    [alert show];
+    [self alertInfo:@"Clear Finished"];
+}
+
+- (void)joinFamily:(id)sender {
+    joinAlert = [[UIAlertView alloc] initWithTitle:@"Join Another Family" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Join", nil];
+    joinAlert.alertViewStyle = UIAlertViewStyleLoginAndPasswordInput;
+    [joinAlert textFieldAtIndex:0].placeholder = @"Family Name";
+    [joinAlert textFieldAtIndex:1].placeholder = @"Password";
+    [joinAlert show];
+}
+
+- (void)dataReturned:(NSData *)data {
+    NSLog(@"json:\n%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+    NSArray *familyData;
+    NSString *errorMessage = [WebService jsonParse:data retData:&familyData];
+    NSLog(@"error message: %@, id = %@", errorMessage, familyData[0]);
+    if ([errorMessage length] == 0) {
+        ME.FID = [familyData[0] intValue];
+        ME.familyName = [joinAlert textFieldAtIndex:0].text;
+        [ME saveDefaults];
+        [ViewController replaceView:@"mainView" currentView:self];
+    } else {
+        [self alertInfo:@"Error" text:errorMessage];
+    }
 }
 
 @end

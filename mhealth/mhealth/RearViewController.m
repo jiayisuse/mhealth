@@ -220,6 +220,7 @@ extern User *ME;
         [userDefaults removeObjectForKey:notificationID];
         [[UIApplication sharedApplication] cancelLocalNotification:notification];
     }
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
     [self alertInfo:@"Clear Finished"];
 }
 

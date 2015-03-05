@@ -179,7 +179,7 @@ enum WEBSERVICE_OP {
 - (void)reloadNotification {
     //[[UIApplication sharedApplication] cancelAllLocalNotifications];
     for (Ingredient *ingredient in ingredients) {
-        int nNotifications = 0;
+        long int nNotifications = 0;
         if (ingredient.leftDays > 3)
             nNotifications = NotifyBeforeDays + 1;
         else if (ingredient.leftDays <= 3 && ingredient.leftDays >= 0)
@@ -188,7 +188,7 @@ enum WEBSERVICE_OP {
             break;
         
         if (![self hasNotificationFor:ingredient]) {
-            for (int daysBefore = -1; daysBefore <= NotifyBeforeDays && daysBefore < ingredient.leftDays; daysBefore++) {
+            for (int daysBefore = -1; daysBefore <= NotifyBeforeDays && daysBefore <= ingredient.leftDays; daysBefore++) {
                 UILocalNotification *notification = [[UILocalNotification alloc] init];
                 notification.timeZone = [NSTimeZone defaultTimeZone];
                 notification.fireDate = [self expNotifyDateAdv:(ingredient.leftDays - daysBefore)];

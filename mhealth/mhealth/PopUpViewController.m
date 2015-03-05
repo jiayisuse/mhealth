@@ -149,7 +149,7 @@ extern NSArray *ingredientDict;
         return;
     }
     
-    int unitIndex = self.unitMenu.selectedIndex;
+    long int unitIndex = self.unitMenu.selectedIndex;
     if (unitIndex == -1) {
         self.asterisk.hidden = NO;
         return;
@@ -180,7 +180,7 @@ extern NSArray *ingredientDict;
 
 - (void) autoCompletion:(AutocompletionTableView *) completer didSelectAutoCompleteSuggestionWithIndex:(NSInteger) index {
     // invoked when an available suggestion is selected
-    NSLog(@"%@ - Suggestion chosen: %d", completer, index);
+    // NSLog(@"%@ - Suggestion chosen: %ld", completer, (long)index);
 }
 
 @end

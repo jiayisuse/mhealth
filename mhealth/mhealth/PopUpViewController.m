@@ -158,6 +158,7 @@ extern NSArray *ingredientDict;
     Ingredient *ingredient = [[Ingredient alloc] initWithName:name amount:amount unit:units[unitIndex] iid:0];
     if (self.delegate)
         [self.delegate fetchPopUpData:ingredient];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"newRow" object:self];
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 

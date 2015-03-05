@@ -39,27 +39,20 @@ extern User *ME;
     self.revealViewController.rearViewRevealWidth = REAR_VIEW_WIDTH;
     self.revealViewController.modalPresentationStyle = UIModalPresentationCurrentContext;
     
-    /*
-    UILabel *titleText = [[UILabel alloc] initWithFrame: CGRectMake(0, 0, 50,50)];
-    titleText.backgroundColor = [UIColor clearColor];
-    [titleText setAdjustsFontSizeToFitWidth:YES];
-    [titleText setFont:[UIFont boldSystemFontOfSize:18.0]];
-    [titleText setTextColor:[UIColor whiteColor]];
-    [titleText setText:@"Editing"];
-    self.navigationItem.titleView = titleText;
-     */
     self.navigationItem.title = @"Editing";
     self.navigationItem.hidesBackButton = YES;
     [self setDefaultButtons];
     
     ingredients = [NSMutableArray array];
-    //ingredients = [NSMutableArray arrayWithObjects:@"Eggplant", @"Mushroom", @"Potato", @"Banana", @"Chicken Wing", @"Onion", @"Cucumber", @"Apple", @"Magon", @"Pork", @"Beans", @"Daikon", @"Tofu", nil];
     selectedItems = [[NSMutableArray alloc] init];
     // self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     // defaultBorderColor = UIColorFromRGB(0xe1e1e1).CGColor;
     self.tableView.separatorColor = UIColorFromRGB(0xe1e1e1);
-    // self.deleteBtn.title = @"Delete";
-    // self.cancelBtn.title = @"Cancel";
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(newRow)
+                                                 name:@"newRow"
+                                               object:nil];
     
     mode = EDIT_MODE;
     self.datePicker.hidden = YES;
@@ -188,6 +181,9 @@ extern User *ME;
 - (void)fetchPopUpData:(id)data {
     NSLog(@"got your! %@", data);
     [ingredients addObject:(Ingredient *)data];
+}
+
+- (void)newRow {
     [self.tableView beginUpdates];
     [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:([ingredients count] - 1) inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
     [self.tableView endUpdates];

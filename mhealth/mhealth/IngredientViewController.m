@@ -28,9 +28,6 @@ enum WEBSERVICE_OP {
     OP_DELETE,
 };
 
-#define INGREDIENT_NOTIFICATION_KEY             @"IID"
-#define NOTIFICATION_DEFAULT_KEY(ingredient)    [NSString stringWithFormat:@"%ld", (long)ingredient.IID]
-
 @implementation IngredientViewController {
     NSMutableArray *ingredients;
     NSIndexPath *removeIndex;
@@ -223,10 +220,8 @@ enum WEBSERVICE_OP {
     [userDefaults removeObjectForKey:notificationKey];
     
     NSArray *notifications = [[UIApplication sharedApplication] scheduledLocalNotifications];
-    int i = 0;
     for (UILocalNotification *notification in notifications) {
         NSString *notificationID = notification.userInfo[INGREDIENT_NOTIFICATION_KEY];
-        NSLog(@"NOTIFY ID '%@' %d", notificationID, ++i);
         if ([notificationID isEqualToString:notificationKey]) {
             NSLog(@"Delete %@", ingredient.name);
             [[UIApplication sharedApplication] cancelLocalNotification:notification];

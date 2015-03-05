@@ -10,7 +10,7 @@
 #import "RearViewController.h"
 #import "ViewController.h"
 #import "SWRevealViewController.h"
-#import "BlueButton.h"
+#import "DarkButton.h"
 #import "Global.h"
 
 extern User *ME;
@@ -45,6 +45,10 @@ extern User *ME;
     return 100;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 80;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:REAR_TABLE_NAME];
     if (cell == nil) {
@@ -71,7 +75,7 @@ extern User *ME;
     logoutBtn.layer.cornerRadius = 5.0;
     logoutBtn.frame = CGRectMake(REAR_VIEW_WIDTH - 70.0, 10.0, 60.0, 30.0);
     [view addSubview:logoutBtn];
-     */
+    */
     
     UIImageView *profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(12, 10, 60, 60)];
     profileImage.image = [UIImage imageNamed:@"carrot_profile.png"];
@@ -102,6 +106,21 @@ extern User *ME;
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     UIView *view = [[UIView alloc] init];
+    
+    DarkButton *clearBtn = [DarkButton newButton:self action:@selector(clearCache:) forControlEvents:UIControlEventTouchUpInside];
+    [clearBtn setTitle:@"Clear Cache" forState:UIControlStateNormal];
+    clearBtn.translatesAutoresizingMaskIntoConstraints = NO;
+    clearBtn.frame = CGRectMake(10.0, 20.0, REAR_VIEW_WIDTH - 20, 40.0);
+    [view addSubview:clearBtn];
+    
+    /*
+    NSDictionary *viewDict = @{ @"clearBtn":clearBtn };
+    NSArray *constraintPos_H = [NSLayoutConstraint constraintsWithVisualFormat:@"|-10-[clearBtn]-10-|" options:0 metrics:nil views:viewDict];
+    NSArray *constraintPos_V = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-30-[clearBtn]" options:0 metrics:nil views:viewDict];
+    [view addConstraints:constraintPos_H];
+    [view addConstraints:constraintPos_V];
+    */
+    
     return view;
 }
 
@@ -128,6 +147,22 @@ extern User *ME;
         }
         break;
     }
+}
+
+- (void)clearCache:(id)sender {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSArray *notifications = [[UIApplication sharedApplication] scheduledLocalNotifications];
+    for (UILocalNotification *notification in notifications) {
+        NSString *notificationID = notification.userInfo[INGREDIENT_NOTIFICATION_KEY];
+        [userDefaults removeObjectForKey:notificationID];
+        [[UIApplication sharedApplication] cancelLocalNotification:notification];
+    }
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Clear Finished"
+                                                    message:@""
+                                                   delegate:self
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil, nil];
+    [alert show];
 }
 
 @end

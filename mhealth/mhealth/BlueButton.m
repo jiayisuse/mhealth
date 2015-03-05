@@ -25,8 +25,7 @@
     [super setHighlighted:highlighted];
     if (highlighted) {
         self.backgroundColor = BLUE_HIGHLIGHT_COLOR;
-    }
-    else {
+    } else {
         self.backgroundColor = BLUE_COLOR;
     }
 }

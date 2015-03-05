@@ -27,6 +27,9 @@
 #define DARK_COLOR              [UIColor colorWithWhite:0.3 alpha:1.0]
 #define DARK_HIGHLIGHT_COLOR    [UIColor colorWithWhite:0.4 alpha:1.0]
 
+#define INGREDIENT_NOTIFICATION_KEY             @"IID"
+#define NOTIFICATION_DEFAULT_KEY(ingredient)    [NSString stringWithFormat:@"%ld", (long)ingredient.IID]
+
 static const NSString *DOMAIN_URL = @"http://jiayi.net/smart_cook";
 static const int REAR_VIEW_WIDTH = 250;
 static const int NotifyBeforeDays = 3;

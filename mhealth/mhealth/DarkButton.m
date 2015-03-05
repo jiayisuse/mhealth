@@ -21,12 +21,11 @@
     return btn;
 }
 
-- (void) setHighlighted:(BOOL)highlighted {
+- (void)setHighlighted:(BOOL)highlighted {
     [super setHighlighted:highlighted];
     if (highlighted) {
         self.backgroundColor = DARK_HIGHLIGHT_COLOR;
-    }
-    else {
+    } else {
         self.backgroundColor = DARK_COLOR;
     }
 }

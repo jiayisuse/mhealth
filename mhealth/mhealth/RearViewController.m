@@ -60,7 +60,16 @@ extern User *ME;
     cell.textLabel.text = [userItems objectAtIndex:indexPath.row];
     cell.textLabel.textColor = [UIColor colorWithWhite:0.95 alpha:1.0];
     [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
+    //[cell setSelectionStyle:UITableViewCellSelectionStyleBlue];
+    UIView *bgColorView = [[UIView alloc] init];
+    bgColorView.backgroundColor = [UIColor colorWithRed:(76.0/255.0) green:(161.0/255.0) blue:(255.0/255.0) alpha:1.0];
+    bgColorView.layer.masksToBounds = YES;
+    cell.selectedBackgroundView = bgColorView;
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    [cell setBackgroundColor:[UIColor clearColor]];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -68,8 +77,8 @@ extern User *ME;
     
     joinBtn = [DarkButton buttonWithType:UIButtonTypeCustom];
     [joinBtn addTarget:self
-                  action:@selector(joinFamily:)
-        forControlEvents:UIControlEventTouchUpInside];
+                action:@selector(joinFamily:)
+      forControlEvents:UIControlEventTouchUpInside];
     [joinBtn setTitle:@"Join" forState:UIControlStateNormal];
     [joinBtn setBackgroundColor:[UIColor colorWithWhite:0.3 alpha:1.0]];
     joinBtn.titleLabel.textColor = [UIColor colorWithWhite:0.8 alpha:1.0];
@@ -97,8 +106,10 @@ extern User *ME;
     usernameLabel.adjustsFontSizeToFitWidth = YES;
     usernameLabel.adjustsLetterSpacingToFitWidth = YES;
     usernameLabel.textAlignment = NSTextAlignmentLeft;
+    UITapGestureRecognizer *singleTap_1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(logout:)];
+    singleTap_1.numberOfTapsRequired = 1;
     [usernameLabel setUserInteractionEnabled:YES];
-    [usernameLabel addGestureRecognizer:singleTap];
+    [usernameLabel addGestureRecognizer:singleTap_1];
     [view addSubview:usernameLabel];
     
     UILabel *familyNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(85, 36, 100, 30)];
@@ -110,7 +121,9 @@ extern User *ME;
     familyNameLabel.adjustsLetterSpacingToFitWidth = YES;
     familyNameLabel.textAlignment = NSTextAlignmentLeft;
     [familyNameLabel setUserInteractionEnabled:YES];
-    [familyNameLabel addGestureRecognizer:singleTap];
+    UITapGestureRecognizer *singleTap_2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(logout:)];
+    singleTap_2.numberOfTapsRequired = 1;
+    [familyNameLabel addGestureRecognizer:singleTap_2];
     [view addSubview:familyNameLabel];
     
     return view;
@@ -122,16 +135,18 @@ extern User *ME;
     DarkButton *clearBtn = [DarkButton newButton:self action:@selector(clearCache:) forControlEvents:UIControlEventTouchUpInside];
     [clearBtn setTitle:@"Clear Cache" forState:UIControlStateNormal];
     clearBtn.translatesAutoresizingMaskIntoConstraints = NO;
-    clearBtn.frame = CGRectMake(10.0, 20.0, REAR_VIEW_WIDTH - 20, 40.0);
+    //clearBtn.frame = CGRectMake(10.0, 20.0, REAR_VIEW_WIDTH - 20, 40.0);
     [view addSubview:clearBtn];
     
-    /*
     NSDictionary *viewDict = @{ @"clearBtn":clearBtn };
-    NSArray *constraintPos_H = [NSLayoutConstraint constraintsWithVisualFormat:@"|-10-[clearBtn]-10-|" options:0 metrics:nil views:viewDict];
-    NSArray *constraintPos_V = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-30-[clearBtn]" options:0 metrics:nil views:viewDict];
+    NSArray *constraintPos_H = [NSLayoutConstraint constraintsWithVisualFormat:@"|-10-[clearBtn]-80-|" options:0 metrics:nil views:viewDict];
+    NSArray *constraintPos_V = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[clearBtn]-|" options:0 metrics:nil views:viewDict];
+    NSArray *constraint_H = [NSLayoutConstraint constraintsWithVisualFormat:@"[clearBtn(30)]" options:0 metrics:nil views:viewDict];
+    NSArray *constraint_V = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[clearBtn(30)]" options:0 metrics:nil views:viewDict];
+    [clearBtn addConstraints:constraint_H];
+    [clearBtn addConstraints:constraint_V];
     [view addConstraints:constraintPos_H];
     [view addConstraints:constraintPos_V];
-    */
     
     return view;
 }

@@ -12,6 +12,7 @@
 #import "ViewController.h"
 #import "Ingredient.h"
 #import "WebService.h"
+#import "BlueButton.h"
 #import "Global.h"
 
 enum MODE {
@@ -48,6 +49,28 @@ extern User *ME;
     // self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     // defaultBorderColor = UIColorFromRGB(0xe1e1e1).CGColor;
     self.tableView.separatorColor = UIColorFromRGB(0xe1e1e1);
+    self.saveBtn = [BlueButton newButton:self action:@selector(onSaveBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [self.saveBtn setTitle:@"Save" forState:UIControlStateNormal];
+    [self.saveBtn.titleLabel setFont:[UIFont systemFontOfSize:17.0]];
+    self.saveBtn.layer.cornerRadius = 5.0;
+    self.saveBtn.hidden = YES;
+    self.saveBtn.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:self.saveBtn];
+    
+    NSDictionary *viewDict = @{ @"saveBtn":self.saveBtn };
+    NSArray *constraintPos_H = [NSLayoutConstraint constraintsWithVisualFormat:@"|-[saveBtn]-|" options:0 metrics:nil views:viewDict];
+    NSArray *constraintPos_V;
+    if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1) {
+        constraintPos_V = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[saveBtn]-66-|" options:0 metrics:nil views:viewDict];
+    } else {
+        constraintPos_V = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[saveBtn]-10-|" options:0 metrics:nil views:viewDict];
+    }
+    NSArray *constraints_H = [NSLayoutConstraint constraintsWithVisualFormat:@"[saveBtn(>=30)]" options:0 metrics:nil views:viewDict];
+    NSArray *constraints_V = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[saveBtn(>=30)]" options:0 metrics:nil views:viewDict];
+    [self.saveBtn addConstraints:constraints_H];
+    [self.saveBtn addConstraints:constraints_V];
+    [self.view addConstraints:constraintPos_H];
+    [self.view addConstraints:constraintPos_V];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(newRow)
@@ -69,6 +92,35 @@ extern User *ME;
     }
     return result;
 }
+
+/*
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 80;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc] init];
+    self.saveBtn = [BlueButton newButton:self action:@selector(onSaveBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [self.saveBtn setTitle:@"Save" forState:UIControlStateNormal];
+    [self.saveBtn.titleLabel setFont:[UIFont systemFontOfSize:17.0]];
+    self.saveBtn.layer.cornerRadius = 5.0;
+    self.saveBtn.hidden = YES;
+    self.saveBtn.translatesAutoresizingMaskIntoConstraints = NO;
+    [view addSubview:self.saveBtn];
+    
+    NSDictionary *viewDict = @{ @"saveBtn":self.saveBtn };
+    NSArray *constraintPos_H = [NSLayoutConstraint constraintsWithVisualFormat:@"|-[saveBtn]-|" options:0 metrics:nil views:viewDict];
+    NSArray *constraintPos_V = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[saveBtn]-10-|" options:0 metrics:nil views:viewDict];
+    NSArray *constraints_H = [NSLayoutConstraint constraintsWithVisualFormat:@"[saveBtn(>=30)]" options:0 metrics:nil views:viewDict];
+    NSArray *constraints_V = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[saveBtn(>=30)]" options:0 metrics:nil views:viewDict];
+    [self.saveBtn addConstraints:constraints_H];
+    [self.saveBtn addConstraints:constraints_V];
+    [view addConstraints:constraintPos_H];
+    [view addConstraints:constraintPos_V];
+    
+    return view;
+}
+ */
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:INGREDIENT_TABLE_NAME];
@@ -129,6 +181,7 @@ extern User *ME;
         [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
     } else {
         self.datePicker.hidden = NO;
+        self.datePicker.date = [NSDate date];
         [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
         removeIndex = indexPath;
         self.navigationItem.title = @"Pick Exp. Date";
@@ -150,7 +203,7 @@ extern User *ME;
     [selectedItems removeAllObjects];
     [self setDefaultButtons];
     if ([ingredients count] == 0)
-        self.saveButton.hidden = YES;
+        self.saveBtn.hidden = YES;
 }
 
 - (IBAction)onAddButton:(id)sender {
@@ -161,7 +214,7 @@ extern User *ME;
     mode = EDIT_MODE;
     self.navigationItem.rightBarButtonItem = self.addBtn;
     if ([ingredients count])
-        self.saveButton.hidden = NO;
+        self.saveBtn.hidden = NO;
     self.navigationItem.title = @"Editing";
     if (!self.datePicker.hidden)
         self.datePicker.hidden = YES;
@@ -187,15 +240,15 @@ extern User *ME;
     [self.tableView beginUpdates];
     [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:([ingredients count] - 1) inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
     [self.tableView endUpdates];
-    if (self.saveButton.hidden)
-        self.saveButton.hidden = NO;
+    if (self.saveBtn.hidden)
+        self.saveBtn.hidden = NO;
 }
 
-- (IBAction)onSaveButtononSaveButton:(id)sender {
+- (IBAction)onSaveBtn:(id)sender {
     [self onCancelButton:sender];
     mode = SHOPPING_MODE;
     self.navigationItem.rightBarButtonItem = self.editBtn;
-    self.saveButton.hidden = YES;
+    self.saveBtn.hidden = YES;
     self.navigationItem.title = @"Shopping >>>";
 }
 
@@ -229,7 +282,7 @@ extern User *ME;
         [ingredients removeObjectAtIndex:removeIndex.row];
         [self.tableView deleteRowsAtIndexPaths:@[removeIndex] withRowAnimation:UITableViewRowAnimationFade];
         if ([ingredients count] == 0)
-            self.saveButton.hidden = YES;
+            self.saveBtn.hidden = YES;
     }
 }
 

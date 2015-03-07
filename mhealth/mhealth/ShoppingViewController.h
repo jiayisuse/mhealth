@@ -11,6 +11,7 @@
 
 #import <UIKit/UIKit.h>
 #import "PopUpViewController.h"
+#import "BlueButton.h"
 #import "WebService.h"
 
 @interface ShoppingViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, popUpViewControllerProtocol, WebServiceProtocol>
@@ -22,7 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *editBtn;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *doneBtn;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UIButton *saveButton;
+@property (strong, nonatomic) BlueButton *saveBtn;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 
 @end

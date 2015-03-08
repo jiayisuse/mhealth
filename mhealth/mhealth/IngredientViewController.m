@@ -199,7 +199,7 @@ enum WEBSERVICE_OP {
 
 - (IBAction)onGoBtn:(id)sender {
     NSMutableString *URL = [NSMutableString new];
-    [URL setString:@"http://m.allrecipes.com/search/results/?wt=Tomato%20potato%20broccoli&sort=re&page=1"];
+    [URL setString:@"http://m.allrecipes.com/search/results/?wt="];
     NSArray *selectedRows = [self.tableView indexPathsForSelectedRows];
     for (int i = 0; i < [selectedRows count] - 1; i++) {
         NSIndexPath *indexPath = selectedRows[i];

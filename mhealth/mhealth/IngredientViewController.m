@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "IngredientViewController.h"
+#import "RecipeWebViewController.h"
 #import "Ingredient.h"
 #import "WebService.h"
 #import "SWRevealViewController.h"
@@ -38,19 +39,13 @@ enum WEBSERVICE_OP {
     [super viewDidLoad];
     // Initialize table data
     
-    /*
-    UILabel *titleText = [[UILabel alloc] initWithFrame: CGRectMake(0, 0, 50,50)];
-    titleText.backgroundColor = [UIColor clearColor];
-    [titleText setAdjustsFontSizeToFitWidth:YES];
-    [titleText setFont:[UIFont boldSystemFontOfSize:18.0]];
-    [titleText setTextColor:[UIColor whiteColor]];
-    [titleText setText:@"Ingredients"];
-     */
     self.navigationItem.title = @"Ingredients";
     self.navigationItem.hidesBackButton = YES;
+    self.navigationItem.leftBarButtonItem = self.siderbarBtn;
+    self.navigationItem.rightBarButtonItem = self.recipeBtn;
     
     ingredients = [[NSMutableArray alloc] init];
-    //self.tableView.allowsMultipleSelectionDuringEditing = NO;
+    self.tableView.allowsMultipleSelectionDuringEditing = NO;
     
     _siderbarBtn.target = self.revealViewController;
     _siderbarBtn.action = @selector(revealToggle:);
@@ -84,11 +79,22 @@ enum WEBSERVICE_OP {
     myTableViewCell *cell = (myTableViewCell *)[tableView dequeueReusableCellWithIdentifier:INGREDIENT_TABLE_NAME];
     if (cell == nil) {
         cell = [[myTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:INGREDIENT_TABLE_NAME];
-        UILabel *leftDaysLable = [[UILabel alloc] initWithFrame:CGRectMake(cell.frame.size.width - 140, 10, 100, 40)];
-        leftDaysLable.backgroundColor = [UIColor clearColor];
-        leftDaysLable.textAlignment = NSTextAlignmentRight;
-        [cell.contentView addSubview:leftDaysLable];
-        cell.leftDaysLabel = leftDaysLable;
+        UILabel *leftDaysLabel = [[UILabel alloc] init];
+        //UILabel *leftDaysLabel = [[UILabel alloc] initWithFrame:CGRectMake(cell.frame.size.width - 140, 10, 100, 40)];
+        leftDaysLabel.backgroundColor = [UIColor clearColor];
+        leftDaysLabel.textAlignment = NSTextAlignmentRight;
+        [cell.contentView addSubview:leftDaysLabel];
+        leftDaysLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        NSDictionary *viewDict = @{ @"leftDaysLabel":leftDaysLabel };
+        NSArray *constraintPos_H = [NSLayoutConstraint constraintsWithVisualFormat:@"|[leftDaysLabel]-15-|" options:0 metrics:nil views:viewDict];
+        NSArray *constraintPos_V = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[leftDaysLabel]-|" options:0 metrics:nil views:viewDict];
+        NSArray *constraint_H = [NSLayoutConstraint constraintsWithVisualFormat:@"[leftDaysLabel(30)]" options:0 metrics:nil views:viewDict];
+        NSArray *constraint_V = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[leftDaysLabel(30)]" options:0 metrics:nil views:viewDict];
+        [cell.contentView addConstraints:constraintPos_H];
+        [cell.contentView addConstraints:constraintPos_V];
+        [leftDaysLabel addConstraints:constraint_H];
+        [leftDaysLabel addConstraints:constraint_V];
+        cell.leftDaysLabel = leftDaysLabel;
     }
     Ingredient *ingredient = ingredients[indexPath.row];
     cell.textLabel.text = ingredient.name;
@@ -96,7 +102,6 @@ enum WEBSERVICE_OP {
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ x %@", ingredient.amount, ingredient.unit];
     UIImage *icon = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", ingredient.name]];
     cell.imageView.image = icon != nil ? icon : [UIImage imageNamed:@"Empty.png"];
-    //cell.imageView.image = [UIImage imageNamed:@"Banana.png"];
     cell.leftDaysLabel.text = [NSString stringWithFormat:@"%ld days", (long)ingredient.leftDays];
     
     return cell;
@@ -123,7 +128,8 @@ enum WEBSERVICE_OP {
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (!self.tableView.editing)
+        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)pullIngredients:(UIRefreshControl*)refreshControl {
@@ -176,6 +182,58 @@ enum WEBSERVICE_OP {
     [self.refreshControl endRefreshing];
 }
 
+
+// -------------------------- Button Actions --------------------------
+
+- (IBAction)onRecipeBtn:(id)sender {
+    self.tableView.allowsMultipleSelectionDuringEditing = YES;
+    [self.tableView setEditing:YES animated:YES];
+    [self updateButtonsToMatchTableState];
+}
+
+- (IBAction)onCancelBtn:(id)sender {
+    [self.tableView setEditing:NO animated:YES];
+    self.tableView.allowsMultipleSelectionDuringEditing = NO;
+    [self updateButtonsToMatchTableState];
+}
+
+- (IBAction)onGoBtn:(id)sender {
+    NSMutableString *URL = [NSMutableString new];
+    [URL setString:@"http://m.allrecipes.com/search/results/?wt=Tomato%20potato%20broccoli&sort=re&page=1"];
+    NSArray *selectedRows = [self.tableView indexPathsForSelectedRows];
+    for (int i = 0; i < [selectedRows count] - 1; i++) {
+        NSIndexPath *indexPath = selectedRows[i];
+        [URL appendFormat:@"%@%%20", ((Ingredient *)ingredients[indexPath.row]).name];
+    }
+    NSIndexPath *indexPath = [selectedRows lastObject];
+    [URL appendFormat:@"%@&sort=re&page=1", ((Ingredient *)ingredients[indexPath.row]).name];
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    RecipeWebViewController *newView = [storyboard instantiateViewControllerWithIdentifier:@"recipeWebView"];
+    newView.recipeURL = URL;
+    [self.navigationController pushViewController:newView animated:YES];
+}
+
+- (void)updateButtonsToMatchTableState {
+    if (self.tableView.editing) {
+        self.navigationItem.leftBarButtonItem = self.cancelBtn;
+        self.navigationItem.rightBarButtonItem = self.goBtn;
+    } else {
+        // Not in editing mode.
+        self.navigationItem.leftBarButtonItem = self.siderbarBtn;
+        self.navigationItem.rightBarButtonItem = self.recipeBtn;
+        // Show the edit button, but disable the edit button if there's nothing to edit.
+        if (ingredients.count > 0) {
+            self.recipeBtn.enabled = YES;
+        } else {
+            self.recipeBtn.enabled = NO;
+        }
+    }
+}
+
+
+// -------------------------- Local Notification --------------------------
+
 - (void)reloadNotification {
     //[[UIApplication sharedApplication] cancelAllLocalNotifications];
     for (Ingredient *ingredient in ingredients) {
@@ -198,7 +256,7 @@ enum WEBSERVICE_OP {
                 [[UIApplication sharedApplication] scheduleLocalNotification:notification];
                 [self storeNotificationFor:ingredient];
                 NSLog(@"body: %@", notification.alertBody);
-                NSLog(@"date: %@\n", [notification.fireDate description]);
+                NSLog(@"date: %@", [notification.fireDate description]);
             }
         }
     }

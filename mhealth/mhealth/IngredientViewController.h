@@ -16,6 +16,9 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *siderbarBtn;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *recipeBtn;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelBtn;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *goBtn;
 @property (nonatomic, weak) UIRefreshControl *refreshControl;
 
 @end

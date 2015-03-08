@@ -13,6 +13,10 @@
 		8434AFB91A9C205E00721F00 /* RearViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8434AFB81A9C205E00721F00 /* RearViewController.m */; };
 		8434AFBC1A9C23C900721F00 /* ShoppingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8434AFBB1A9C23C900721F00 /* ShoppingViewController.m */; };
 		8434AFBF1A9C331000721F00 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 8434AFBE1A9C331000721F00 /* User.m */; };
+		845793D71AABF6C800ED6926 /* email.png in Resources */ = {isa = PBXBuildFile; fileRef = 845793D51AABF6C800ED6926 /* email.png */; };
+		845793D81AABF6C800ED6926 /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = 845793D61AABF6C800ED6926 /* user.png */; };
+		845793DA1AABFE9D00ED6926 /* chef.png in Resources */ = {isa = PBXBuildFile; fileRef = 845793D91AABFE9D00ED6926 /* chef.png */; };
+		845793E01AAC1E4200ED6926 /* RecipeWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 845793DF1AAC1E4200ED6926 /* RecipeWebViewController.m */; };
 		846BD3141A9A67AD00DF593B /* IngredientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846BD3131A9A67AD00DF593B /* IngredientViewController.m */; };
 		846BD3541A9A9A8000DF593B /* TabbarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846BD3531A9A9A8000DF593B /* TabbarViewController.m */; };
 		846BD35A1A9AA79900DF593B /* WebService.m in Sources */ = {isa = PBXBuildFile; fileRef = 846BD3591A9AA79900DF593B /* WebService.m */; };
@@ -131,6 +135,11 @@
 		8434AFBB1A9C23C900721F00 /* ShoppingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingViewController.m; sourceTree = "<group>"; };
 		8434AFBD1A9C330400721F00 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		8434AFBE1A9C331000721F00 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		845793D51AABF6C800ED6926 /* email.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = email.png; path = pics/email.png; sourceTree = "<group>"; };
+		845793D61AABF6C800ED6926 /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = user.png; path = pics/user.png; sourceTree = "<group>"; };
+		845793D91AABFE9D00ED6926 /* chef.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chef.png; path = pics/chef.png; sourceTree = "<group>"; };
+		845793DE1AAC1E3800ED6926 /* RecipeWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeWebViewController.h; sourceTree = "<group>"; };
+		845793DF1AAC1E4200ED6926 /* RecipeWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeWebViewController.m; sourceTree = "<group>"; };
 		846BD3121A9A679600DF593B /* IngredientViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IngredientViewController.h; sourceTree = "<group>"; };
 		846BD3131A9A67AD00DF593B /* IngredientViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IngredientViewController.m; sourceTree = "<group>"; };
 		846BD3521A9A9A6E00DF593B /* TabbarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabbarViewController.h; sourceTree = "<group>"; };
@@ -281,6 +290,9 @@
 		8434AFB21A9C18D900721F00 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				845793D91AABFE9D00ED6926 /* chef.png */,
+				845793D51AABF6C800ED6926 /* email.png */,
+				845793D61AABF6C800ED6926 /* user.png */,
 				84A24C6B1AA81D1100FD96E9 /* cartoon-family.png */,
 				84A24C6C1AA81D1100FD96E9 /* family.jpg */,
 				84A24BD81AA59D1B00FD96E9 /* Apple_1.png */,
@@ -416,6 +428,8 @@
 				84A24C691AA80DC600FD96E9 /* NewFamilyViewController.m */,
 				84A24C6F1AA832FB00FD96E9 /* JoinFamilyViewController.h */,
 				84A24C701AA8330B00FD96E9 /* JoinFamilyViewController.m */,
+				845793DE1AAC1E3800ED6926 /* RecipeWebViewController.h */,
+				845793DF1AAC1E4200ED6926 /* RecipeWebViewController.m */,
 			);
 			path = mhealth;
 			sourceTree = "<group>";
@@ -597,6 +611,7 @@
 				84A24C221AA59D1B00FD96E9 /* Beans.png in Resources */,
 				84A24C2F1AA59D1B00FD96E9 /* cart_full_80x80.png in Resources */,
 				84A24C631AA59D1B00FD96E9 /* Yogurt.png in Resources */,
+				845793D81AABF6C800ED6926 /* user.png in Resources */,
 				84A24C531AA59D1B00FD96E9 /* Pizza.png in Resources */,
 				84A24C4F1AA59D1B00FD96E9 /* Orange Juice.png in Resources */,
 				84A24C361AA59D1B00FD96E9 /* Chips.png in Resources */,
@@ -608,6 +623,7 @@
 				84A24C371AA59D1B00FD96E9 /* Chocolate.png in Resources */,
 				84A24C291AA59D1B00FD96E9 /* Butter.png in Resources */,
 				84A24C471AA59D1B00FD96E9 /* Ice Cream.png in Resources */,
+				845793D71AABF6C800ED6926 /* email.png in Resources */,
 				84A24C311AA59D1B00FD96E9 /* cart.png in Resources */,
 				84A24C1E1AA59D1B00FD96E9 /* Apple_1.png in Resources */,
 				84A24C611AA59D1B00FD96E9 /* White Rice.png in Resources */,
@@ -625,6 +641,7 @@
 				84A24C461AA59D1B00FD96E9 /* Hotdog.png in Resources */,
 				84A24C421AA59D1B00FD96E9 /* Garlic.png in Resources */,
 				84A24C331AA59D1B00FD96E9 /* Cherry.png in Resources */,
+				845793DA1AABFE9D00ED6926 /* chef.png in Resources */,
 				84A24C441AA59D1B00FD96E9 /* Green Onion.png in Resources */,
 				84A24C3E1AA59D1B00FD96E9 /* Eggplant.png in Resources */,
 				84A24A861A9E687800FD96E9 /* checkbox_uncheck.png in Resources */,
@@ -651,6 +668,7 @@
 				84A24C711AA8330B00FD96E9 /* JoinFamilyViewController.m in Sources */,
 				8486D1381A96DD9D00F06FD6 /* ViewController.m in Sources */,
 				8486D1351A96DD9D00F06FD6 /* AppDelegate.m in Sources */,
+				845793E01AAC1E4200ED6926 /* RecipeWebViewController.m in Sources */,
 				84A24A981A9FA11000FD96E9 /* DarkButton.m in Sources */,
 				84A24A9F1AA01E9200FD96E9 /* IGLDropDownMenu.m in Sources */,
 				846BD3541A9A9A8000DF593B /* TabbarViewController.m in Sources */,

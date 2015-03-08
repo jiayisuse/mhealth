@@ -31,7 +31,7 @@ extern User *ME;
     
     self.view.backgroundColor = [UIColor clearColor];
     
-    userItems = [NSMutableArray arrayWithObjects:[NSString stringWithFormat:@"%@ @ %@", ME.username, ME.familyName], ME.email, nil];
+    userItems = [NSMutableArray arrayWithObjects:[NSString stringWithFormat:@"%@ @ %@", ME.username, ME.familyName], ME.email, @"Recipe", nil];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -67,6 +67,24 @@ extern User *ME;
     bgColorView.backgroundColor = [UIColor colorWithRed:(76.0/255.0) green:(161.0/255.0) blue:(255.0/255.0) alpha:1.0];
     bgColorView.layer.masksToBounds = YES;
     cell.selectedBackgroundView = bgColorView;
+    
+    switch (indexPath.row) {
+        case 0:
+            cell.imageView.image = [UIImage imageNamed:@"user.png"];
+            break;
+            
+        case 1:
+            cell.imageView.image = [UIImage imageNamed:@"email.png"];
+            break;
+            
+        case 2:
+            cell.imageView.image = [UIImage imageNamed:@"chef.png"];
+            break;
+            
+        default:
+            break;
+    }
+    
     return cell;
 }
 
@@ -155,7 +173,9 @@ extern User *ME;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+    if ([(NSString *)userItems[indexPath.row] isEqualToString:@"Recipe"]) {
+        
+    }
 }
 
 - (void)logout:(id)sender {

@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "NewAccountViewController.h"
 #import "PopUpViewController.h"
+#import "PreferenceViewController.h"
 #import "WebService.h"
 #import "Global.h"
 
@@ -169,6 +170,19 @@ extern User *ME;
     PopUpViewController *newView = (PopUpViewController *)[storyboard instantiateViewControllerWithIdentifier:viewName];
     newView.delegate = (id)currView;
     newView.title = title;
+    newView.view.backgroundColor = [UIColor colorWithWhite:0.8 alpha:0.6];
+    newView.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    currView.modalPresentationStyle = UIModalPresentationCurrentContext;
+    if (currView.navigationController)
+        currView.navigationController.modalPresentationStyle = UIModalPresentationCurrentContext;
+    if (currView.tabBarController)
+        currView.tabBarController.modalPresentationStyle = UIModalPresentationCurrentContext;
+    [currView presentViewController:newView animated:YES completion:nil];
+}
+
++ (void)popUpPreferenceView:(NSString *)viewName currentView:(UIViewController *)currView {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    PreferenceViewController *newView = (PreferenceViewController *)[storyboard instantiateViewControllerWithIdentifier:viewName];
     newView.view.backgroundColor = [UIColor colorWithWhite:0.8 alpha:0.6];
     newView.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     currView.modalPresentationStyle = UIModalPresentationCurrentContext;

@@ -21,5 +21,6 @@
 + (void)navigateToView:(NSString *)viewName currentView:(UIViewController *)currView;
 + (void)replaceView:(NSString *)viewName currentView:(UIViewController *)currView;
 + (void)popUpView:(NSString *)viewName titleLabel:(NSString *)title currentView:(UIViewController *)currView;
++ (void)popUpPreferenceView:(NSString *)viewName currentView:(UIViewController *)currView;
 
 @end

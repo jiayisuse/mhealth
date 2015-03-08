@@ -17,11 +17,15 @@
 #define USERFID_KEY             @"USERFID"
 #define USERFNAME_KEY           @"USERFNAME"
 #define USERPASSWORD_KEY        @"USERPASSWORD"
+#define USERHEIGHT_KEY          @"USERHEIGHT"
+#define USERWEIGHT_KEY          @"USERWEIGHT"
 
 #define FAMILYNAME_KEY          @"FAMILYNAME"
 #define FAMILYPASSWORD_KEY      @"FAMILYPASSWORD"
 
 #define NOTIFICATION_BOOL_KEY   @"NOTIFICATION_BOOL"
+
+#define AUTORECIPE_KEY          @"AUTORECIPE"
 
 #define APPNAME                 @"SmartCook"
 #define INGREDIENT_TABLE_NAME   @"INGREDIENT_TABLE"

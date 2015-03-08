@@ -23,6 +23,19 @@
     [userDefaults setInteger:self.UID forKey:USERID_KEY];
     [userDefaults setInteger:self.FID forKey:USERFID_KEY];
     [userDefaults setObject:self.familyName forKey:USERFNAME_KEY];
+    [userDefaults setFloat:self.height forKey:USERHEIGHT_KEY];
+    [userDefaults setFloat:self.weight forKey:USERWEIGHT_KEY];
+}
+
++ (void)clearDefaults {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults removeObjectForKey:USERNAME_KEY];
+    [userDefaults removeObjectForKey:USEREMAIL_KEY];
+    [userDefaults removeObjectForKey:USERID_KEY];
+    [userDefaults removeObjectForKey:USERFID_KEY];
+    [userDefaults removeObjectForKey:USERFNAME_KEY];
+    [userDefaults removeObjectForKey:USERHEIGHT_KEY];
+    [userDefaults removeObjectForKey:USERWEIGHT_KEY];
 }
 
 @end

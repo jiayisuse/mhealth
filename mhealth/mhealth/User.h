@@ -16,8 +16,11 @@
 @property long int UID;
 @property long int FID;
 @property (copy) NSString *familyName;
+@property float height;
+@property float weight;
 
 - (void)saveDefaults;
++ (void)clearDefaults;
 
 @end
 

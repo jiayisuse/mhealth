@@ -13,6 +13,8 @@
 #import "DarkButton.h"
 #import "Global.h"
 
+#define SUBINDEX    4
+
 extern User *ME;
 
 @implementation RearViewController {
@@ -20,6 +22,8 @@ extern User *ME;
     DarkButton *joinBtn;
     UIAlertView *joinAlert;
     UIAlertView *logoutAlert;
+    BOOL expanding;
+    UISwitch *autoRecipe;
 }
 
 - (void)viewDidLoad {
@@ -27,11 +31,22 @@ extern User *ME;
     
     [self.view setBackgroundColor:[UIColor clearColor]];
     self.tableView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:1.0];
-    self.tableView.separatorColor = [UIColor colorWithWhite:0.25 alpha:0.9];
+    //self.tableView.separatorColor = [UIColor colorWithWhite:0.25 alpha:0.9];
+    self.tableView.separatorColor = [UIColor clearColor];
     
     self.view.backgroundColor = [UIColor clearColor];
     
-    userItems = [NSMutableArray arrayWithObjects:[NSString stringWithFormat:@"%@ @ %@", ME.username, ME.familyName], ME.email, @"Recipe", nil];
+    self.revealViewController.modalPresentationStyle = UIModalPresentationCurrentContext;
+    
+    userItems = [NSMutableArray arrayWithObjects:@"Ingredients", [NSString stringWithFormat:@"%@ @ %@", ME.username, ME.familyName], ME.email, @"Recipe", @"Auto Recipe:", nil];
+    
+    autoRecipe = [[UISwitch alloc] initWithFrame:CGRectMake(REAR_VIEW_WIDTH - 90, 7, 30, 20)];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    BOOL isAuto = (BOOL)[userDefaults valueForKey:AUTORECIPE_KEY];
+    [autoRecipe setOn:isAuto];
+    [autoRecipe addTarget:self action:@selector(autoRecipeChange:) forControlEvents:UIControlEventValueChanged];
+    autoRecipe.translatesAutoresizingMaskIntoConstraints = NO;
+    expanding = NO;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -39,8 +54,8 @@ extern User *ME;
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    CGFloat result = 20.0f;
-    if ([tableView isEqual:self.tableView]) {
+    CGFloat result = 0.0f;
+    if (indexPath.row != SUBINDEX || expanding) {
         result = 40.0f;
     }
     return result;
@@ -59,9 +74,18 @@ extern User *ME;
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:REAR_TABLE_NAME];
     }
+    
     cell.textLabel.text = [userItems objectAtIndex:indexPath.row];
     cell.textLabel.textColor = [UIColor colorWithWhite:0.95 alpha:1.0];
-    [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
+    if (indexPath.row != SUBINDEX)
+        [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
+    else {
+        [cell.textLabel setFont:[UIFont systemFontOfSize:15.0]];
+        [cell setIndentationLevel:2];
+        cell.indentationWidth = 25;
+        float indentPoints = cell.indentationLevel * cell.indentationWidth;
+        cell.contentView.frame = CGRectMake(indentPoints,cell.contentView.frame.origin.y,cell.contentView.frame.size.width - indentPoints,cell.contentView.frame.size.height);
+    }
     //[cell setSelectionStyle:UITableViewCellSelectionStyleBlue];
     UIView *bgColorView = [[UIView alloc] init];
     bgColorView.backgroundColor = [UIColor colorWithRed:(76.0/255.0) green:(161.0/255.0) blue:(255.0/255.0) alpha:1.0];
@@ -70,16 +94,27 @@ extern User *ME;
     
     switch (indexPath.row) {
         case 0:
-            cell.imageView.image = [UIImage imageNamed:@"user.png"];
+            cell.imageView.image = [UIImage imageNamed:@"carrot_flat.png"];
             break;
             
         case 1:
-            cell.imageView.image = [UIImage imageNamed:@"email.png"];
+            cell.imageView.image = [UIImage imageNamed:@"user.png"];
             break;
             
         case 2:
+            cell.imageView.image = [UIImage imageNamed:@"email.png"];
+            break;
+            
+        case 3:
             cell.imageView.image = [UIImage imageNamed:@"chef.png"];
             break;
+            
+        case SUBINDEX:
+        {
+            [cell.contentView addSubview:autoRecipe];
+            cell.hidden = !expanding;
+            break;
+        }
             
         default:
             break;
@@ -172,9 +207,23 @@ extern User *ME;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     if ([(NSString *)userItems[indexPath.row] isEqualToString:@"Recipe"]) {
-        
+        expanding = !expanding;
+        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:indexPath.row + 1 inSection:0]] withRowAnimation:YES];
+        if (!expanding)
+            [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+        return;
+    }
+    
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (expanding) {
+        expanding = NO;
+        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:SUBINDEX inSection:0]] withRowAnimation:YES];
+    }
+    
+    if ([(NSString *)userItems[indexPath.row] isEqualToString:[NSString stringWithFormat:@"%@ @ %@", ME.username, ME.familyName]]) {
+        [ViewController popUpPreferenceView:@"preferenceView" currentView:self];
     }
 }
 
@@ -194,17 +243,12 @@ extern User *ME;
     case 1:
         {
             if (alertView == logoutAlert) {
-                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-                [userDefaults removeObjectForKey:USERNAME_KEY];
-                [userDefaults removeObjectForKey:USEREMAIL_KEY];
-                [userDefaults removeObjectForKey:USERID_KEY];
-                [userDefaults removeObjectForKey:USERFID_KEY];
-                [userDefaults removeObjectForKey:USERFNAME_KEY];
+                [User clearDefaults];
                 
                 NSArray *notifications = [[UIApplication sharedApplication] scheduledLocalNotifications];
                 for (UILocalNotification *notification in notifications) {
                     NSString *notificationID = notification.userInfo[INGREDIENT_NOTIFICATION_KEY];
-                    [userDefaults removeObjectForKey:notificationID];
+                    [[NSUserDefaults standardUserDefaults] removeObjectForKey:notificationID];
                     [[UIApplication sharedApplication] cancelLocalNotification:notification];
                 }
                 
@@ -286,6 +330,10 @@ extern User *ME;
     } else {
         [self alertInfo:@"Error" text:errorMessage];
     }
+}
+
+- (void)autoRecipeChange:(UISwitch *)sender {
+    [[NSUserDefaults standardUserDefaults] setBool:[sender isOn] forKey:AUTORECIPE_KEY];
 }
 
 @end

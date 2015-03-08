@@ -29,6 +29,8 @@ extern User *ME;
     self.tableView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:1.0];
     self.tableView.separatorColor = [UIColor colorWithWhite:0.25 alpha:0.9];
     
+    self.view.backgroundColor = [UIColor clearColor];
+    
     userItems = [NSMutableArray arrayWithObjects:[NSString stringWithFormat:@"%@ @ %@", ME.username, ME.familyName], ME.email, nil];
 }
 
@@ -92,10 +94,10 @@ extern User *ME;
     [profileImage.layer setBorderColor: [[UIColor colorWithWhite:0.3 alpha:1.0] CGColor]];
     [profileImage.layer setBorderWidth: 1.0];
     profileImage.layer.cornerRadius = 1.0;
-    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(logout:)];
-    singleTap.numberOfTapsRequired = 1;
+    UITapGestureRecognizer *imageTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(logout:)];
+    imageTap.numberOfTapsRequired = 1;
     [profileImage setUserInteractionEnabled:YES];
-    [profileImage addGestureRecognizer:singleTap];
+    [profileImage addGestureRecognizer:imageTap];
     [view addSubview:profileImage];
     
     UILabel *usernameLabel = [[UILabel alloc] initWithFrame:CGRectMake(85, 14, 100, 30)];
@@ -106,10 +108,10 @@ extern User *ME;
     usernameLabel.adjustsFontSizeToFitWidth = YES;
     usernameLabel.adjustsLetterSpacingToFitWidth = YES;
     usernameLabel.textAlignment = NSTextAlignmentLeft;
-    UITapGestureRecognizer *singleTap_1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(logout:)];
-    singleTap_1.numberOfTapsRequired = 1;
+    UITapGestureRecognizer *logoutTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(logout:)];
+    logoutTap.numberOfTapsRequired = 1;
     [usernameLabel setUserInteractionEnabled:YES];
-    [usernameLabel addGestureRecognizer:singleTap_1];
+    [usernameLabel addGestureRecognizer:logoutTap];
     [view addSubview:usernameLabel];
     
     UILabel *familyNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(85, 36, 100, 30)];
@@ -121,9 +123,9 @@ extern User *ME;
     familyNameLabel.adjustsLetterSpacingToFitWidth = YES;
     familyNameLabel.textAlignment = NSTextAlignmentLeft;
     [familyNameLabel setUserInteractionEnabled:YES];
-    UITapGestureRecognizer *singleTap_2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(logout:)];
-    singleTap_2.numberOfTapsRequired = 1;
-    [familyNameLabel addGestureRecognizer:singleTap_2];
+    UITapGestureRecognizer *logoutTap_1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(logout:)];
+    logoutTap_1.numberOfTapsRequired = 1;
+    [familyNameLabel addGestureRecognizer:logoutTap_1];
     [view addSubview:familyNameLabel];
     
     return view;
@@ -151,6 +153,11 @@ extern User *ME;
     return view;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+}
+
 - (void)logout:(id)sender {
     logoutAlert = [[UIAlertView alloc] initWithTitle:@"Logout"
                                              message:@"You going to logout"
@@ -161,7 +168,6 @@ extern User *ME;
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSLog(@"lalalala");
     switch (buttonIndex) {
     case 0:
         break;

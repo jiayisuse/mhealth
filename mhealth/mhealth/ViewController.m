@@ -31,6 +31,7 @@ extern User *ME;
     self.passwordLogin.returnKeyType = UIReturnKeyDefault;
     [self.emailLogin addTarget:self action:@selector(nextOnKeyboard:) forControlEvents:UIControlEventEditingDidEndOnExit];
     [self.passwordLogin addTarget:self action:@selector(nextOnKeyboard:) forControlEvents:UIControlEventEditingDidEndOnExit];
+    [self.emailLogin setKeyboardType:UIKeyboardTypeEmailAddress];
     
     // set title
     /*

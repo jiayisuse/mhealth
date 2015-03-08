@@ -180,10 +180,14 @@ extern User *ME;
         }
         [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
     } else {
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:removeIndex];
+        cell.imageView.image = [UIImage imageNamed:@"checkbox_uncheck.png"];
         self.datePicker.hidden = NO;
         self.datePicker.date = [NSDate date];
         [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
         removeIndex = indexPath;
+        cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        cell.imageView.image = [UIImage imageNamed:@"checkbox_delete.png"];
         self.navigationItem.title = @"Pick Exp. Date";
         self.navigationItem.rightBarButtonItem = self.doneBtn;
     }

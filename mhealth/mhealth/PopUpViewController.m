@@ -40,6 +40,7 @@ extern NSArray *ingredientDict;
     
     self.ingredientText.delegate = self;
     self.amountText.delegate = self;
+    [self.amountText setKeyboardType:UIKeyboardTypeDecimalPad];
     
     saveBtn = [BlueButton newButton:self action:@selector(onSaveButton:) forControlEvents:UIControlEventTouchUpInside];
     [saveBtn setTitle:@"Save" forState:UIControlStateNormal];

@@ -18,9 +18,6 @@
                         <rect key="frame" x="0.0" y="20" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e9i-ng-uGY">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="510"/>
-                            </scrollView>
                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Create Family" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jJR-yE-bLp">
                                 <rect key="frame" x="100" y="372" width="120" height="21"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
@@ -100,7 +97,6 @@
                             <constraint firstItem="s3w-0v-hnt" firstAttribute="top" secondItem="Pe4-UH-P7m" secondAttribute="bottom" constant="24" id="Url-GL-dOz"/>
                             <constraint firstAttribute="centerX" secondItem="Pe4-UH-P7m" secondAttribute="centerX" id="V51-iX-gX9"/>
                             <constraint firstItem="jJR-yE-bLp" firstAttribute="top" secondItem="lUu-En-A0s" secondAttribute="bottom" constant="14" id="aQh-W9-hZB"/>
-                            <constraint firstItem="e9i-ng-uGY" firstAttribute="top" secondItem="2no-nF-uis" secondAttribute="bottom" constant="-182" id="cQm-k0-Wz2"/>
                             <constraint firstAttribute="centerX" secondItem="Dmz-Nu-6ju" secondAttribute="centerX" id="cT4-kb-hGv"/>
                             <constraint firstItem="Dmz-Nu-6ju" firstAttribute="top" secondItem="2no-nF-uis" secondAttribute="bottom" constant="45" id="klK-au-9aN"/>
                             <constraint firstItem="s3w-0v-hnt" firstAttribute="leading" secondItem="lUu-En-A0s" secondAttribute="trailing" constant="25" id="omJ-Hr-dhd"/>

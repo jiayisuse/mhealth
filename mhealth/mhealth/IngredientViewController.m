@@ -197,16 +197,36 @@ enum WEBSERVICE_OP {
     [self updateButtonsToMatchTableState];
 }
 
+// http://allrecipes.com/search/default.aspx?qt=n&rt=r&wt=tomato%20potato%20pork&pqt=k&ms=0&fo=0&nCal=490&nCarb=75&nFat=50&nExt=0
+
 - (IBAction)onGoBtn:(id)sender {
     NSMutableString *URL = [NSMutableString new];
-    [URL setString:@"http://m.allrecipes.com/search/results/?wt="];
+    
+    BOOL suggestion = [[NSUserDefaults standardUserDefaults] boolForKey:AUTORECIPE_KEY];
+    if (suggestion)
+        [URL setString:@"http://allrecipes.com/search/default.aspx?qt=n&rt=r&wt="];
+    else
+        [URL setString:@"http://m.allrecipes.com/search/results/?wt="];
     NSArray *selectedRows = [self.tableView indexPathsForSelectedRows];
     for (int i = 0; i < [selectedRows count] - 1; i++) {
         NSIndexPath *indexPath = selectedRows[i];
         [URL appendFormat:@"%@%%20", ((Ingredient *)ingredients[indexPath.row]).name];
     }
     NSIndexPath *indexPath = [selectedRows lastObject];
-    [URL appendFormat:@"%@&sort=re&page=1", ((Ingredient *)ingredients[indexPath.row]).name];
+    [URL appendString:((Ingredient *)ingredients[indexPath.row]).name];
+    if (suggestion) {
+        [URL appendString:@"&pqt=k&ms=0&fo=0&"];
+        float BMI = (ME.weight * 0.45) / ME.height / ME.height;
+        NSLog(@"BMI %f", BMI);
+        float ratio = (60 - BMI - ([ME.gender isEqualToString:@"Male"] ? 2 : 0)) / 60;
+        int calories = ratio * 1000;
+        int fat = ratio * 100;
+        int carbon = ratio * 150;
+        [URL appendFormat:@"nCal=%d&nCarb=%d&nFat=%d&nExt=0", calories, carbon, fat];
+    } else
+        [URL appendString:@"&sort=re&page=1"];
+    
+    NSLog(@"weight %f, %@", ME.weight, URL);
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     RecipeWebViewController *newView = [storyboard instantiateViewControllerWithIdentifier:@"recipeWebView"];

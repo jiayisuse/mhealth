@@ -32,6 +32,7 @@ extern User *ME;
         ME.familyName = [userDefaults stringForKey:USERFNAME_KEY];
         ME.height = [userDefaults floatForKey:USERHEIGHT_KEY];
         ME.weight = [userDefaults floatForKey:USERWEIGHT_KEY];
+        ME.gender = [userDefaults stringForKey:USERGENDER_KEY];
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UIViewController *mainView = (UITabBarController *)[storyboard instantiateViewControllerWithIdentifier:@"mainView"];
         self.window.rootViewController = mainView;

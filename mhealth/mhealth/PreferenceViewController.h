@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *weightText;
 @property (weak, nonatomic) IBOutlet UILabel *heightAsterisk;
 @property (weak, nonatomic) IBOutlet UILabel *weightAsterisk;
+@property (weak, nonatomic) IBOutlet UILabel *genderAsterisk;
 
 @end
 

@@ -25,6 +25,7 @@
     [userDefaults setObject:self.familyName forKey:USERFNAME_KEY];
     [userDefaults setFloat:self.height forKey:USERHEIGHT_KEY];
     [userDefaults setFloat:self.weight forKey:USERWEIGHT_KEY];
+    [userDefaults setObject:self.gender forKey:USERGENDER_KEY];
 }
 
 + (void)clearDefaults {
@@ -36,6 +37,7 @@
     [userDefaults removeObjectForKey:USERFNAME_KEY];
     [userDefaults removeObjectForKey:USERHEIGHT_KEY];
     [userDefaults removeObjectForKey:USERWEIGHT_KEY];
+    [userDefaults removeObjectForKey:USERGENDER_KEY];
 }
 
 @end

@@ -18,6 +18,7 @@
 @property (copy) NSString *familyName;
 @property float height;
 @property float weight;
+@property (copy) NSString *gender;
 
 - (void)saveDefaults;
 + (void)clearDefaults;

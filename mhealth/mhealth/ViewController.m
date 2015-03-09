@@ -124,7 +124,10 @@ extern User *ME;
         ME.UID = [retData[0] intValue];
         ME.FID = [retData[1] intValue];
         ME.familyName = retData[3];
-        NSLog(@"email = %@, username = %@, id = %ld, fid = %ld", ME.email, ME.username, ME.UID, ME.FID);
+        ME.height = [retData[4] floatValue];
+        ME.weight = [retData[5] floatValue];
+        ME.gender = retData[6];
+        NSLog(@"email = %@, username = %@, id = %ld, fid = %ld, height = %f, weight = %f, gender = %@", ME.email, ME.username, ME.UID, ME.FID, ME.height, ME.weight, ME.gender);
         [ME saveDefaults];
         [ViewController replaceView:@"mainView" currentView:self];
     } else

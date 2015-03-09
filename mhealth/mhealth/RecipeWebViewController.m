@@ -15,6 +15,7 @@
     [super viewDidLoad];
     NSURL *url = [NSURL URLWithString:self.recipeURL];
      NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    self.webView.scalesPageToFit = YES;
     [self.webView loadRequest:request];
 }
 

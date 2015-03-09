@@ -8,14 +8,22 @@
 
 #import <Foundation/Foundation.h>
 #import "PreferenceViewController.h"
+#import "IGLDropDownMenu.h"
 #import "BlueButton.h"
 #import "Global.h"
 
 extern User *ME;
 
+@interface PreferenceViewController () <IGLDropDownMenuDelegate>
+
+@property (strong, nonatomic) IGLDropDownMenu *genderMenu;
+
+@end
+
 @implementation PreferenceViewController {
     BlueButton *saveBtn;
     CGFloat viewY;
+    NSArray *genders;
 }
 
 - (void)viewDidLoad {
@@ -31,8 +39,8 @@ extern User *ME;
     [self.weightText setKeyboardType:UIKeyboardTypeDecimalPad];
     self.heightText.delegate = self;
     self.weightText.delegate = self;
-    self.heightText.text = @(ME.height).stringValue;
-    self.weightText.text = @(ME.weight).stringValue;
+    self.heightText.text = ME.height == 0 ? @"" : @(ME.height).stringValue;
+    self.weightText.text = ME.weight == 0 ? @"" : @(ME.weight).stringValue;
     [self.heightText addTarget:self
                     action:@selector(heightTextChanged:)
           forControlEvents:UIControlEventEditingChanged];
@@ -49,6 +57,32 @@ extern User *ME;
     [self.popUpView addSubview:saveBtn];
     
     viewY = self.view.frame.origin.y;
+    
+    genders = [NSArray arrayWithObjects:@"Female", @"Male", nil];
+    NSMutableArray *unitItems = [[NSMutableArray alloc] init];
+    for (NSString *unit in genders) {
+        IGLDropDownItem *item = [[IGLDropDownItem alloc] init];
+        [item setText:unit];
+        item.textLabel.textAlignment = NSTextAlignmentCenter;
+        item.textLabel.textColor = BLUE_COLOR;
+        [item.textLabel setFont:[UIFont systemFontOfSize:15.0]];
+        [unitItems addObject:item];
+    }
+    self.genderMenu = [[IGLDropDownMenu alloc] init];
+    self.genderMenu.menuText = (ME.gender == nil || [ME.gender isEqualToString:@""]) ? @"Gender" : ME.gender;
+    self.genderMenu.menuButton.textLabel.backgroundColor = BLUE_HIGHLIGHT_COLOR;
+    self.genderMenu.menuButton.textLabel.textColor = [UIColor blackColor];
+    self.genderMenu.menuButton.textLabel.textAlignment = NSTextAlignmentCenter;
+    [self.genderMenu.menuButton.textLabel setFont:[UIFont systemFontOfSize:15.0]];
+    self.genderMenu.dropDownItems = unitItems;
+    CGFloat w = 80;
+    CGFloat h = self.heightText.frame.size.height - 5;
+    [self.genderMenu setFrame:CGRectMake(self.popUpView.frame.size.width / 2 - w / 2, 125, w, h)];
+    self.genderMenu.delegate = self;
+    self.genderMenu.paddingLeft = 0;
+    //self.unitMenu.gutterY = 1;
+    [self.genderMenu reloadView];
+    [self.popUpView addSubview:self.genderMenu];
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
@@ -83,6 +117,10 @@ extern User *ME;
         [self.view endEditing:YES];
         [self resumeView];
     }
+    if (![[touch view] isKindOfClass:[IGLDropDownMenu class]] && self.genderMenu.expanding) {
+        self.genderMenu.expanding = NO;
+        [self.genderMenu foldView];
+    }
     [super touchesBegan:touches withEvent:event];
 }
 
@@ -101,13 +139,21 @@ extern User *ME;
         return;
     }
     
+    NSInteger index = self.genderMenu.selectedIndex;
+    if (index == -1 && [self.genderMenu.menuText isEqualToString:@"Gender"]) {
+        self.genderAsterisk.hidden = NO;
+        return;
+    }
+    NSString *gender = self.genderMenu.menuText;
+    
     ME.height = [height floatValue];
     ME.weight = [weight floatValue];
+    ME.gender = gender;
     
     WebService *ws = [[WebService alloc] initWithPHPFile:@"user_update.php"];
     ws.delegate = self;
-    NSArray *valueArray = [NSArray arrayWithObjects:height, weight, @(ME.UID).stringValue, nil];
-    NSArray *keyArray = [NSArray arrayWithObjects:USERHEIGHT_KEY, USERWEIGHT_KEY, USERID_KEY, nil];
+    NSArray *valueArray = [NSArray arrayWithObjects:height, weight, gender, @(ME.UID).stringValue, nil];
+    NSArray *keyArray = [NSArray arrayWithObjects:USERHEIGHT_KEY, USERWEIGHT_KEY, USERGENDER_KEY, USERID_KEY, nil];
     NSDictionary *postDict = [NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray];
     [ws setPostData:postDict];
     [ws sendRequest];

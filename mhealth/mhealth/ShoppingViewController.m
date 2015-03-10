@@ -201,8 +201,10 @@ extern User *ME;
 }
 
 - (IBAction)onDeleteButton:(id)sender {
+    NSMutableIndexSet *indexSet = [[NSMutableIndexSet alloc] init];
     for (NSIndexPath *indexPath in selectedItems)
-        [ingredients removeObjectAtIndex:indexPath.row];
+        [indexSet addIndex:indexPath.row];
+    [ingredients removeObjectsAtIndexes:indexSet];
     [self.tableView deleteRowsAtIndexPaths:selectedItems withRowAnimation:UITableViewRowAnimationNone];
     [selectedItems removeAllObjects];
     [self setDefaultButtons];
@@ -264,6 +266,7 @@ extern User *ME;
 }
 
 - (IBAction)onDoneButton:(id)sender {
+    self.doneBtn.enabled = NO;
     WebService *ws = [[WebService alloc] initWithPHPFile:@"new_ingredient.php"];
     ws.delegate = self;
     Ingredient *ingredient = ingredients[removeIndex.row];
@@ -288,6 +291,7 @@ extern User *ME;
         if ([ingredients count] == 0)
             self.saveBtn.hidden = YES;
     }
+    self.doneBtn.enabled = YES;
 }
 
 @end

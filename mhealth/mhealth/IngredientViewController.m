@@ -197,9 +197,10 @@ enum WEBSERVICE_OP {
     [self updateButtonsToMatchTableState];
 }
 
-// http://allrecipes.com/search/default.aspx?qt=n&rt=r&wt=tomato%20potato%20pork&pqt=k&ms=0&fo=0&nCal=490&nCarb=75&nFat=50&nExt=0
-
 - (IBAction)onGoBtn:(id)sender {
+    if ([[self.tableView indexPathsForSelectedRows] count] == 0)
+        return;
+    
     NSMutableString *URL = [NSMutableString new];
     
     BOOL suggestion = [[NSUserDefaults standardUserDefaults] boolForKey:AUTORECIPE_KEY];
